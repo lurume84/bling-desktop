@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="simple_app.cc">
+      <Filter>BlinkDesktop</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_handler.cc">
+      <Filter>BlinkDesktop</Filter>
+    </ClCompile>
+    <ClCompile Include="BlinkDesktop_win.cc">
+      <Filter>BlinkDesktop</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_handler_win.cc">
+      <Filter>BlinkDesktop</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="simple_app.h">
+      <Filter>BlinkDesktop</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_handler.h">
+      <Filter>BlinkDesktop</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>BlinkDesktop</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\BlinkDesktop.ico">
+      <Filter>BlinkDesktop\res</Filter>
+    </None>
+    <None Include="res\small.ico">
+      <Filter>BlinkDesktop\res</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BlinkDesktop.rc">
+      <Filter>BlinkDesktop</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="BlinkDesktop">
+      <UniqueIdentifier>{5D958642-7CCA-3CE7-9F45-D8200D9B407E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BlinkDesktop\res">
+      <UniqueIdentifier>{D9D2AD4C-723A-3609-B77F-274CF1F8C459}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
