@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_app.cc" />
-    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_handler.cc" />
-    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\BlinkDesktop_win.cc" />
-    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_handler_win.cc" />
+    <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_app.cc" />
+    <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler.cc" />
+    <ClCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp_win.cc" />
+    <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler_win.cc" />
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
       <Filter>Upgrade\Agents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(SolutionDir)src\BlinkDesktop\simple_app.h" />
-    <ClInclude Include="$(SolutionDir)src\BlinkDesktop\simple_handler.h" />
-    <ClInclude Include="$(SolutionDir)src\BlinkDesktop\resource.h" />
+    <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_app.h" />
+    <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_handler.h" />
+    <ClInclude Include="$(SolutionDir)src\BlinkApp\resource.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
       <Filter>Upgrade\Agents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="$(SolutionDir)src\BlinkDesktop\BlinkDesktop.rc" />
+    <ResourceCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(SolutionDir)src\BlinkDesktop\res\BlinkDesktop.ico" />
-    <None Include="$(SolutionDir)src\BlinkDesktop\res\small.ico" />
+    <None Include="$(SolutionDir)src\BlinkApp\res\BlinkApp.ico" />
+    <None Include="$(SolutionDir)src\BlinkApp\res\small.ico" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Upgrade">

@@ -15,7 +15,7 @@
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
-    <ProjectName>BlinkDesktop</ProjectName>
+    <ProjectName>BlinkApp</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,13 +40,13 @@
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BlinkDesktop</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BlinkApp</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BlinkDesktop</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BlinkApp</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
@@ -91,16 +91,16 @@
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>$(SolutionDir)src/BlinkDesktop/Debug/BlinkDesktop.lib</ImportLibrary>
+      <ImportLibrary>$(SolutionDir)src/BlinkApp/Debug/BlinkApp.lib</ImportLibrary>
       <LargeAddressAware>true</LargeAddressAware>
-      <ProgramDataBaseFile>$(SolutionDir)src/BlinkDesktop/Debug/BlinkDesktop.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>$(SolutionDir)src/BlinkApp/Debug/BlinkApp.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <Manifest>
-      <AdditionalManifestFiles>$(SolutionDir)src\BlinkDesktop\BlinkDesktop.exe.manifest;</AdditionalManifestFiles>
+      <AdditionalManifestFiles>$(SolutionDir)src\BlinkApp\BlinkApp.exe.manifest;</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
       <Message>Copy dependencies</Message>
@@ -148,16 +148,16 @@ xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(Proj
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>$(SolutionDir)bin/Release/BlinkDesktop.lib</ImportLibrary>
+      <ImportLibrary>$(SolutionDir)bin/Release/BlinkApp.lib</ImportLibrary>
       <LargeAddressAware>true</LargeAddressAware>
-      <ProgramDataBaseFile>$(SolutionDir)bin/Release/BlinkDesktop.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>$(SolutionDir)bin/Release/BlinkApp.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <Manifest>
-      <AdditionalManifestFiles>$(SolutionDir)src\BlinkDesktop\BlinkDesktop.exe.manifest;</AdditionalManifestFiles>
+      <AdditionalManifestFiles>$(SolutionDir)src\BlinkApp\BlinkApp.exe.manifest;</AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
       <Message>Copy dependencies</Message>
@@ -166,18 +166,18 @@ xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(Proj
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_app.cc" />
+    <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_app.cc" />
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp" />
-    <ClInclude Include="$(SolutionDir)src\BlinkDesktop\simple_app.h" />
-    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_handler.cc" />
-    <ClInclude Include="$(SolutionDir)src\BlinkDesktop\simple_handler.h" />
+    <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_app.h" />
+    <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler.cc" />
+    <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_handler.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />
-    <ResourceCompile Include="$(SolutionDir)src\BlinkDesktop\BlinkDesktop.rc" />
-    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\BlinkDesktop_win.cc" />
-    <ClInclude Include="$(SolutionDir)src\BlinkDesktop\resource.h" />
-    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_handler_win.cc" />
-    <None Include="$(SolutionDir)src\BlinkDesktop\res\BlinkDesktop.ico" />
-    <None Include="$(SolutionDir)src\BlinkDesktop\res\small.ico" />
+    <ResourceCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp.rc" />
+    <ClCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp_win.cc" />
+    <ClInclude Include="$(SolutionDir)src\BlinkApp\resource.h" />
+    <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler_win.cc" />
+    <None Include="$(SolutionDir)src\BlinkApp\res\BlinkApp.ico" />
+    <None Include="$(SolutionDir)src\BlinkApp\res\small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libcef_dll_wrapper\libcef_dll_wrapper.vcxproj">
