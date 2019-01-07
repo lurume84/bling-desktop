@@ -3,3 +3,5 @@ int/
 lib/cef/Debug/cef_sandbox.lib
 lib/cef/
 bin/
+include/
+lib/
