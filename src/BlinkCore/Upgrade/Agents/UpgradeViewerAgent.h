@@ -3,7 +3,7 @@
 #include <boost/thread.hpp>
 #include <boost/asio.hpp>
 
-namespace blink { namespace agents {
+namespace blink { namespace core { namespace agent {
 	class UpgradeViewerAgent
 	{
 	public:
@@ -14,4 +14,4 @@ namespace blink { namespace agents {
 		boost::asio::deadline_timer	m_timer;
 		boost::thread				m_backgroundThread;
 	};
-}}
+}}}

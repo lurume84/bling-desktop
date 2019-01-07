@@ -5,17 +5,11 @@
     <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler.cc" />
     <ClCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp_win.cc" />
     <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler_win.cc" />
-    <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
-      <Filter>Upgrade\Agents</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_app.h" />
     <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_handler.h" />
     <ClInclude Include="$(SolutionDir)src\BlinkApp\resource.h" />
-    <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
-      <Filter>Upgrade\Agents</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp.rc" />
@@ -23,16 +17,5 @@
   <ItemGroup>
     <None Include="$(SolutionDir)src\BlinkApp\res\BlinkApp.ico" />
     <None Include="$(SolutionDir)src\BlinkApp\res\small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Upgrade">
-      <UniqueIdentifier>{44c2e1f8-8c3f-4961-bce3-3426673c97a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Upgrade\Services">
-      <UniqueIdentifier>{79e97401-d565-41b4-8204-9b5ad7204a54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Upgrade\Agents">
-      <UniqueIdentifier>{a1301bf5-a251-46d7-a423-0e5850d854c1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
 </Project>

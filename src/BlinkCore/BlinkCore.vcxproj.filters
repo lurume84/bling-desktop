@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Upgrade">
+      <UniqueIdentifier>{ede35d5b-6321-46b7-96b4-2b6de4ac8227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Upgrade\Agents">
+      <UniqueIdentifier>{63af12fd-e311-4203-92a3-846af6c08c77}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
+      <Filter>Upgrade\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="BlinkCore.cpp" />
+    <ClCompile Include="BlinkContext.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
+      <Filter>Upgrade\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="BlinkCore.h" />
+    <ClInclude Include="BlinkContext.h" />
+  </ItemGroup>
+</Project>

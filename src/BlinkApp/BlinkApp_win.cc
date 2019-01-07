@@ -3,9 +3,12 @@
 // can be found in the LICENSE file.
 
 #include <windows.h>
+#include <memory>
 
 #include "include/cef/cef_sandbox_win.h"
 #include "simple_app.h"
+
+#include "BlinkCore\BlinkCore.h"
 
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
 // automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
@@ -51,17 +54,20 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
     return exit_code;
   }
 
+  auto core = std::make_unique<blink::core::BlinkCore>();
+  core->initialize();
+
+  // SimpleApp implements application-level callbacks for the browser process.
+  // It will create the first browser instance in OnContextInitialized() after
+  // CEF has initialized.
+  CefRefPtr<SimpleApp> app(new SimpleApp);
+
   // Specify CEF global settings here.
   CefSettings settings;
 
 #if !defined(CEF_USE_SANDBOX)
   settings.no_sandbox = true;
 #endif
-
-  // SimpleApp implements application-level callbacks for the browser process.
-  // It will create the first browser instance in OnContextInitialized() after
-  // CEF has initialized.
-  CefRefPtr<SimpleApp> app(new SimpleApp);
 
   // Initialize CEF.
   CefInitialize(main_args, settings, app.get(), sandbox_info);

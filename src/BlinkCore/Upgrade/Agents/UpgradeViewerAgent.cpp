@@ -1,6 +1,6 @@
 #include "UpgradeViewerAgent.h"
 
-namespace blink { namespace agents {
+namespace blink { namespace core { namespace agent {
 	UpgradeViewerAgent::UpgradeViewerAgent()
 	: m_ioService()
 	, m_timer(m_ioService, boost::posix_time::seconds(1000))
@@ -20,4 +20,4 @@ namespace blink { namespace agents {
 		m_backgroundThread.join();
 		m_ioService.reset();
 	}
-}}
+}}}
