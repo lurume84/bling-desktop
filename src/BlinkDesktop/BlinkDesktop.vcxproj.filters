@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_app.cc" />
+    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_handler.cc" />
+    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\BlinkDesktop_win.cc" />
+    <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_handler_win.cc" />
+    <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
+      <Filter>Upgrade\Agents</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)src\BlinkDesktop\simple_app.h" />
+    <ClInclude Include="$(SolutionDir)src\BlinkDesktop\simple_handler.h" />
+    <ClInclude Include="$(SolutionDir)src\BlinkDesktop\resource.h" />
+    <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
+      <Filter>Upgrade\Agents</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)src\BlinkDesktop\BlinkDesktop.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(SolutionDir)src\BlinkDesktop\res\BlinkDesktop.ico" />
+    <None Include="$(SolutionDir)src\BlinkDesktop\res\small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Upgrade">
+      <UniqueIdentifier>{44c2e1f8-8c3f-4961-bce3-3426673c97a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Upgrade\Services">
+      <UniqueIdentifier>{79e97401-d565-41b4-8204-9b5ad7204a54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Upgrade\Agents">
+      <UniqueIdentifier>{a1301bf5-a251-46d7-a423-0e5850d854c1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

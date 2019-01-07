@@ -167,9 +167,11 @@ xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(Proj
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_app.cc" />
+    <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp" />
     <ClInclude Include="$(SolutionDir)src\BlinkDesktop\simple_app.h" />
     <ClCompile Include="$(SolutionDir)src\BlinkDesktop\simple_handler.cc" />
     <ClInclude Include="$(SolutionDir)src\BlinkDesktop\simple_handler.h" />
+    <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />
     <ResourceCompile Include="$(SolutionDir)src\BlinkDesktop\BlinkDesktop.rc" />
     <ClCompile Include="$(SolutionDir)src\BlinkDesktop\BlinkDesktop_win.cc" />
     <ClInclude Include="$(SolutionDir)src\BlinkDesktop\resource.h" />
