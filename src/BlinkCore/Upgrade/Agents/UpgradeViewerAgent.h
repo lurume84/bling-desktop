@@ -9,6 +9,8 @@ namespace blink { namespace core { namespace agent {
 	public:
 		UpgradeViewerAgent();
 		~UpgradeViewerAgent();
+
+		void execute();
 	private:
 		boost::asio::io_service		m_ioService;
 		boost::asio::deadline_timer	m_timer;
