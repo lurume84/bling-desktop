@@ -27,7 +27,10 @@ namespace blink { namespace core { namespace agent {
 		std::string content;
 
 		service::HTTPClientService service("api.github.com", "443");
-		bool result = service.send("/repos/lurume84/blink-viewer/releases/latest", headers, content);
+		if (service.send("/repos/lurume84/blink-viewer/releases/latest", headers, content))
+		{
+				
+		}
 	}
 
 	void UpgradeViewerAgent::armTimer()

@@ -32,8 +32,6 @@ namespace blink { namespace core { namespace service {
 
 	bool HTTPClientService::send(std::string path, std::map<std::string, std::string>& headers, std::string& content)
 	{
-		try
-		{
 		tcp::resolver resolver(m_io_service);
 		tcp::resolver::query query(m_server, m_port);
 		tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
@@ -48,6 +46,7 @@ namespace blink { namespace core { namespace service {
 		request_stream << "GET " << path << " HTTP/1.0\r\n";
 		request_stream << "Host: " << m_server << "\r\n";
 		request_stream << "Accept: */*\r\n";
+		request_stream << "User-Agent: Mozilla / 5.0 (Windows NT 10.0; Win64; x64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 71.0.3578.98 Safari / 537.36\r\n";
 		request_stream << "Connection: close\r\n";
 		request_stream << "\r\n";
 
@@ -60,11 +59,6 @@ namespace blink { namespace core { namespace service {
 		m_io_service.stop();
 
 		return result;
-		}
-		catch (std::exception &e)
-		{
-			std::string pepe(e.what());
-		}
 	}
 
 	bool HTTPClientService::receive(std::map<std::string, std::string>& headers, std::string& content)
