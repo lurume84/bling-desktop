@@ -14,7 +14,7 @@ namespace blink { namespace core {
 	
 	void BlinkCore::initialize()
 	{
-		auto upgradeViewerAgent = std::make_unique<agent::UpgradeViewerAgent>();
+		auto upgradeViewerAgent = std::make_unique<agent::UpgradeViewerAgent>("api.github.com");
 
 		m_context = std::make_unique<BlinkContext>(std::move(upgradeViewerAgent));
 	}

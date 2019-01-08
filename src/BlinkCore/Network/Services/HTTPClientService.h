@@ -9,9 +9,9 @@ namespace blink { namespace core { namespace service {
 	public:
 		HTTPClientService(const std::string& server, const std::string& port);
 		~HTTPClientService();
-		bool send(std::string path, std::map<std::string, std::string>& headers, std::string& content);
+		bool send(const std::string&, std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code);
 	private:
-		bool receive(std::map<std::string, std::string>& headers, std::string& content);
+		bool receive(std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code);
 	private:
 		boost::asio::io_service m_io_service;
 		std::string m_server;

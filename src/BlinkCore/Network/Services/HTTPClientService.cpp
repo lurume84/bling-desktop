@@ -30,7 +30,7 @@ namespace blink { namespace core { namespace service {
 
 	HTTPClientService::~HTTPClientService() = default;
 
-	bool HTTPClientService::send(std::string path, std::map<std::string, std::string>& headers, std::string& content)
+	bool HTTPClientService::send(const std::string& path, std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code)
 	{
 		tcp::resolver resolver(m_io_service);
 		tcp::resolver::query query(m_server, m_port);
@@ -52,7 +52,7 @@ namespace blink { namespace core { namespace service {
 
 		boost::asio::write(*(m_socket.get()), request);
 
-		bool result = receive(headers, content);
+		bool result = receive(headers, content, status_code);
 
 		m_socket->shutdown(error);
 		m_socket->lowest_layer().close(error);
@@ -61,7 +61,7 @@ namespace blink { namespace core { namespace service {
 		return result;
 	}
 
-	bool HTTPClientService::receive(std::map<std::string, std::string>& headers, std::string& content)
+	bool HTTPClientService::receive(std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code)
 	{
 		boost::asio::streambuf response;
 		boost::asio::read_until(*(m_socket.get()), response, "\r\n");
@@ -70,12 +70,11 @@ namespace blink { namespace core { namespace service {
 		std::string http_version;
 		response_stream >> http_version;
 
-		unsigned int status_code;
 		response_stream >> status_code;
 		std::string status_message;
 		std::getline(response_stream, status_message);
 
-		if (!response_stream || "HTTP/" != http_version.substr(0, 5) || 200 != status_code)
+		if (!response_stream || "HTTP/" != http_version.substr(0, 5))
 		{
 			return false;
 		}
