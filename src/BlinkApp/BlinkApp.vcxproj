@@ -86,8 +86,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>BlinkCore.lib;libcef.lib;libcef_dll_wrapper.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;cef_sandbox.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\$(Configuration)\libcef_dll_wrapper;$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlinkCore;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>BlinkCore.lib;libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;cef_sandbox.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\$(Configuration)\libcef_dll_wrapper;$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlinkCore;$(SolutionDir)\lib\openssl\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -105,7 +105,8 @@
     <PostBuildEvent>
       <Message>Copy dependencies</Message>
       <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
-xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
+xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -143,8 +144,8 @@ xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(Proj
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>BlinkCore.lib;libcef.lib;libcef_dll_wrapper.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;cef_sandbox.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\$(Configuration)\libcef_dll_wrapper;$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlinkCore;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>BlinkCore.lib;libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;cef_sandbox.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\$(Configuration)\libcef_dll_wrapper;$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlinkCore;$(SolutionDir)\lib\openssl\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -162,7 +163,8 @@ xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(Proj
     <PostBuildEvent>
       <Message>Copy dependencies</Message>
       <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
-xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
+xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

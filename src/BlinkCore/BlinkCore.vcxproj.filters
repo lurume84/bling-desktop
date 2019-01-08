@@ -7,6 +7,12 @@
     <Filter Include="Upgrade\Agents">
       <UniqueIdentifier>{63af12fd-e311-4203-92a3-846af6c08c77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{66d1b0ad-26de-4348-abbf-6abb5d6b2540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Services">
+      <UniqueIdentifier>{b69be685-64eb-4c8f-aaad-fd4e1c0a8f23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
@@ -14,6 +20,9 @@
     </ClCompile>
     <ClCompile Include="BlinkCore.cpp" />
     <ClCompile Include="BlinkContext.cpp" />
+    <ClCompile Include="Network\Services\HTTPClientService.cpp">
+      <Filter>Network\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -21,5 +30,8 @@
     </ClInclude>
     <ClInclude Include="BlinkCore.h" />
     <ClInclude Include="BlinkContext.h" />
+    <ClInclude Include="Network\Services\HTTPClientService.h">
+      <Filter>Network\Services</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

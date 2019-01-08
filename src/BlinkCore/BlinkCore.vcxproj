@@ -128,11 +128,13 @@
   <ItemGroup>
     <ClCompile Include="BlinkContext.cpp" />
     <ClCompile Include="BlinkCore.cpp" />
+    <ClCompile Include="Network\Services\HTTPClientService.cpp" />
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlinkContext.h" />
     <ClInclude Include="BlinkCore.h" />
+    <ClInclude Include="Network\Services\HTTPClientService.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
