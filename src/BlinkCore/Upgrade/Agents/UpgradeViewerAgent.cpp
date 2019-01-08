@@ -81,7 +81,7 @@ namespace blink { namespace core { namespace agent {
 		service::HTTPClientService service(m_host, "443");
 		if (service.send(url.substr(pos), headers, file, status))
 		{
-			if (status == 302)
+			if(status == 302)
 			{
 				auto location = headers.find("Location");
 				if (location != headers.end())
@@ -93,14 +93,14 @@ namespace blink { namespace core { namespace agent {
 						std::map<std::string, std::string> headers;
 
 						service::HTTPClientService service(domain, "443");
-						if (service.send(path, headers, file, status))
+						if (service.send(path, headers, file, status) && status == 200)
 						{
 							save(version, file);
 						}
 					}
 				}
 			}
-			else
+			else if(status == 200)
 			{
 				save(version, file);
 			}
