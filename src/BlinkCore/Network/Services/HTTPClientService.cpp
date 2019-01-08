@@ -49,7 +49,6 @@ namespace blink { namespace core { namespace service {
 		request_stream << "Host: " << m_server << "\r\n";
 		request_stream << "Accept: */*\r\n";
 		request_stream << "Connection: close\r\n";
-		request_stream << "Content-Length: 0\r\n";
 		request_stream << "\r\n";
 
 		boost::asio::write(*(m_socket.get()), request);
