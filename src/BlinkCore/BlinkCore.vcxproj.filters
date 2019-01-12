@@ -13,6 +13,12 @@
     <Filter Include="Network\Services">
       <UniqueIdentifier>{b69be685-64eb-4c8f-aaad-fd4e1c0a8f23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{9c0120ab-b6e6-4c3d-98b7-7d4f98f294fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Services">
+      <UniqueIdentifier>{13bcba03-cc4d-474b-b34e-5b71d2003a9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
@@ -23,6 +29,9 @@
     <ClCompile Include="Network\Services\HTTPClientService.cpp">
       <Filter>Network\Services</Filter>
     </ClCompile>
+    <ClCompile Include="System\Services\CompressionService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -32,6 +41,9 @@
     <ClInclude Include="BlinkContext.h" />
     <ClInclude Include="Network\Services\HTTPClientService.h">
       <Filter>Network\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\CompressionService.h">
+      <Filter>System\Services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

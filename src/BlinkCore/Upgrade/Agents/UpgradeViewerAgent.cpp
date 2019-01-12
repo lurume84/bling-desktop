@@ -1,6 +1,7 @@
 #include "UpgradeViewerAgent.h"
 
 #include "../../Network/Services/HTTPClientService.h"
+#include "../../System/Services/CompressionService.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -14,8 +15,7 @@ namespace blink { namespace core { namespace agent {
 	, m_timer(m_ioService, boost::posix_time::seconds(60))
 	, m_host(host)
 	{
-		execute();
-		armTimer();
+		armTimer(1);
 
 		boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
 		m_backgroundThread.swap(t);
@@ -57,9 +57,9 @@ namespace blink { namespace core { namespace agent {
 		}
 	}
 
-	void UpgradeViewerAgent::armTimer()
+	void UpgradeViewerAgent::armTimer(unsigned int seconds)
 	{
-		m_timer.expires_from_now(boost::posix_time::seconds(60));
+		m_timer.expires_from_now(boost::posix_time::seconds(seconds));
 
 		m_timer.async_wait([&](const boost::system::error_code& ec)
 		{
@@ -114,6 +114,21 @@ namespace blink { namespace core { namespace agent {
 		std::ofstream f("versions/" + fileName + ".zip", std::ios::binary);
 		f << content;
 		f.close();
+
+		service::CompressionService service("zip");
+		if (service.extract("versions/" + fileName + ".zip", "versions/"))
+		{
+			auto target = boost::filesystem::path("versions/");
+
+			boost::filesystem::directory_iterator it(target);
+
+			if (boost::filesystem::exists("Html/viewer"))
+			{
+				boost::filesystem::remove_all("Html/viewer");
+			}
+
+			boost::filesystem::rename(it->path(), "Html/viewer");
+		}
 	}
 
 	bool UpgradeViewerAgent::parseURI(const std::string& uri, std::string& protocol, std::string& domain, std::string& port, std::string& path, std::string& query, std::string& fragment)

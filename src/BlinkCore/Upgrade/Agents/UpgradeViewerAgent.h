@@ -12,7 +12,7 @@ namespace blink { namespace core { namespace agent {
 
 		void execute();
 	private:
-		void armTimer();
+		void armTimer(unsigned int seconds = 60);
 		void download(const std::string&, const std::string&);
 		void save(const std::string&, const std::string&);
 		bool parseURI(const std::string& uri, std::string& protocol, std::string& domain, std::string& port, std::string& path, std::string& query, std::string& fragment);

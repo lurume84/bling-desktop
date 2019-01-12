@@ -85,7 +85,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\include;$(ProjectDir);</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -99,7 +99,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\include;$(ProjectDir);</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -129,12 +129,14 @@
     <ClCompile Include="BlinkContext.cpp" />
     <ClCompile Include="BlinkCore.cpp" />
     <ClCompile Include="Network\Services\HTTPClientService.cpp" />
+    <ClCompile Include="System\Services\CompressionService.cpp" />
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlinkContext.h" />
     <ClInclude Include="BlinkCore.h" />
     <ClInclude Include="Network\Services\HTTPClientService.h" />
+    <ClInclude Include="System\Services\CompressionService.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
