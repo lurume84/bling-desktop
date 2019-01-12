@@ -149,7 +149,7 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\
       <AdditionalDependencies>BlinkCore.lib;libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;cef_sandbox.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\$(Configuration)\libcef_dll_wrapper;$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlinkCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(SolutionDir)bin/Release/BlinkApp.lib</ImportLibrary>
       <LargeAddressAware>true</LargeAddressAware>
@@ -166,7 +166,9 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\
       <Message>Copy dependencies</Message>
       <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
-xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
+xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

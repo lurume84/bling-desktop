@@ -13,6 +13,8 @@
 #include "include/cef/wrapper/cef_helpers.h"
 #include "simple_handler.h"
 
+#include <boost\filesystem\operations.hpp>
+
 namespace {
 
 // When using the Views framework this object provides the delegate
@@ -76,13 +78,15 @@ void SimpleApp::OnContextInitialized() {
   // Specify CEF browser settings here.
   CefBrowserSettings browser_settings;
 
+  browser_settings.web_security = STATE_DISABLED;
+
   std::string url;
 
   // Check if a "--url=" value was provided via the command-line. If so, use
   // that instead of the default URL.
   url = command_line->GetSwitchValue("url");
   if (url.empty())
-    url = "http://www.google.com";
+    url = boost::filesystem::canonical("Html/viewer/index.html").string();
 
   if (use_views) {
     // Create the BrowserView.
