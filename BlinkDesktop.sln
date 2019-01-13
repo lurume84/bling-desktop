@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlinkApp", "src\BlinkApp\BlinkApp.vcxproj", "{04A5CAA2-D1F1-31D1-833F-BB3D9FD8C93E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9E222A81-FCE5-3B56-A7BD-C91172D36ACE} = {9E222A81-FCE5-3B56-A7BD-C91172D36ACE}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcef_dll_wrapper", "src\libcef_dll_wrapper\libcef_dll_wrapper.vcxproj", "{9E222A81-FCE5-3B56-A7BD-C91172D36ACE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{6B697E99-6D10-4723-9C4E-71338D08D49A}"
 EndProject
@@ -27,12 +22,6 @@ Global
 		{04A5CAA2-D1F1-31D1-833F-BB3D9FD8C93E}.Release|Win32.ActiveCfg = Release|Win32
 		{04A5CAA2-D1F1-31D1-833F-BB3D9FD8C93E}.Release|Win32.Build.0 = Release|Win32
 		{04A5CAA2-D1F1-31D1-833F-BB3D9FD8C93E}.Release|x64.ActiveCfg = Release|Win32
-		{9E222A81-FCE5-3B56-A7BD-C91172D36ACE}.Debug|Win32.ActiveCfg = Debug|Win32
-		{9E222A81-FCE5-3B56-A7BD-C91172D36ACE}.Debug|Win32.Build.0 = Debug|Win32
-		{9E222A81-FCE5-3B56-A7BD-C91172D36ACE}.Debug|x64.ActiveCfg = Debug|Win32
-		{9E222A81-FCE5-3B56-A7BD-C91172D36ACE}.Release|Win32.ActiveCfg = Release|Win32
-		{9E222A81-FCE5-3B56-A7BD-C91172D36ACE}.Release|Win32.Build.0 = Release|Win32
-		{9E222A81-FCE5-3B56-A7BD-C91172D36ACE}.Release|x64.ActiveCfg = Release|Win32
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F}.Debug|Win32.ActiveCfg = Debug|Win32
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F}.Debug|Win32.Build.0 = Debug|Win32
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F}.Debug|x64.ActiveCfg = Debug|x64
@@ -46,7 +35,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9E222A81-FCE5-3B56-A7BD-C91172D36ACE} = {6B697E99-6D10-4723-9C4E-71338D08D49A}
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F} = {6B697E99-6D10-4723-9C4E-71338D08D49A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
