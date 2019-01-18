@@ -98,21 +98,24 @@ void SimpleApp::OnContextInitialized() {
 		}
 	}
 
-  if (use_views) {
+  if (use_views)
+  {
     // Create the BrowserView.
     CefRefPtr<CefBrowserView> browser_view = CefBrowserView::CreateBrowserView(
         handler, url, browser_settings, NULL, NULL);
 
     // Create the Window. It will show itself after creation.
     CefWindow::CreateTopLevelWindow(new SimpleWindowDelegate(browser_view));
-  } else {
+  }
+  else
+  {
     // Information used when creating the native window.
     CefWindowInfo window_info;
 
 #if defined(OS_WIN)
     // On Windows we need to specify certain flags that will be passed to
     // CreateWindowEx().
-    window_info.SetAsPopup(NULL, "cefsimple");
+    window_info.SetAsPopup(NULL, "Blink Desktop");
 #endif
 
     // Create the first browser window.

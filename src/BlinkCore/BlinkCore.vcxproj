@@ -131,6 +131,8 @@
     <ClCompile Include="Network\Services\HTTPClientService.cpp" />
     <ClCompile Include="System\Services\CompressionService.cpp" />
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp" />
+    <ClCompile Include="Utils\Patterns\PublisherSubscriber\Broker.cpp" />
+    <ClCompile Include="Utils\Patterns\PublisherSubscriber\Subscriber.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlinkContext.h" />
@@ -138,6 +140,10 @@
     <ClInclude Include="Network\Services\HTTPClientService.h" />
     <ClInclude Include="System\Services\CompressionService.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />
+    <ClInclude Include="Upgrade\Events.h" />
+    <ClInclude Include="Utils\Patterns\PublisherSubscriber\Broker.h" />
+    <ClInclude Include="Utils\Patterns\PublisherSubscriber\Event.h" />
+    <ClInclude Include="Utils\Patterns\PublisherSubscriber\Subscriber.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,6 +5,8 @@
 #ifndef CEF_TESTS_CEFSIMPLE_SIMPLE_HANDLER_H_
 #define CEF_TESTS_CEFSIMPLE_SIMPLE_HANDLER_H_
 
+#include "BlinkCore\Utils\Patterns\PublisherSubscriber\Subscriber.h"
+
 #include "include/cef/cef_client.h"
 
 #include <list>
@@ -63,6 +65,8 @@ class SimpleHandler : public CefClient,
   BrowserList browser_list_;
 
   bool is_closing_;
+
+  blink::core::utils::patterns::Subscriber m_subscriber;
 
   // Include the default reference counting implementation.
   IMPLEMENT_REFCOUNTING(SimpleHandler);

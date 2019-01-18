@@ -2,6 +2,8 @@
 
 #include "../../Network/Services/HTTPClientService.h"
 #include "../../System/Services/CompressionService.h"
+#include "Utils\Patterns\PublisherSubscriber\Broker.h"
+#include "../Events.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -70,6 +72,9 @@ namespace blink { namespace core { namespace agent {
 
 	void UpgradeViewerAgent::download(const std::string& url, const std::string& version)
 	{
+		events::DownloadUpgradeEvent evt(version);
+		utils::patterns::Broker::get().publish(evt);
+
 		std::map<std::string, std::string> headers;
 		std::string content;
 		unsigned int status;
@@ -115,6 +120,9 @@ namespace blink { namespace core { namespace agent {
 		f << content;
 		f.close();
 
+		events::ExtractUpgradeEvent evt(fileName);
+		utils::patterns::Broker::get().publish(evt);
+
 		service::CompressionService service("zip");
 		if (service.extract("versions/" + fileName + ".zip", "versions/"))
 		{
@@ -128,6 +136,9 @@ namespace blink { namespace core { namespace agent {
 			}
 
 			boost::filesystem::rename(it->path(), "Html/viewer");
+
+			events::UpgradeCompletedEvent evt(fileName);
+			utils::patterns::Broker::get().publish(evt);
 		}
 	}
 

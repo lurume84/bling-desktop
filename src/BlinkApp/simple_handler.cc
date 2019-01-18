@@ -14,6 +14,10 @@
 #include "include/cef/wrapper/cef_closure_task.h"
 #include "include/cef/wrapper/cef_helpers.h"
 
+#include "BlinkCore\Upgrade\Events.h"
+
+#include <boost\filesystem\operations.hpp>
+
 namespace {
 
 SimpleHandler* g_instance = NULL;
@@ -21,9 +25,19 @@ SimpleHandler* g_instance = NULL;
 }  // namespace
 
 SimpleHandler::SimpleHandler(bool use_views)
-    : use_views_(use_views), is_closing_(false) {
+    : use_views_(use_views), is_closing_(false)
+{
   DCHECK(!g_instance);
   g_instance = this;
+
+  m_subscriber.subscribe([this](const blink::core::utils::patterns::Event&)
+  {
+	  for (auto &browser : browser_list_)
+	  {
+		  browser->GetMainFrame()->LoadURL(boost::filesystem::canonical("Html/viewer/index.html").string());
+	  }
+
+  }, blink::core::events::UPGRADE_COMPLETED_EVENT);
 }
 
 SimpleHandler::~SimpleHandler() {
@@ -54,7 +68,8 @@ void SimpleHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
   }
 }
 
-void SimpleHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
+void SimpleHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser)
+{
   CEF_REQUIRE_UI_THREAD();
 
   // Add to the list of existing browsers.
