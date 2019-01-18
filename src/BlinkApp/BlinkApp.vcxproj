@@ -108,7 +108,8 @@
 xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
-xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
+xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)src\BlinkUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -168,7 +169,8 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\
 xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
-xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
+xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)src\BlinkUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

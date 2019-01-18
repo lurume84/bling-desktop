@@ -85,8 +85,18 @@ void SimpleApp::OnContextInitialized() {
   // Check if a "--url=" value was provided via the command-line. If so, use
   // that instead of the default URL.
   url = command_line->GetSwitchValue("url");
-  if (url.empty())
-    url = boost::filesystem::canonical("Html/viewer/index.html").string();
+
+	if (url.empty())
+	{ 
+		if (boost::filesystem::exists("Html/viewer/index.html"))
+		{
+			url = boost::filesystem::canonical("Html/viewer/index.html").string();
+		}
+		else
+		{
+			url = boost::filesystem::canonical("Html/loading/index.html").string();
+		}
+	}
 
   if (use_views) {
     // Create the BrowserView.
