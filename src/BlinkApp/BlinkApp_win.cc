@@ -9,6 +9,7 @@
 #include "simple_app.h"
 
 #include "BlinkCore\BlinkCore.h"
+#include "Agents\NotificationAgent.h"
 
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
 // automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
@@ -69,15 +70,22 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   settings.no_sandbox = true;
 #endif
 
-  // Initialize CEF.
-  CefInitialize(main_args, settings, app.get(), sandbox_info);
+	blink::app::agent::NotificationAgent notification;
 
-  // Run the CEF message loop. This will block until CefQuitMessageLoop() is
-  // called.
-  CefRunMessageLoop();
+	while (true)
+	{
+	
+	}
 
-  // Shut down CEF.
-  CefShutdown();
+	//// Initialize CEF.
+	//CefInitialize(main_args, settings, app.get(), sandbox_info);
+
+	//// Run the CEF message loop. This will block until CefQuitMessageLoop() is
+	//// called.
+	//CefRunMessageLoop();
+
+	//// Shut down CEF.
+	//CefShutdown();
 
   return 0;
 }

@@ -5,7 +5,6 @@
 #include <map>
 #include <memory>
 #include <functional>
-
 #include <boost/signals2/signal.hpp>
 
 namespace blink { namespace core { namespace utils { namespace patterns {

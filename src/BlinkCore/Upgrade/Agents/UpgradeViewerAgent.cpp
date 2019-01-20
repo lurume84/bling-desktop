@@ -2,6 +2,7 @@
 
 #include "../../Network/Services/HTTPClientService.h"
 #include "../../System/Services/CompressionService.h"
+
 #include "Utils\Patterns\PublisherSubscriber\Broker.h"
 #include "../Events.h"
 
@@ -14,10 +15,10 @@ namespace blink { namespace core { namespace agent {
 
 	UpgradeViewerAgent::UpgradeViewerAgent(const std::string& host)
 	: m_ioService()
-	, m_timer(m_ioService, boost::posix_time::seconds(60))
+	, m_timer(m_ioService, boost::posix_time::seconds(60 * 60 * 12))
 	, m_host(host)
 	{
-		armTimer(1);
+		armTimer(5);
 
 		boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
 		m_backgroundThread.swap(t);
@@ -65,8 +66,11 @@ namespace blink { namespace core { namespace agent {
 
 		m_timer.async_wait([&](const boost::system::error_code& ec)
 		{
-			execute();
-			armTimer();
+			events::UpgradeCompletedEvent evt("pepe.txt");
+			utils::patterns::Broker::get().publish(evt);
+
+			//execute();
+			//armTimer();
 		});
 	}
 

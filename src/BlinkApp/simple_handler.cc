@@ -32,10 +32,10 @@ SimpleHandler::SimpleHandler(bool use_views)
 
   m_subscriber.subscribe([this](const blink::core::utils::patterns::Event&)
   {
-	  for (auto &browser : browser_list_)
+	  /*for (auto &browser : browser_list_)
 	  {
 		  browser->GetMainFrame()->LoadURL(boost::filesystem::canonical("Html/viewer/index.html").string());
-	  }
+	  }*/
 
   }, blink::core::events::UPGRADE_COMPLETED_EVENT);
 }

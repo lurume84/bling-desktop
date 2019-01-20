@@ -5,11 +5,18 @@
     <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler.cc" />
     <ClCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp_win.cc" />
     <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler_win.cc" />
+    <ClCompile Include="Agents\NotificationAgent.cpp">
+      <Filter>Agents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_app.h" />
     <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_handler.h" />
     <ClInclude Include="$(SolutionDir)src\BlinkApp\resource.h" />
+    <ClInclude Include="Toast.h" />
+    <ClInclude Include="Agents\NotificationAgent.h">
+      <Filter>Agents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp.rc" />
@@ -17,5 +24,10 @@
   <ItemGroup>
     <None Include="$(SolutionDir)src\BlinkApp\res\BlinkApp.ico" />
     <None Include="$(SolutionDir)src\BlinkApp\res\small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Agents">
+      <UniqueIdentifier>{298f527a-367e-4f99-b4cb-c1df38cafd18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
