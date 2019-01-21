@@ -1,67 +1,57 @@
 #include <memory>
 
 
-#ifndef _SECURE_ATL
-#define _SECURE_ATL 1 //Use the Secure C Runtime in ATL
-#endif
-
 #include "BlinkCore\Utils\Patterns\PublisherSubscriber\Subscriber.h"
-
-#include "../Toast.h"
-
-#include <wrl.h>
-
-
-typedef struct NOTIFICATION_USER_INPUT_DATA
-{
-	LPCWSTR Key;
-	LPCWSTR Value;
-}  NOTIFICATION_USER_INPUT_DATA;
-
-MIDL_INTERFACE("53E31837-6600-4A81-9395-75CFFE746F94")
-INotificationActivationCallback : public IUnknown
-{
-public:
-	virtual HRESULT STDMETHODCALLTYPE Activate(__RPC__in_string LPCWSTR appUserModelId, __RPC__in_opt_string LPCWSTR invokedArgs,
-		__RPC__in_ecount_full_opt(count) const NOTIFICATION_USER_INPUT_DATA *data, ULONG count) = 0;
-};
 
 namespace blink { namespace app {  namespace agent {
 
 
-	class NotificationAgent : public ToastPP::INotifier
+	class NotificationAgent
 	{
 	public:
 		NotificationAgent();
 		~NotificationAgent();
 
-		void OnToastActivated(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* pSender, _In_opt_ IInspectable* pArgs) override;
-		void OnToastDismissed(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* pSender, _In_ ABI::Windows::UI::Notifications::ToastDismissalReason reason) override;
-		void OnToastFailed(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* pSender, _In_ HRESULT errorCode) override;
+		HRESULT Initialize();
 
-		HRESULT RegisterCOMServer(_In_z_ PCWSTR pszExePath);
-		HRESULT UnRegisterCOMServer();
-		HRESULT RegisterActivator();
-		void UnregisterActivator();
+		HRESULT TryCreateShortcut();
+		HRESULT InstallShortcut(_In_z_ wchar_t *shortcutPath);
+
+		HRESULT DisplayToast(const std::string& title, const std::string& message);
+		HRESULT CreateToastXml(const std::string& title, const std::string& message,
+			_In_ ABI::Windows::UI::Notifications::IToastNotificationManagerStatics *toastManager,
+			_Outptr_ ABI::Windows::Data::Xml::Dom::IXmlDocument **xml
+		);
+
+		HRESULT CreateToast(
+			_In_ ABI::Windows::UI::Notifications::IToastNotificationManagerStatics *toastManager,
+			_In_ ABI::Windows::Data::Xml::Dom::IXmlDocument *xml
+		);
+		HRESULT SetImageSrc(
+			_In_z_ wchar_t *imagePath,
+			_In_ ABI::Windows::Data::Xml::Dom::IXmlDocument *toastXml
+		);
+		HRESULT SetTextValues(
+			_In_reads_(textValuesCount) wchar_t **textValues,
+			_In_ UINT32 textValuesCount,
+			_In_reads_(textValuesCount) UINT32 *textValuesLengths,
+			_In_ ABI::Windows::Data::Xml::Dom::IXmlDocument *toastXml
+		);
+		HRESULT SetNodeValueString(
+			_In_ HSTRING onputString,
+			_In_ ABI::Windows::Data::Xml::Dom::IXmlNode *node,
+			_In_ ABI::Windows::Data::Xml::Dom::IXmlDocument *xml
+		);
+
+		static LRESULT CALLBACK WndProc(
+			_In_ HWND hWnd,
+			_In_ UINT message,
+			_In_ WPARAM wParam,
+			_In_ LPARAM lParam
+		);
 	private:
 		blink::core::utils::patterns::Subscriber m_subscriber;
-		ToastPP::CManager	m_ToastManager;
-		ToastPP::CToast		m_Toast;
-		Microsoft::WRL::Wrappers::RoInitializeWrapper m_winRTInitializer;
+		HWND _hwnd;
+		HWND _hEdit;
 	};
 }}}
-
-//The COM server which implements the callback notifcation from Action Center
-class DECLSPEC_UUID("383803B6-AFDA-4220-BFC3-0DBF810106BF")
-	CToastNotificationActivationCallback : public Microsoft::WRL::RuntimeClass<Microsoft::WRL::RuntimeClassFlags<Microsoft::WRL::ClassicCom>, INotificationActivationCallback>
-{
-public:
-	//Constructors / Destructors
-	CToastNotificationActivationCallback()
-	{
-	}
-
-	virtual HRESULT STDMETHODCALLTYPE Activate(__RPC__in_string LPCWSTR appUserModelId, __RPC__in_opt_string LPCWSTR invokedArgs,
-		__RPC__in_ecount_full_opt(count) const NOTIFICATION_USER_INPUT_DATA* data, ULONG count) override;
-};
-CoCreatableClass(CToastNotificationActivationCallback);

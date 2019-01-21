@@ -8,15 +8,25 @@
     <ClCompile Include="Agents\NotificationAgent.cpp">
       <Filter>Agents</Filter>
     </ClCompile>
+    <ClCompile Include="Toast\ToastEventHandler.cpp">
+      <Filter>Toast</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_app.h" />
     <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_handler.h" />
     <ClInclude Include="$(SolutionDir)src\BlinkApp\resource.h" />
-    <ClInclude Include="Toast.h" />
     <ClInclude Include="Agents\NotificationAgent.h">
       <Filter>Agents</Filter>
     </ClInclude>
+    <ClInclude Include="Toast\StringReferenceWrapper.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Toast\ToastEventHandler.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp.rc" />
@@ -28,6 +38,9 @@
   <ItemGroup>
     <Filter Include="Agents">
       <UniqueIdentifier>{298f527a-367e-4f99-b4cb-c1df38cafd18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Toast">
+      <UniqueIdentifier>{1dc8319d-6a0e-4f48-a648-068b36ee257b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

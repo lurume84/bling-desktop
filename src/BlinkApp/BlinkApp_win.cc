@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 // Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -70,22 +72,17 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   settings.no_sandbox = true;
 #endif
 
-	blink::app::agent::NotificationAgent notification;
+  blink::app::agent::NotificationAgent notification;
 
-	while (true)
-	{
-	
-	}
+  // Initialize CEF.
+  CefInitialize(main_args, settings, app.get(), sandbox_info);
 
-	//// Initialize CEF.
-	//CefInitialize(main_args, settings, app.get(), sandbox_info);
+  // Run the CEF message loop. This will block until CefQuitMessageLoop() is
+  // called.
+  CefRunMessageLoop();
 
-	//// Run the CEF message loop. This will block until CefQuitMessageLoop() is
-	//// called.
-	//CefRunMessageLoop();
-
-	//// Shut down CEF.
-	//CefShutdown();
+  // Shut down CEF.
+  CefShutdown();
 
   return 0;
 }
