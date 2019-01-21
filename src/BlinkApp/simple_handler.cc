@@ -17,12 +17,33 @@
 #include "include/cef/wrapper/cef_helpers.h"
 
 #include "BlinkCore\Upgrade\Events.h"
+#include "Toast\ToastEventHandler.h"
+#include "Toast\Toast.h"
 
 #include <boost\filesystem\operations.hpp>
 
-namespace {
+namespace
+{
+	std::wstring utf8toUtf16(const std::string & str)
+	{
+		if (str.empty())
+			return std::wstring();
 
-SimpleHandler* g_instance = NULL;
+		size_t charsNeeded = ::MultiByteToWideChar(CP_UTF8, 0,
+			str.data(), (int)str.size(), NULL, 0);
+		if (charsNeeded == 0)
+			throw std::runtime_error("Failed converting UTF-8 string to UTF-16");
+
+		std::vector<wchar_t> buffer(charsNeeded);
+		int charsConverted = ::MultiByteToWideChar(CP_UTF8, 0,
+			str.data(), (int)str.size(), &buffer[0], buffer.size());
+		if (charsConverted == 0)
+			throw std::runtime_error("Failed converting UTF-8 string to UTF-16");
+
+		return std::wstring(&buffer[0], charsConverted);
+	}
+
+	SimpleHandler* g_instance = NULL;
 
 }  // namespace
 
@@ -31,13 +52,27 @@ SimpleHandler::SimpleHandler(bool use_views)
 {
   DCHECK(!g_instance);
   g_instance = this;
-
-  m_subscriber.subscribe([this](const blink::core::utils::patterns::Event&)
+  
+  m_subscriber.subscribe([this](const blink::core::utils::patterns::Event& rawEvt)
   {
-	  /*for (auto &browser : browser_list_)
+	  auto evt = static_cast<const blink::core::events::UpgradeCompletedEvent&>(rawEvt);
+
+	  auto version = utf8toUtf16(evt.m_version);
+
+	  SimpleHandler* self = this;
+	  
+	  ToastEventHandler* handler = new ToastEventHandler([&self]()
 	  {
-		  browser->GetMainFrame()->LoadURL(boost::filesystem::canonical("Html/viewer/index.html").string());
-	  }*/
+		  for (auto &browser : self->browser_list_)
+		  {
+			  browser->GetMainFrame()->LoadURL(boost::filesystem::canonical("Html/viewer/index.html").string());
+		  }
+
+		  return true;
+	  }, []() {return true; }, []() {return true; });
+
+	  blink::app::Toast toast(handler);
+	  toast.DisplayToast(L"Version " + version, L"Succesfully installed new version, click to refresh", L"icon");
 
   }, blink::core::events::UPGRADE_COMPLETED_EVENT);
 }

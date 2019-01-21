@@ -23,28 +23,6 @@ using namespace Windows::Foundation;
 
 namespace blink { namespace app {  namespace agent {
 
-	namespace
-	{
-		std::wstring utf8toUtf16(const std::string & str)
-		{
-			if (str.empty())
-				return std::wstring();
-
-			size_t charsNeeded = ::MultiByteToWideChar(CP_UTF8, 0,
-				str.data(), (int)str.size(), NULL, 0);
-			if (charsNeeded == 0)
-				throw std::runtime_error("Failed converting UTF-8 string to UTF-16");
-
-			std::vector<wchar_t> buffer(charsNeeded);
-			int charsConverted = ::MultiByteToWideChar(CP_UTF8, 0,
-				str.data(), (int)str.size(), &buffer[0], buffer.size());
-			if (charsConverted == 0)
-				throw std::runtime_error("Failed converting UTF-8 string to UTF-16");
-
-			return std::wstring(&buffer[0], charsConverted);
-		}
-	}
-
 	NotificationAgent::NotificationAgent()
 	{
 		Windows::Foundation::Initialize(RO_INIT_MULTITHREADED);
@@ -58,7 +36,7 @@ namespace blink { namespace app {  namespace agent {
 	// Prepare the main window
 	bool NotificationAgent::initialize()
 	{
-		return TryCreateShortcut() == S_OK;
+		return SUCCEEDED(TryCreateShortcut());
 	}
 	// In order to display toasts, a desktop application must have a shortcut on the Start menu.
 	// Also, an AppUserModelID must be set on that shortcut.

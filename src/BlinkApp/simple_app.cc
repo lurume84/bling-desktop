@@ -17,7 +17,8 @@
 
 #include "BlinkCore\BlinkCore.h"
 #include "Agents\NotificationAgent.h"
-
+#include "Toast\ToastEventHandler.h"
+#include "Toast\Toast.h"
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
 // automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
 // to the CMake command-line to disable use of the sandbox.
@@ -184,28 +185,43 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 		return 1;
 	}
 
+	ToastEventHandler* handler = new ToastEventHandler([]()
+	{
+		
+		return true;
+	}, []() {
+		return true; 
+	}, []() {
+		return true;
+	});
 
-	// SimpleApp implements application-level callbacks for the browser process.
-	// It will create the first browser instance in OnContextInitialized() after
-	// CEF has initialized.
-	CefRefPtr<SimpleApp> app(new SimpleApp);
+	blink::app::Toast toast(handler);
+	toast.DisplayToast(L"Version ", L"Succesfully installed new version, click to refresh", L"icon");
 
-	// Specify CEF global settings here.
-	CefSettings settings;
-
-#if !defined(CEF_USE_SANDBOX)
-	settings.no_sandbox = true;
-#endif
-
-	// Initialize CEF.
-	CefInitialize(main_args, settings, app.get(), sandbox_info);
-
-	// Run the CEF message loop. This will block until CefQuitMessageLoop() is
-	// called.
-	CefRunMessageLoop();
-
-	// Shut down CEF.
-	CefShutdown();
+	while (true) {}
+//
+//
+//	// SimpleApp implements application-level callbacks for the browser process.
+//	// It will create the first browser instance in OnContextInitialized() after
+//	// CEF has initialized.
+//	CefRefPtr<SimpleApp> app(new SimpleApp);
+//
+//	// Specify CEF global settings here.
+//	CefSettings settings;
+//
+//#if !defined(CEF_USE_SANDBOX)
+//	settings.no_sandbox = true;
+//#endif
+//
+//	// Initialize CEF.
+//	CefInitialize(main_args, settings, app.get(), sandbox_info);
+//
+//	// Run the CEF message loop. This will block until CefQuitMessageLoop() is
+//	// called.
+//	CefRunMessageLoop();
+//
+//	// Shut down CEF.
+//	CefShutdown();
 
 	return 0;
 }

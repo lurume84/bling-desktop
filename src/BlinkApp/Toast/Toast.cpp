@@ -172,13 +172,15 @@ namespace blink { namespace app {
 					// Register the event handlers
 					EventRegistrationToken activatedToken, dismissedToken, failedToken;
 
-					hr = toast->add_Activated(m_handler, &activatedToken);
+					ComPtr<ToastEventHandler> handler = m_handler;
+
+					hr = toast->add_Activated(handler.Get(), &activatedToken);
 					if (SUCCEEDED(hr))
 					{
-						hr = toast->add_Dismissed(m_handler, &dismissedToken);
+						hr = toast->add_Dismissed(handler.Get(), &dismissedToken);
 						if (SUCCEEDED(hr))
 						{
-							hr = toast->add_Failed(m_handler, &failedToken);
+							hr = toast->add_Failed(handler.Get(), &failedToken);
 							if (SUCCEEDED(hr))
 							{
 								hr = notifier->Show(toast.Get());
