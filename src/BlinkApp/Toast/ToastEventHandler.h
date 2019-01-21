@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 typedef ABI::Windows::Foundation::ITypedEventHandler<ABI::Windows::UI::Notifications::ToastNotification *, ::IInspectable *> DesktopToastActivatedEventHandler;
 typedef ABI::Windows::Foundation::ITypedEventHandler<ABI::Windows::UI::Notifications::ToastNotification *, ABI::Windows::UI::Notifications::ToastDismissedEventArgs *> DesktopToastDismissedEventHandler;
 typedef ABI::Windows::Foundation::ITypedEventHandler<ABI::Windows::UI::Notifications::ToastNotification *, ABI::Windows::UI::Notifications::ToastFailedEventArgs *> DesktopToastFailedEventHandler;
@@ -8,7 +10,7 @@ class ToastEventHandler :
     public Microsoft::WRL::Implements<DesktopToastActivatedEventHandler, DesktopToastDismissedEventHandler, DesktopToastFailedEventHandler>
 {
 public:
-    ToastEventHandler::ToastEventHandler(_In_ HWND hToActivate, _In_ HWND hEdit);
+	ToastEventHandler::ToastEventHandler(std::function<bool()> activated, std::function<bool()> dismissed, std::function<bool()> failed);
     ~ToastEventHandler();
         
     // DesktopToastActivatedEventHandler 
@@ -50,6 +52,8 @@ public:
     
 private:
     ULONG _ref;
-    HWND _hToActivate;
-    HWND _hEdit;
+    
+	std::function<bool()> m_activated;
+	std::function<bool()> m_dismissed;
+	std::function<bool()> m_failed;
 };

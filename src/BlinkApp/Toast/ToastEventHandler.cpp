@@ -4,7 +4,11 @@
 
 using namespace ABI::Windows::UI::Notifications;
 
-ToastEventHandler::ToastEventHandler(_In_ HWND hToActivate, _In_ HWND hEdit) : _ref(1), _hToActivate(hToActivate), _hEdit(hEdit)
+ToastEventHandler::ToastEventHandler(std::function<bool()> activated, std::function<bool()> dismissed, std::function<bool()> failed)
+: _ref(1)
+, m_activated(activated)
+, m_dismissed(dismissed)
+, m_failed(failed)
 {
 
 }
@@ -17,13 +21,7 @@ ToastEventHandler::~ToastEventHandler()
 // DesktopToastActivatedEventHandler
 IFACEMETHODIMP ToastEventHandler::Invoke(_In_ IToastNotification* /* sender */, _In_ IInspectable* /* args */)
 {
-    BOOL succeeded = SetForegroundWindow(_hToActivate);
-    if (succeeded)
-    {
-        LRESULT result = SendMessage(_hEdit, WM_SETTEXT, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(L"The user clicked on the toast."));
-        succeeded = result ? TRUE : FALSE;
-    }
-    return succeeded ? S_OK : E_FAIL;
+    return m_activated() ? S_OK : E_FAIL;
 }
 
 // DesktopToastDismissedEventHandler
@@ -31,6 +29,7 @@ IFACEMETHODIMP ToastEventHandler::Invoke(_In_ IToastNotification* /* sender */, 
 {
     ToastDismissalReason tdr;
     HRESULT hr = e->get_Reason(&tdr);
+
     if (SUCCEEDED(hr))
     {
         wchar_t *outputText;
@@ -50,8 +49,7 @@ IFACEMETHODIMP ToastEventHandler::Invoke(_In_ IToastNotification* /* sender */, 
             break;
         }
 
-        LRESULT succeeded = SendMessage(_hEdit, WM_SETTEXT, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(outputText));
-        hr = succeeded ? S_OK : E_FAIL;
+        hr = m_dismissed() ? S_OK : E_FAIL;
     }
     return hr;
 }
@@ -59,6 +57,5 @@ IFACEMETHODIMP ToastEventHandler::Invoke(_In_ IToastNotification* /* sender */, 
 // DesktopToastFailedEventHandler
 IFACEMETHODIMP ToastEventHandler::Invoke(_In_ IToastNotification* /* sender */, _In_ IToastFailedEventArgs* /* e */)
 {
-    LRESULT succeeded = SendMessage(_hEdit, WM_SETTEXT, reinterpret_cast<WPARAM>(nullptr), reinterpret_cast<LPARAM>(L"The toast encountered an error."));
-    return succeeded ? S_OK : E_FAIL;
+    return m_failed() ? S_OK : E_FAIL;
 }

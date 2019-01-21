@@ -147,3 +147,9 @@ void SimpleHandler::CloseAllBrowsers(bool force_close) {
   for (; it != browser_list_.end(); ++it)
     (*it)->GetHost()->CloseBrowser(force_close);
 }
+
+void SimpleHandler::PlatformTitleChange(CefRefPtr<CefBrowser> browser,
+	const CefString& title) {
+	CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
+	SetWindowText(hwnd, std::wstring(title).c_str());
+}

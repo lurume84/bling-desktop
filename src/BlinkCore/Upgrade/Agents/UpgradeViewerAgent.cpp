@@ -18,7 +18,7 @@ namespace blink { namespace core { namespace agent {
 	, m_timer(m_ioService, boost::posix_time::seconds(60 * 60 * 12))
 	, m_host(host)
 	{
-		armTimer(5);
+		armTimer(1);
 
 		boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
 		m_backgroundThread.swap(t);
@@ -66,11 +66,8 @@ namespace blink { namespace core { namespace agent {
 
 		m_timer.async_wait([&](const boost::system::error_code& ec)
 		{
-			events::UpgradeCompletedEvent evt("pepe.txt");
-			utils::patterns::Broker::get().publish(evt);
-
-			//execute();
-			//armTimer();
+			execute();
+			armTimer();
 		});
 	}
 

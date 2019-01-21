@@ -147,7 +147,7 @@ xcopy $(SolutionDir)src\BlinkUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>BlinkCore.lib;libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>runtimeobject.lib;BlinkCore.lib;libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlinkCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
@@ -180,6 +180,7 @@ xcopy $(SolutionDir)src\BlinkUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Toast\Toast.cpp" />
     <ClCompile Include="Toast\ToastEventHandler.cpp" />
     <ClInclude Include="$(SolutionDir)src\BlinkApp\simple_app.h" />
     <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler.cc" />
@@ -187,11 +188,10 @@ xcopy $(SolutionDir)src\BlinkUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
     <ClInclude Include="Agents\NotificationAgent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Toast\StringReferenceWrapper.h" />
+    <ClInclude Include="Toast\Toast.h" />
     <ClInclude Include="Toast\ToastEventHandler.h" />
     <ResourceCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp.rc" />
-    <ClCompile Include="$(SolutionDir)src\BlinkApp\BlinkApp_win.cc" />
     <ClInclude Include="$(SolutionDir)src\BlinkApp\resource.h" />
-    <ClCompile Include="$(SolutionDir)src\BlinkApp\simple_handler_win.cc" />
     <None Include="$(SolutionDir)src\BlinkApp\res\BlinkApp.ico" />
     <None Include="$(SolutionDir)src\BlinkApp\res\small.ico" />
   </ItemGroup>

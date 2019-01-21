@@ -24,3 +24,5 @@
 #include <wrl\client.h>
 #include <wrl\implements.h>
 #include <windows.ui.notifications.h>
+
+const wchar_t AppId[] = L"Blink.Desktop";
