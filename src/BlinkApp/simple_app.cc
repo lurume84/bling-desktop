@@ -15,22 +15,6 @@
 #include "include/cef/wrapper/cef_helpers.h"
 #include "simple_handler.h"
 
-#include "BlinkCore\BlinkCore.h"
-#include "Agents\NotificationAgent.h"
-#include "Toast\ToastEventHandler.h"
-#include "Toast\Toast.h"
-// When generating projects with CMake the CEF_USE_SANDBOX value will be defined
-// automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
-// to the CMake command-line to disable use of the sandbox.
-// Uncomment this line to manually enable sandbox support.
-// #define CEF_USE_SANDBOX 1
-
-#if defined(CEF_USE_SANDBOX)
-// The cef_sandbox.lib static library may not link successfully with all VS
-// versions.
-#pragma comment(lib, "cef_sandbox.lib")
-#endif
-
 #include <boost\filesystem\operations.hpp>
 
 namespace {
@@ -142,6 +126,22 @@ void SimpleApp::OnContextInitialized() {
   }
 }
 
+
+#include "BlinkCore\BlinkCore.h"
+#include "Agents\NotificationAgent.h"
+
+// When generating projects with CMake the CEF_USE_SANDBOX value will be defined
+// automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
+// to the CMake command-line to disable use of the sandbox.
+// Uncomment this line to manually enable sandbox support.
+// #define CEF_USE_SANDBOX 1
+
+#if defined(CEF_USE_SANDBOX)
+// The cef_sandbox.lib static library may not link successfully with all VS
+// versions.
+#pragma comment(lib, "cef_sandbox.lib")
+#endif
+
 // Entry point function for all processes.
 int APIENTRY wWinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -185,43 +185,28 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 		return 1;
 	}
 
-	ToastEventHandler* handler = new ToastEventHandler([]()
-	{
-		
-		return true;
-	}, []() {
-		return true; 
-	}, []() {
-		return true;
-	});
 
-	blink::app::Toast toast(handler);
-	toast.DisplayToast(L"Version ", L"Succesfully installed new version, click to refresh", L"icon");
+	// SimpleApp implements application-level callbacks for the browser process.
+	// It will create the first browser instance in OnContextInitialized() after
+	// CEF has initialized.
+	CefRefPtr<SimpleApp> app(new SimpleApp);
 
-	while (true) {}
-//
-//
-//	// SimpleApp implements application-level callbacks for the browser process.
-//	// It will create the first browser instance in OnContextInitialized() after
-//	// CEF has initialized.
-//	CefRefPtr<SimpleApp> app(new SimpleApp);
-//
-//	// Specify CEF global settings here.
-//	CefSettings settings;
-//
-//#if !defined(CEF_USE_SANDBOX)
-//	settings.no_sandbox = true;
-//#endif
-//
-//	// Initialize CEF.
-//	CefInitialize(main_args, settings, app.get(), sandbox_info);
-//
-//	// Run the CEF message loop. This will block until CefQuitMessageLoop() is
-//	// called.
-//	CefRunMessageLoop();
-//
-//	// Shut down CEF.
-//	CefShutdown();
+	// Specify CEF global settings here.
+	CefSettings settings;
+
+#if !defined(CEF_USE_SANDBOX)
+	settings.no_sandbox = true;
+#endif
+
+	// Initialize CEF.
+	CefInitialize(main_args, settings, app.get(), sandbox_info);
+
+	// Run the CEF message loop. This will block until CefQuitMessageLoop() is
+	// called.
+	CefRunMessageLoop();
+
+	// Shut down CEF.
+	CefShutdown();
 
 	return 0;
 }

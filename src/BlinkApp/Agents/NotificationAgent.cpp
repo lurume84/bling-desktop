@@ -55,7 +55,7 @@ namespace blink { namespace app {  namespace agent {
 
 		if (SUCCEEDED(hr))
 		{
-			errno_t concatError = wcscat_s(shortcutPath, ARRAYSIZE(shortcutPath), L"\\Microsoft\\Windows\\Start Menu\\Programs\\Desktop Toasts App.lnk");
+			errno_t concatError = wcscat_s(shortcutPath, ARRAYSIZE(shortcutPath), L"\\Microsoft\\Windows\\Start Menu\\Programs\\BlinkDesktop.lnk");
 			hr = concatError == 0 ? S_OK : E_INVALIDARG;
 			if (SUCCEEDED(hr))
 			{

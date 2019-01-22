@@ -55,6 +55,19 @@ SimpleHandler::SimpleHandler(bool use_views)
   
   m_subscriber.subscribe([this](const blink::core::utils::patterns::Event& rawEvt)
   {
+	  auto evt = static_cast<const blink::core::events::DownloadUpgradeEvent&>(rawEvt);
+
+	  auto version = utf8toUtf16(evt.m_version);
+
+	  ToastEventHandler* handler = new ToastEventHandler([](){return true;}, []() {return true; }, []() {return true; });
+
+	  blink::app::Toast toast(handler);
+	  toast.DisplayToast(L"Version " + version, L"Downloading...", L"icon");
+
+  }, blink::core::events::DOWNLOAD_UPGRADE_EVENT);
+
+  m_subscriber.subscribe([this](const blink::core::utils::patterns::Event& rawEvt)
+  {
 	  auto evt = static_cast<const blink::core::events::UpgradeCompletedEvent&>(rawEvt);
 
 	  auto version = utf8toUtf16(evt.m_version);
