@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)src\BlingApp\simple_app.cc" />
+    <ClCompile Include="$(SolutionDir)src\BlingApp\simple_handler.cc" />
+    <ClCompile Include="Agents\NotificationAgent.cpp">
+      <Filter>Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="Toast\ToastEventHandler.cpp">
+      <Filter>Toast</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Toast\Toast.cpp">
+      <Filter>Toast</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)src\BlingApp\simple_app.h" />
+    <ClInclude Include="$(SolutionDir)src\BlingApp\simple_handler.h" />
+    <ClInclude Include="Agents\NotificationAgent.h">
+      <Filter>Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="Toast\StringReferenceWrapper.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Toast\ToastEventHandler.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Toast\Toast.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="$(SolutionDir)src\BlingApp\resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(SolutionDir)src\BlingApp\res\BlingApp.ico">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="$(SolutionDir)src\BlingApp\res\small.ico">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Agents">
+      <UniqueIdentifier>{298f527a-367e-4f99-b4cb-c1df38cafd18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Toast">
+      <UniqueIdentifier>{1dc8319d-6a0e-4f48-a648-068b36ee257b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{dd374df7-215e-41c1-be32-59abe9fa95c2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(SolutionDir)src\BlingApp\BlingApp.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
