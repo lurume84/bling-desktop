@@ -62,7 +62,7 @@ SimpleHandler::SimpleHandler(bool use_views)
 	  ToastEventHandler* handler = new ToastEventHandler([](){return true;}, []() {return true; }, []() {return true; });
 
 	  bling::app::Toast toast(handler);
-	  toast.DisplayToast(L"Version " + version, L"Downloading...", L"icon");
+	  toast.DisplayToast(L"Version " + version + L" available", L"Downloading...", L"icon");
 
   }, bling::core::events::DOWNLOAD_UPGRADE_EVENT);
 
