@@ -198,6 +198,8 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	settings.no_sandbox = true;
 #endif
 
+	settings.remote_debugging_port = 8088;
+
 	// Initialize CEF.
 	CefInitialize(main_args, settings, app.get(), sandbox_info);
 

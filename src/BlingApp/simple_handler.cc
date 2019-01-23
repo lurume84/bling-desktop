@@ -62,7 +62,7 @@ SimpleHandler::SimpleHandler(bool use_views)
 	  ToastEventHandler* handler = new ToastEventHandler([](){return true;}, []() {return true; }, []() {return true; });
 
 	  bling::app::Toast toast(handler);
-	  toast.DisplayToast(L"Version " + version + L" available", L"Downloading...", L"icon");
+	  toast.DisplayToast(L"Version " + version + L" available", L"Downloading...", boost::filesystem::canonical("Html/loading/img/logo_download.png").c_str());
 
   }, bling::core::events::DOWNLOAD_UPGRADE_EVENT);
 
@@ -72,20 +72,21 @@ SimpleHandler::SimpleHandler(bool use_views)
 
 	  auto version = utf8toUtf16(evt.m_version);
 
-	  SimpleHandler* self = this;
+	  CefRefPtr<CefBrowser> mainBrowser;
 	  
-	  ToastEventHandler* handler = new ToastEventHandler([&self]()
+	  for (auto &browser : browser_list_)
 	  {
-		  for (auto &browser : self->browser_list_)
-		  {
-			  browser->GetMainFrame()->LoadURL(boost::filesystem::canonical("Html/viewer/index.html").string());
-		  }
+		  mainBrowser = browser;
+	  }
 
+	  ToastEventHandler* handler = new ToastEventHandler([&mainBrowser]()
+	  {
+		  mainBrowser->GetMainFrame()->LoadURL(boost::filesystem::canonical("Html/viewer/index.html").string());
 		  return true;
 	  }, []() {return true; }, []() {return true; });
 
 	  bling::app::Toast toast(handler);
-	  toast.DisplayToast(L"Version " + version, L"Succesfully installed new version, click to refresh", L"icon");
+	  toast.DisplayToast(L"Version " + version, L"Succesfully installed new version, click to refresh", boost::filesystem::canonical("Html/loading/img/logo_upgrade.png").c_str());
 
   }, bling::core::events::UPGRADE_COMPLETED_EVENT);
 }
