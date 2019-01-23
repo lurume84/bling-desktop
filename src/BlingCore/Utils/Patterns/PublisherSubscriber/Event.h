@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace bling { namespace utils { namespace patterns {
+namespace bling { namespace core {namespace utils { namespace patterns {
     typedef std::string EventType;
 
     struct Event
@@ -10,4 +10,4 @@ namespace bling { namespace utils { namespace patterns {
         virtual ~Event(){;}
         EventType m_name;
     };
-}}}
+}}}}
