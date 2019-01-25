@@ -5,105 +5,204 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Debug|Win32">
+      <Configuration>Unicode Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Debug|x64">
+      <Configuration>Unicode Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Release|Win32">
+      <Configuration>Unicode Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Unicode Release|x64">
+      <Configuration>Unicode Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{04A5CAA2-D1F1-31D1-833F-BB3D9FD8C93E}</ProjectGuid>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectGuid>{4625EB79-3302-4D1D-9CFB-6A51DC925BCF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <Platform>Win32</Platform>
-    <ProjectName>BlingApp</ProjectName>
-    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+    <RootNamespace>ConsoleApplication1</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup>
-    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BlingApp</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BlingApp</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>Debug64\</OutDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>Debug64\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>DebugU64\</OutDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>DebugU64\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>Release64\</OutDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>Release64\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>ReleaseU64\</OutDir>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <IntDir>ReleaseU64\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir);$(SolutionDir)\include;$(SolutionDir)\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4100;4127;4244;4481;4512;4701;4702;4996</DisableSpecificWarnings>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <Optimization>Disabled</Optimization>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;_WIN32;UNICODE;_UNICODE;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <EnablePREfast>true</EnablePREfast>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)/src;$(SolutionDir)/include;$(ProjectDir);</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;_WIN32;UNICODE;_UNICODE;WINVER=0x0601;_WIN32_WINNT=0x601;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_SANDBOX;CEF_USE_ATL;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
     <Link>
-      <AdditionalDependencies>runtimeobject.lib;BlingCore.lib;libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlingCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>$(SolutionDir)src/BlingApp/Debug/BlingApp.lib</ImportLibrary>
-      <LargeAddressAware>true</LargeAddressAware>
-      <ProgramDataBaseFile>$(SolutionDir)src/BlingApp/Debug/BlingApp.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlingCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);</AdditionalLibraryDirectories>
     </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
-    <Manifest>
-      <AdditionalManifestFiles>$(SolutionDir)src\BlingApp\BlingApp.exe.manifest;</AdditionalManifestFiles>
-    </Manifest>
     <PostBuildEvent>
-      <Message>Copy dependencies</Message>
       <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
@@ -111,60 +210,86 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s</Command>
     </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <EnablePREfast>true</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <EnablePREfast>true</EnablePREfast>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)/src;$(SolutionDir)/include;$(ProjectDir);</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlingCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <EnablePREfast>true</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir);$(SolutionDir)\include;$(SolutionDir)\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerListingLocation>Release/</AssemblerListingLocation>
-      <CompileAs>CompileAsCpp</CompileAs>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4100;4127;4244;4481;4512;4701;4702;4996</DisableSpecificWarnings>
-      <ExceptionHandling>Sync</ExceptionHandling>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <Optimization>MaxSpeed</Optimization>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <StringPooling>true</StringPooling>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE;NDEBUG;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;_WIN32;UNICODE;_UNICODE;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;_NDEBUG;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <EnablePREfast>true</EnablePREfast>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)/src;$(SolutionDir)/include;$(ProjectDir);</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;_WIN32;UNICODE;_UNICODE;WINVER=0x0601;_WIN32_WINNT=0x601;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_SANDBOX;CEF_USE_ATL;_NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
-      <HeaderFileName>%(Filename).h</HeaderFileName>
-      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
-      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
-    </Midl>
     <Link>
-      <AdditionalDependencies>runtimeobject.lib;BlingCore.lib;libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlingCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
-      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>$(SolutionDir)bin/Release/BlingApp.lib</ImportLibrary>
-      <LargeAddressAware>true</LargeAddressAware>
-      <ProgramDataBaseFile>$(SolutionDir)bin/Release/BlingApp.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlingCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);</AdditionalLibraryDirectories>
     </Link>
-    <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-    </ProjectReference>
-    <Manifest>
-      <AdditionalManifestFiles>$(SolutionDir)src\BlingApp\BlingApp.exe.manifest;</AdditionalManifestFiles>
-    </Manifest>
     <PostBuildEvent>
-      <Message>Copy dependencies</Message>
       <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
@@ -173,27 +298,121 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\
 xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <EnablePREfast>true</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <EnablePREfast>true</EnablePREfast>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)/src;$(SolutionDir)/include;$(ProjectDir);</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\BlingCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <EnablePREfast>true</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="$(SolutionDir)src\BlingApp\simple_app.cc" />
+    <ClInclude Include="Agents\NotificationAgent.h" />
+    <ClInclude Include="BlingApp.h" />
+    <ClInclude Include="Browser\BrowserApp.h" />
+    <ClInclude Include="Browser\BrowserClientHandler.h" />
+    <ClInclude Include="Browser\BrowserKeyboardHandler.h" />
+    <ClInclude Include="Browser\BrowserScreen.h" />
+    <ClInclude Include="Browser\Resources\ExternalResourceManager.h" />
+    <ClInclude Include="Browser\Resources\InternalResourceManager.h" />
+    <ClInclude Include="Browser\Resources\IResourceManager.h" />
+    <ClInclude Include="Browser\Resources\RequestResourceProvider.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="BlingAppDlg.h" />
+    <ClInclude Include="Toast\Toast.h" />
+    <ClInclude Include="Toast\ToastPayload.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Agents\NotificationAgent.cpp" />
+    <ClCompile Include="BlingApp.cpp" />
+    <ClCompile Include="Browser\BrowserApp.cpp" />
+    <ClCompile Include="Browser\BrowserClientHandler.cpp" />
+    <ClCompile Include="Browser\BrowserKeyboardHandler.cpp" />
+    <ClCompile Include="Browser\BrowserScreen.cpp" />
+    <ClCompile Include="Browser\Resources\ExternalResourceManager.cpp" />
+    <ClCompile Include="Browser\Resources\InternalResourceManager.cpp" />
+    <ClCompile Include="Browser\Resources\RequestResourceProvider.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Toast\Toast.cpp" />
-    <ClCompile Include="Toast\ToastEventHandler.cpp" />
-    <ClInclude Include="$(SolutionDir)src\BlingApp\simple_app.h" />
-    <ClCompile Include="$(SolutionDir)src\BlingApp\simple_handler.cc" />
-    <ClInclude Include="$(SolutionDir)src\BlingApp\simple_handler.h" />
-    <ClInclude Include="Agents\NotificationAgent.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Toast\StringReferenceWrapper.h" />
-    <ClInclude Include="Toast\Toast.h" />
-    <ClInclude Include="Toast\ToastEventHandler.h" />
-    <ResourceCompile Include="$(SolutionDir)src\BlingApp\BlingApp.rc" />
-    <ClInclude Include="$(SolutionDir)src\BlingApp\resource.h" />
-    <None Include="$(SolutionDir)src\BlingApp\res\BlingApp.ico" />
-    <None Include="$(SolutionDir)src\BlingApp\res\small.ico" />
+    <ClCompile Include="BlingAppDlg.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BlingApp.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\BlingApp.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlingCore\BlingCore.vcxproj">

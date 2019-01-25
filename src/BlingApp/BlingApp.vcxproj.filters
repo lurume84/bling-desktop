@@ -1,61 +1,136 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(SolutionDir)src\BlingApp\simple_app.cc" />
-    <ClCompile Include="$(SolutionDir)src\BlingApp\simple_handler.cc" />
-    <ClCompile Include="Agents\NotificationAgent.cpp">
-      <Filter>Agents</Filter>
-    </ClCompile>
-    <ClCompile Include="Toast\ToastEventHandler.cpp">
-      <Filter>Toast</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Toast\Toast.cpp">
-      <Filter>Toast</Filter>
-    </ClCompile>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Toast">
+      <UniqueIdentifier>{5c06e29d-7f5e-4079-b8f1-8e0517750877}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Browser">
+      <UniqueIdentifier>{4f5350f5-b995-4e67-acf2-7c1f8b18793c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Browser">
+      <UniqueIdentifier>{ecea4085-bbc5-4377-b716-b5645ed8d2c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Browser\Resources">
+      <UniqueIdentifier>{3494a525-a0cf-4e38-8d3a-e98c7226b5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Browser\Resources">
+      <UniqueIdentifier>{cbe8d5b5-41f8-46e3-aef2-5b6e429b9183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agents">
+      <UniqueIdentifier>{fa79fc3b-1f78-476c-8f9c-0142a35f7471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agents">
+      <UniqueIdentifier>{ab502881-0691-43c3-81dc-1df042784a62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(SolutionDir)src\BlingApp\simple_app.h" />
-    <ClInclude Include="$(SolutionDir)src\BlingApp\simple_handler.h" />
-    <ClInclude Include="Agents\NotificationAgent.h">
-      <Filter>Agents</Filter>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Toast\StringReferenceWrapper.h">
-      <Filter>Toast</Filter>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Toast\ToastEventHandler.h">
-      <Filter>Toast</Filter>
+    <ClInclude Include="BlingApp.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlingAppDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Toast\Toast.h">
-      <Filter>Toast</Filter>
+      <Filter>Header Files\Toast</Filter>
     </ClInclude>
-    <ClInclude Include="$(SolutionDir)src\BlingApp\resource.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="Toast\ToastPayload.h">
+      <Filter>Header Files\Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserApp.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserClientHandler.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserKeyboardHandler.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserScreen.h">
+      <Filter>Header Files\Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\ExternalResourceManager.h">
+      <Filter>Header Files\Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\InternalResourceManager.h">
+      <Filter>Header Files\Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\IResourceManager.h">
+      <Filter>Header Files\Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\RequestResourceProvider.h">
+      <Filter>Header Files\Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Agents\NotificationAgent.h">
+      <Filter>Header Files\Agents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(SolutionDir)src\BlingApp\res\BlingApp.ico">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="$(SolutionDir)src\BlingApp\res\small.ico">
-      <Filter>Resources</Filter>
-    </None>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlingApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlingAppDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserApp.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserClientHandler.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserKeyboardHandler.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserScreen.cpp">
+      <Filter>Source Files\Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\Resources\ExternalResourceManager.cpp">
+      <Filter>Source Files\Browser\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\Resources\InternalResourceManager.cpp">
+      <Filter>Source Files\Browser\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\Resources\RequestResourceProvider.cpp">
+      <Filter>Source Files\Browser\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Agents\NotificationAgent.cpp">
+      <Filter>Source Files\Agents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Agents">
-      <UniqueIdentifier>{298f527a-367e-4f99-b4cb-c1df38cafd18}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Toast">
-      <UniqueIdentifier>{1dc8319d-6a0e-4f48-a648-068b36ee257b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{dd374df7-215e-41c1-be32-59abe9fa95c2}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="$(SolutionDir)src\BlingApp\BlingApp.rc">
-      <Filter>Resources</Filter>
+    <ResourceCompile Include="BlingApp.rc">
+      <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\BlingApp.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

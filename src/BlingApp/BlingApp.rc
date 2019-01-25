@@ -7,21 +7,106 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#define APSTUDIO_HIDDEN_SYMBOLS
-#include "windows.h"
-#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "afxres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_BROWSER DIALOGEX 0, 0, 255, 181
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_BROWSER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 248
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 174
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_BROWSER AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Ireland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENI)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_EIRE
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif\r\n"
+    "#include ""res\\BlingApp.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -30,39 +115,49 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_CEFSIMPLE           ICON                    "res\logo_small.ico"
-IDI_SMALL               ICON                    "res\logo_small.ico"
+IDR_MAINFRAME           ICON                    "res\\BlingApp.ico"
 
 
-#ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
 //
-// TEXTINCLUDE
+// Dialog
 //
 
-1 TEXTINCLUDE
+IDD_TOASTPP_DIALOG DIALOGEX 0, 0, 627, 340
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Bling Desktop"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    "resource.h\0"
 END
 
-2 TEXTINCLUDE
-BEGIN
-    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""windows.h""\r\n"
-    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "\0"
-END
 
-3 TEXTINCLUDE
-BEGIN
-    "\r\n"
-    "\0"
-END
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
 
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_TOASTPP_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+    END
+END
 #endif    // APSTUDIO_INVOKED
 
 
-#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_TOASTPP_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // English (Ireland) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -72,8 +167,19 @@ END
 //
 // Generated from the TEXTINCLUDE 3 resource.
 //
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
 
-
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif
+#include "res\BlingApp.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
 

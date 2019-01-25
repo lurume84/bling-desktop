@@ -2,7 +2,7 @@
 
 #include "BlingCore\Utils\Patterns\PublisherSubscriber\Subscriber.h"
 
-namespace bling { namespace app {  namespace agent {
+namespace bling { namespace ui {  namespace agent {
 
 
 	class NotificationAgent
@@ -13,8 +13,6 @@ namespace bling { namespace app {  namespace agent {
 
 		bool initialize();
 
-		HRESULT TryCreateShortcut();
-		HRESULT InstallShortcut(_In_z_ wchar_t *shortcutPath);
 	private:
 		bling::core::utils::patterns::Subscriber m_subscriber;
 	};
