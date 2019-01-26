@@ -32,6 +32,8 @@ namespace bling { namespace ui{
 
 	}
 
+	BrowserScreen::~BrowserScreen() = default;
+
 	void BrowserScreen::DoDataExchange(CDataExchange* pDX)
 	{
 		CDialog::DoDataExchange(pDX);

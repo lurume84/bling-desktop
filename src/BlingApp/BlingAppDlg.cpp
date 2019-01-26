@@ -4,9 +4,11 @@
 #include "Toast/Toast.h"
 #include "Toast/ToastPayload.h"
 
+#include <boost\filesystem.hpp>
+#include <boost\filesystem\operations.hpp>
+
 BlingAppDlg::BlingAppDlg(_In_opt_ CWnd* pParent)
 : CDialog(BlingAppDlg::IDD, pParent)
-, m_browser_dlg("http://www.google.es", this)
 {
 
 }
@@ -62,7 +64,19 @@ BOOL BlingAppDlg::OnInitDialog()
     EndDialog(IDCANCEL);
   }
   
-  m_browser_dlg.Create(bling::ui::BrowserScreen::IDD, this);
+  std::string url;
+
+  if (boost::filesystem::exists("Html/viewer/index.html"))
+  {
+	  url = boost::filesystem::canonical("Html/viewer/index.html").string();
+  }
+  else
+  {
+	  url = boost::filesystem::canonical("Html/loading/index.html").string();
+  }
+
+  m_browser_dlg = std::make_unique<bling::ui::BrowserScreen>(url, this);
+  m_browser_dlg->Create(bling::ui::BrowserScreen::IDD, this);
 
   ShowWindow(SW_MAXIMIZE);
 
@@ -273,8 +287,8 @@ void BlingAppDlg::OnClickedClear()
 
 void BlingAppDlg::OnSize(UINT /*nType*/, int cx, int cy)
 {
-	if (m_browser_dlg.GetSafeHwnd() != NULL)
+	if (m_browser_dlg->GetSafeHwnd() != NULL)
 	{
-		m_browser_dlg.MoveWindow(0, 0, cx, cy);
+		m_browser_dlg->MoveWindow(0, 0, cx, cy);
 	}
 }

@@ -24,7 +24,7 @@ protected:
   ToastPP::CManager m_ToastManager;
   ToastPP::CToast m_Toast;
 
-  bling::ui::BrowserScreen m_browser_dlg;
+  std::unique_ptr<bling::ui::BrowserScreen> m_browser_dlg;
 
 //Methods
   static CStringW FixUpImagesInXML(_In_ const CStringW& sXML);

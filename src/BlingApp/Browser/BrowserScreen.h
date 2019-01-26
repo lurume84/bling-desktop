@@ -17,7 +17,7 @@ namespace bling { namespace ui{
 	// Construction
 	public:
 		BrowserScreen(const std::string& path, CWnd* pParent = NULL);   // standard constructor
-
+		~BrowserScreen();
 	// Dialog Data
 		//{{AFX_DATA(Maintenance)
 		enum { IDD = IDD_BROWSER };
