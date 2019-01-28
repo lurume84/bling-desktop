@@ -2,7 +2,7 @@
 
 #include "Browser\BrowserScreen.h"
 
-class BlingAppDlg : public CDialog, public ToastPP::INotifier
+class BlingAppDlg : public CDialog
 {
 public:
 //Constructors / Destructors
@@ -21,8 +21,6 @@ protected:
   CEdit m_wndPayload;
   CString m_sPayload;
   CEdit m_wndStatusMessages;
-  ToastPP::CManager m_ToastManager;
-  ToastPP::CToast m_Toast;
 
   std::unique_ptr<bling::ui::BrowserScreen> m_browser_dlg;
 
@@ -30,9 +28,7 @@ protected:
   static CStringW FixUpImagesInXML(_In_ const CStringW& sXML);
   void DoDataExchange(CDataExchange* pDX) override;
   BOOL OnInitDialog() override;
-  void OnToastActivated(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* pSender, _In_opt_ IInspectable* pArgs) override;
-  void OnToastDismissed(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* pSender, _In_ ABI::Windows::UI::Notifications::ToastDismissalReason reason) override;
-  void OnToastFailed(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* pSender, _In_ HRESULT errorCode) override;
+  
   HRESULT VerifyXML(_Inout_ CString& sError);
 
 //Message handlers

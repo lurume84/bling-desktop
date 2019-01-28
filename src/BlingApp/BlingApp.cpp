@@ -3,7 +3,6 @@
 #include "BlingApp.h"
 #include "BlingAppDlg.h"
 
-#include "Agents\NotificationAgent.h"
 #include "BlingCore/BlingCore.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -138,8 +137,6 @@ BOOL BlingApp::InitInstance()
 
 	auto core = std::make_unique<bling::core::BlingCore>();
 	core->initialize();
-
-	bling::ui::agent::NotificationAgent notification;
 
 	m_cefApp = new bling::ui::BrowserApp();
 	m_cefApp->initialize();

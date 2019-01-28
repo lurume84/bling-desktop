@@ -34,6 +34,9 @@
     <Filter Include="Header Files\Agents">
       <UniqueIdentifier>{ab502881-0691-43c3-81dc-1df042784a62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Toast">
+      <UniqueIdentifier>{af2576ec-9fc3-447c-a877-f51c223ce33f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -87,6 +90,9 @@
     <ClInclude Include="Agents\NotificationAgent.h">
       <Filter>Header Files\Agents</Filter>
     </ClInclude>
+    <ClInclude Include="Toast\ToastEventHandler.h">
+      <Filter>Header Files\Toast</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -121,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="Agents\NotificationAgent.cpp">
       <Filter>Source Files\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="Toast\ToastEventHandler.cpp">
+      <Filter>Source Files\Toast</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

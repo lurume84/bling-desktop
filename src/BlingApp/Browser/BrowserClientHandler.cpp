@@ -92,8 +92,8 @@ namespace bling { namespace ui{
 		HWND hWindow = GetParent( browser->GetHost()->GetWindowHandle() );
 
 		// assign new browser
-		/*CefBrowser* pBrowser = browser;
-		::SendMessage( hWindow, WM_APP_CEF_NEW_BROWSER, (WPARAM)nBrowserId, (LPARAM)pBrowser );*/
+		CefBrowser* pBrowser = browser;
+		::SendMessage( hWindow, WM_APP_CEF_NEW_BROWSER, (WPARAM)nBrowserId, (LPARAM)pBrowser );
 
 		m_delegate->onBrowserCreated(browser);
 

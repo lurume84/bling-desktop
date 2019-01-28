@@ -384,6 +384,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
     <ClInclude Include="targetver.h" />
     <ClInclude Include="BlingAppDlg.h" />
     <ClInclude Include="Toast\Toast.h" />
+    <ClInclude Include="Toast\ToastEventHandler.h" />
     <ClInclude Include="Toast\ToastPayload.h" />
   </ItemGroup>
   <ItemGroup>
@@ -407,6 +408,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="BlingAppDlg.cpp" />
+    <ClCompile Include="Toast\ToastEventHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BlingApp.rc" />

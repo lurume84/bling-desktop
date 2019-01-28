@@ -3,6 +3,7 @@
 #include "BlingAppDlg.h"
 #include "Toast/Toast.h"
 #include "Toast/ToastPayload.h"
+#include "Agents\NotificationAgent.h"
 
 #include <boost\filesystem.hpp>
 #include <boost\filesystem\operations.hpp>
@@ -54,14 +55,14 @@ BOOL BlingAppDlg::OnInitDialog()
     }
   }*/
 
-  //Create the toast manager
-  HRESULT hr = m_ToastManager.Create(L"Bling.Desktop");
-  if (FAILED(hr))
+  bling::ui::agent::NotificationAgent notification;
+
+  if (!notification.initialize())
   {
-    CString sMsg;
-    sMsg.Format(_T("Failed to create Toast manager, Error:0x%08X"), hr);
-    AfxMessageBox(sMsg, MB_OK | MB_ICONEXCLAMATION);
-    EndDialog(IDCANCEL);
+	  CString sMsg;
+	  sMsg.Format(_T("Failed to create Toast manager, Error:0x%08X"), hr);
+	  AfxMessageBox(sMsg, MB_OK | MB_ICONEXCLAMATION);
+	  EndDialog(IDCANCEL);
   }
   
   std::string url;
@@ -174,48 +175,6 @@ CStringW BlingAppDlg::FixUpImagesInXML(_In_ const CStringW& sXML)
     return sUpdatedXML;
   sUpdatedXML.Replace(L"%EXEPATH%", sPath);
   return sUpdatedXML;
-}
-
-void BlingAppDlg::OnToastActivated(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* /*pSender*/, _In_opt_ IInspectable* /*pArgs*/)
-{
-  CString sMsg(_T("IToastNotification, The user clicked on the toast\r\n"));
-  ReportToastNotification(sMsg, TRUE);
-}
-
-void BlingAppDlg::OnToastDismissed(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* /*pSender*/, _In_ ABI::Windows::UI::Notifications::ToastDismissalReason reason)
-{
-  CString sMsg;
-  switch (reason)
-  {
-    case ABI::Windows::UI::Notifications::ToastDismissalReason_UserCanceled:
-    {
-      sMsg = _T("IToastNotification, The user dismissed the toast\r\n");
-      break;
-    }
-    case ABI::Windows::UI::Notifications::ToastDismissalReason_ApplicationHidden:
-    {
-      sMsg = _T("IToastNotification, The application programatically hid the toast\r\n");
-      break;
-    }
-    case ABI::Windows::UI::Notifications::ToastDismissalReason_TimedOut:
-    {
-      sMsg = _T("IToastNotification, The toast has timed out\r\n");
-      break;
-    }
-    default:
-    {
-      sMsg.Format(_T("IToastNotification, The toast was dimissed for an unknown reason %d\r\n"), reason);
-      break;
-    }
-  }
-  ReportToastNotification(sMsg, TRUE);
-}
-
-void BlingAppDlg::OnToastFailed(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* /*pSender*/, _In_ HRESULT errorCode)
-{
-  CString sMsg;
-  sMsg.Format(_T("IToastNotification, An error occurred with the toast. Error:%08X\r\n"), errorCode);
-  ReportToastNotification(sMsg, TRUE);
 }
 
 HRESULT BlingAppDlg::VerifyXML(_Inout_ CString& sError)
