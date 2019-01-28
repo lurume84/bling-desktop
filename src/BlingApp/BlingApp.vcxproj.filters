@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Toast">
       <UniqueIdentifier>{af2576ec-9fc3-447c-a877-f51c223ce33f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Model">
+      <UniqueIdentifier>{aeee3e39-25c9-4274-98da-95553acadaf1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -92,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="Toast\ToastEventHandler.h">
       <Filter>Header Files\Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Notification.h">
+      <Filter>Header Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
