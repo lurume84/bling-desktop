@@ -16,11 +16,8 @@ namespace bling { namespace ui {  namespace agent {
 		{
 			const auto& evt = static_cast<const ShowNotificationEvent&>(rawEvt);
 
-			HRESULT hr = m_Toast.Create(L"");
-			if (SUCCEEDED(hr))
-			{
-				hr = m_ToastManager.Show(m_Toast, evt.m_handler.get());
-			}
+			m_ToastManager.Show(m_Toast, evt.m_handler.get());
+
 		}, SHOW_NOTIFICATION_EVENT);
 	}
 

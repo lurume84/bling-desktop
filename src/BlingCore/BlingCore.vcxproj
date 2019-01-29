@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="BlingContext.h" />
     <ClInclude Include="BlingCore.h" />
+    <ClInclude Include="Model\Notification.h" />
     <ClInclude Include="Network\Services\HTTPClientService.h" />
     <ClInclude Include="System\Services\CompressionService.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />

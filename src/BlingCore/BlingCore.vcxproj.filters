@@ -28,6 +28,9 @@
     <Filter Include="Utils\Patterns\PublisherSubscriber">
       <UniqueIdentifier>{bd7e9259-dd7a-4337-ba7d-8a1960c286c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{36bb02bb-08e4-4ad1-814c-14c9eb277a8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
@@ -71,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="Upgrade\Events.h">
       <Filter>Upgrade</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Notification.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

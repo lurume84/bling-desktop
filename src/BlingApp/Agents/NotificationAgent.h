@@ -22,15 +22,13 @@ namespace bling { namespace ui {
 	public:
 		struct ShowNotificationEvent : public cup::Event
 		{
-			ShowNotificationEvent(std::unique_ptr<Notification> handler)
-				: m_handler(std::move(handler))
+			ShowNotificationEvent(std::shared_ptr<core::model::Notification> handler)
+				: m_handler(handler)
 			{
 				m_name = SHOW_NOTIFICATION_EVENT;
 			}
 
 			~ShowNotificationEvent();
-
-			std::unique_ptr<toast::ToastEventHandler> m_handler;
 		};
 
 		NotificationAgent();
@@ -42,5 +40,8 @@ namespace bling { namespace ui {
 		cup::Subscriber m_subscriber;
 		ToastPP::CManager m_ToastManager;
 		ToastPP::CToast m_Toast;
+
+		std::unique_ptr<toast::ToastEventHandler> m_handler;
+		std::unique_ptr<toast::ToastEventHandler> m_handler;
 	};
 }}}

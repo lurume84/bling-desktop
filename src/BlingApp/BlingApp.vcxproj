@@ -379,13 +379,13 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
     <ClInclude Include="Browser\Resources\IResourceManager.h" />
     <ClInclude Include="Browser\Resources\RequestResourceProvider.h" />
     <ClInclude Include="Constants.h" />
-    <ClInclude Include="Model\Notification.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="BlingAppDlg.h" />
     <ClInclude Include="Toast\Toast.h" />
     <ClInclude Include="Toast\ToastEventHandler.h" />
+    <ClInclude Include="Toast\ToastFactory.h" />
     <ClInclude Include="Toast\ToastPayload.h" />
   </ItemGroup>
   <ItemGroup>
@@ -410,6 +410,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
     </ClCompile>
     <ClCompile Include="BlingAppDlg.cpp" />
     <ClCompile Include="Toast\ToastEventHandler.cpp" />
+    <ClCompile Include="Toast\ToastFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BlingApp.rc" />
