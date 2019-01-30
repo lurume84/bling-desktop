@@ -195,6 +195,7 @@
       <EnablePREfast>true</EnablePREfast>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)/src;$(SolutionDir)/include;$(ProjectDir);</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -236,6 +237,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
       <SDLCheck>true</SDLCheck>
       <EnablePREfast>true</EnablePREfast>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)/src;$(SolutionDir)/include;$(ProjectDir);</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -280,6 +282,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
       <EnablePREfast>true</EnablePREfast>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)/src;$(SolutionDir)/include;$(ProjectDir);</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -329,6 +332,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
       <SDLCheck>true</SDLCheck>
       <EnablePREfast>true</EnablePREfast>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)/src;$(SolutionDir)/include;$(ProjectDir);</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -384,8 +388,10 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
     <ClInclude Include="targetver.h" />
     <ClInclude Include="BlingAppDlg.h" />
     <ClInclude Include="Toast\Toast.h" />
+    <ClInclude Include="Toast\ToastCommandLineInfo.h" />
     <ClInclude Include="Toast\ToastEventHandler.h" />
     <ClInclude Include="Toast\ToastFactory.h" />
+    <ClInclude Include="Toast\ToastNotificationActivationCallback.h" />
     <ClInclude Include="Toast\ToastPayload.h" />
   </ItemGroup>
   <ItemGroup>
@@ -411,6 +417,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
     <ClCompile Include="BlingAppDlg.cpp" />
     <ClCompile Include="Toast\ToastEventHandler.cpp" />
     <ClCompile Include="Toast\ToastFactory.cpp" />
+    <ClCompile Include="Toast\ToastNotificationActivationCallback.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BlingApp.rc" />

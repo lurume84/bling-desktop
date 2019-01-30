@@ -3,7 +3,6 @@
 #include "BlingAppDlg.h"
 #include "Toast/Toast.h"
 #include "Toast/ToastPayload.h"
-#include "Agents\NotificationAgent.h"
 
 #include <boost\filesystem.hpp>
 #include <boost\filesystem\operations.hpp>
@@ -29,7 +28,7 @@ BEGIN_MESSAGE_MAP(BlingAppDlg, CDialog)
   ON_WM_PAINT()
   ON_WM_SIZE()
   ON_WM_QUERYDRAGICON()
-  /*ON_BN_CLICKED(IDC_POP_TOAST, &BlingAppDlg::OnPopToast)
+  /*
   ON_CBN_SELCHANGE(IDC_PAYLOADS, &BlingAppDlg::OnSelchangePayloads)
   ON_EN_CHANGE(IDC_PAYLOAD, &BlingAppDlg::OnChangePayload)
   ON_BN_CLICKED(IDC_CLEAR, &BlingAppDlg::OnClickedClear)*/
@@ -42,28 +41,6 @@ BOOL BlingAppDlg::OnInitDialog()
 
   SetIcon(m_hIcon, TRUE);
   SetIcon(m_hIcon, FALSE);
-
-  //Populate the combo box and edit boxes
-  /*for (int i=0; i<_countof(g_ToastPayloads); i++)
-  {
-    m_wndPayloads.AddString(g_ToastPayloads[i].pszName);
-    if (i == 0)
-    {
-      CString sXML(g_ToastPayloads[i].pszXML);
-      m_wndPayload.SetWindowText(sXML);
-      m_wndPayloads.SetCurSel(i);
-    }
-  }*/
-
-  bling::ui::agent::NotificationAgent notification;
-
-  if (!notification.initialize())
-  {
-	  CString sMsg;
-	  sMsg.Format(_T("Failed to create Toast manager, Error:0x%08X"), hr);
-	  AfxMessageBox(sMsg, MB_OK | MB_ICONEXCLAMATION);
-	  EndDialog(IDCANCEL);
-  }
   
   std::string url;
 
@@ -112,37 +89,6 @@ HCURSOR BlingAppDlg::OnQueryDragIcon()
   return static_cast<HCURSOR>(m_hIcon);
 }
 
-void BlingAppDlg::OnPopToast() 
-{
-  //Get the values from the UI
-  if (!UpdateData(TRUE))
-    return;
-
-  //Create the toast
-  CStringW sPayload(FixUpImagesInXML(CStringW(m_sPayload)));
-  HRESULT hr = m_Toast.Create(sPayload);
-  if (FAILED(hr))
-  {
-    CString sMsg;
-    sMsg.Format(_T("Failed to create the toast, Error:%08X\r\n"), hr);
-    ReportToastNotification(sMsg, TRUE);
-    return;
-  }
-
-  //Show the toast
-  hr = m_ToastManager.Show(m_Toast, this);
-  if (SUCCEEDED(hr))
-  {
-    ReportToastNotification(_T("Toast shown successfully\r\n"), TRUE);
-  }
-  else
-  {
-    CString sMsg;
-    sMsg.Format(_T("Failed to show the toast, Error:%08X\r\n"), hr);
-    ReportToastNotification(sMsg, TRUE);
-  }
-}
-
 void BlingAppDlg::ReportToastNotification(_In_z_ LPCTSTR pszDetails, _In_ BOOL bAppend)
 {
   if (bAppend)
@@ -162,19 +108,6 @@ void BlingAppDlg::OnSelchangePayloads()
     return;
   CString sXML(g_ToastPayloads[nCurSel].pszXML);
   m_wndPayload.SetWindowText(sXML);
-}
-
-CStringW BlingAppDlg::FixUpImagesInXML(_In_ const CStringW& sXML)
-{
-  CStringW sUpdatedXML(sXML);
-  std::wstring sModuleName;
-  if (FAILED(ToastPP::CManager::GetExecutablePath(sModuleName)))
-    return sUpdatedXML;
-  ATL::CPathW sPath(sModuleName.c_str());
-  if (!sPath.RemoveFileSpec())
-    return sUpdatedXML;
-  sUpdatedXML.Replace(L"%EXEPATH%", sPath);
-  return sUpdatedXML;
 }
 
 HRESULT BlingAppDlg::VerifyXML(_Inout_ CString& sError)

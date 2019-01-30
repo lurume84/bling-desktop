@@ -96,6 +96,12 @@
     <ClInclude Include="Toast\ToastFactory.h">
       <Filter>Header Files\Toast</Filter>
     </ClInclude>
+    <ClInclude Include="Toast\ToastCommandLineInfo.h">
+      <Filter>Header Files\Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Toast\ToastNotificationActivationCallback.h">
+      <Filter>Header Files\Toast</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -135,6 +141,9 @@
       <Filter>Source Files\Toast</Filter>
     </ClCompile>
     <ClCompile Include="Toast\ToastFactory.cpp">
+      <Filter>Source Files\Toast</Filter>
+    </ClCompile>
+    <ClCompile Include="Toast\ToastNotificationActivationCallback.cpp">
       <Filter>Source Files\Toast</Filter>
     </ClCompile>
   </ItemGroup>
