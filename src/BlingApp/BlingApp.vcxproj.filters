@@ -102,6 +102,9 @@
     <ClInclude Include="Toast\ToastNotificationActivationCallback.h">
       <Filter>Header Files\Toast</Filter>
     </ClInclude>
+    <ClInclude Include="Agents\UpgradeAgent.h">
+      <Filter>Header Files\Agents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="Toast\ToastNotificationActivationCallback.cpp">
       <Filter>Source Files\Toast</Filter>
+    </ClCompile>
+    <ClCompile Include="Agents\UpgradeAgent.cpp">
+      <Filter>Source Files\Agents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

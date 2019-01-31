@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Toast\Toast.h"
 
 #include "BlingCore\Utils\Patterns\PublisherSubscriber\Subscriber.h"

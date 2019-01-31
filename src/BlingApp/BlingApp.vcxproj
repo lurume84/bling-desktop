@@ -373,6 +373,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Agents\NotificationAgent.h" />
+    <ClInclude Include="Agents\UpgradeAgent.h" />
     <ClInclude Include="BlingApp.h" />
     <ClInclude Include="Browser\BrowserApp.h" />
     <ClInclude Include="Browser\BrowserClientHandler.h" />
@@ -396,6 +397,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agents\NotificationAgent.cpp" />
+    <ClCompile Include="Agents\UpgradeAgent.cpp" />
     <ClCompile Include="BlingApp.cpp" />
     <ClCompile Include="Browser\BrowserApp.cpp" />
     <ClCompile Include="Browser\BrowserClientHandler.cpp" />
