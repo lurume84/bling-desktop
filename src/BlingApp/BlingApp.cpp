@@ -102,9 +102,12 @@ BOOL BlingApp::CreateBrowser(CefRefPtr<bling::ui::BrowserClientHandler> client_h
 	return m_cefApp->CreateBrowser(client_handler, hWnd, rect, pszURL);
 }
 
-void BlingApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
+std::string BlingApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 {
 	auto downloadService = std::make_unique<bling::ui::service::DownloadFileService>(browser);
 
-	m_core->initialize(std::make_unique<bling::core::agent::UpgradeViewerAgent>("api.github.com", std::move(downloadService)));
+	m_core->initialize(std::make_unique<bling::core::agent::UpgradeViewerAgent>("api.github.com", "Download/Versions/", "Html/viewer", 
+																				std::move(downloadService)));
+
+	return "Download/Versions/";
 }

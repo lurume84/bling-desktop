@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+#include "Events.h"
+#include "BlingCore\Utils\Patterns\PublisherSubscriber\Broker.h"
+
 #include <stdio.h>
 #include <algorithm>
 #include <set>
@@ -37,18 +40,6 @@ namespace bling { namespace ui{
 		LPCTSTR lpszRealm;
 		TCHAR szUserName[1024];
 		TCHAR szUserPass[1024];
-	};
-
-	struct CEFDownloadItemValues
-	{
-		BOOL bIsValid;
-		BOOL bIsInProgress;
-		BOOL bIsComplete;
-		BOOL bIsCanceled;
-		INT nProgress;
-		LONGLONG nSpeed;
-		LONGLONG nReceived;
-		LONGLONG nTotal;
 	};
 
 	const char kMultiThreadedMessageLoop[] = "multi-threaded-message-loop";
@@ -212,29 +203,26 @@ namespace bling { namespace ui{
 		REQUIRE_UI_THREAD();
 
 		// Continue the download and show the "Save As" dialog.
-		callback->Continue(GetDownloadPath(suggested_name), true);
+		callback->Continue(m_delegate->getDownloadPath(suggested_name), false);
 	}
 
 	void BrowserClientHandler::OnDownloadUpdated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, CefRefPtr<CefDownloadItemCallback> callback)
 	{
 		REQUIRE_UI_THREAD();
 
-		CEFDownloadItemValues values;
+		events::DownloadStatusEvent evt;
 
-		values.bIsValid = download_item->IsValid();
-		values.bIsInProgress = download_item->IsInProgress();
-		values.bIsComplete = download_item->IsComplete();
-		values.bIsCanceled = download_item->IsCanceled();
-		values.nProgress = download_item->GetPercentComplete();
-		values.nSpeed = download_item->GetCurrentSpeed();
-		values.nReceived = download_item->GetReceivedBytes();
-		values.nTotal = download_item->GetTotalBytes();
+		evt.bIsValid = download_item->IsValid();
+		evt.bIsInProgress = download_item->IsInProgress();
+		evt.bIsComplete = download_item->IsComplete();
+		evt.bIsCanceled = download_item->IsCanceled();
+		evt.nProgress = download_item->GetPercentComplete();
+		evt.nSpeed = download_item->GetCurrentSpeed();
+		evt.nReceived = download_item->GetReceivedBytes();
+		evt.nTotal = download_item->GetTotalBytes();
+		evt.m_path = download_item->GetFullPath();
 
-		// The frame window will be the parent of the browser window
-		HWND hWindow = GetParent( browser->GetHost()->GetWindowHandle() );
-
-		// send message
-		//::SendMessage( hWindow, WM_APP_CEF_DOWNLOAD_UPDATE, (WPARAM)&values, NULL );
+		core::utils::patterns::Broker::get().publish(evt);
 	}
 
 	void BrowserClientHandler::OnLoadStart(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, TransitionType transition_type)

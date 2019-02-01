@@ -79,6 +79,7 @@
     <ClInclude Include="Services\DownloadFileService.h">
       <Filter>Services</Filter>
     </ClInclude>
+    <ClInclude Include="Events.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agents\NotificationAgent.cpp">

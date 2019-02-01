@@ -8,17 +8,15 @@
 #include "../../Network/Services/HTTPClientService.h"
 #include "../../Network/Services/DownloadFileService.h"
 #include "../../System/Services/CompressionService.h"
-#include "../../System/Services/FileIOService.h"
 #include "../../System/Services/ReplaceFolderService.h"
 
 namespace bling { namespace core { namespace agent {
 	class UpgradeViewerAgent
 	{
 	public:
-		UpgradeViewerAgent(const std::string& host, 
+		UpgradeViewerAgent(const std::string& host, const std::string& inFolder, const std::string& outFolder,
 							std::unique_ptr<service::IDownloadFileService> downloadService = std::make_unique<service::DownloadFileService>(),
 							std::unique_ptr<service::HTTPClientService> clientService = std::make_unique<service::HTTPClientService>(),
-							std::unique_ptr<service::FileIOService> fileIOService = std::make_unique<service::FileIOService>(),
 							std::unique_ptr<service::CompressionService> compressionService = std::make_unique<service::CompressionService>(),
 							std::unique_ptr<service::ReplaceFolderService> replaceFolderService = std::make_unique<service::ReplaceFolderService>());
 		~UpgradeViewerAgent();
@@ -31,6 +29,8 @@ namespace bling { namespace core { namespace agent {
 		boost::asio::deadline_timer	m_timer;
 		boost::thread				m_backgroundThread;
 		std::string					m_host;
+		std::string					m_inFolder;
+		std::string					m_outFolder;
 
 		std::unique_ptr<service::IDownloadFileService> m_downloadService;
 		std::unique_ptr<service::HTTPClientService> m_clientService;

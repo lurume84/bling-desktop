@@ -384,6 +384,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
     <ClInclude Include="Browser\Resources\IResourceManager.h" />
     <ClInclude Include="Browser\Resources\RequestResourceProvider.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Services\DownloadFileService.h" />
     <ClInclude Include="stdafx.h" />

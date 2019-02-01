@@ -56,6 +56,8 @@ public:
 		// Set the window title.
 		virtual void onTitleChange(const std::string& title) = 0;
 
+		virtual std::string getDownloadPath(const std::string& file_name) const = 0;
+
 	protected:
 		virtual ~Delegate() {}
   };

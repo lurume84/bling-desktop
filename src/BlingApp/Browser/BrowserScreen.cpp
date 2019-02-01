@@ -105,7 +105,7 @@ namespace bling { namespace ui{
 	{
 		m_cefBrowser = browser;
 
-		theApp.onBrowserCreated(m_cefBrowser);
+		m_downloadPath = theApp.onBrowserCreated(m_cefBrowser);
 	}
 
 	void BrowserScreen::onBrowserClosed(CefRefPtr<CefBrowser> browser)
@@ -116,6 +116,11 @@ namespace bling { namespace ui{
 	void BrowserScreen::onTitleChange(const std::string& title)
 	{
 		
+	}
+
+	std::string BrowserScreen::getDownloadPath(const std::string& file_name) const
+	{
+		return m_downloadPath + file_name;
 	}
 
 	LRESULT BrowserScreen::OnKeyBoardHook(WPARAM /*wParam*/, LPARAM lParam)

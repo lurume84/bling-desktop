@@ -36,9 +36,10 @@ namespace bling { namespace ui{
 		void navigate(std::string path);
 		void executeJS(std::string js);
 
-		void onBrowserCreated(CefRefPtr<CefBrowser> browser);
-		void onBrowserClosed(CefRefPtr<CefBrowser> browser);
-		virtual void onTitleChange(const std::string& title);
+		void onBrowserCreated(CefRefPtr<CefBrowser> browser) override;
+		void onBrowserClosed(CefRefPtr<CefBrowser> browser) override;
+		void onTitleChange(const std::string& title) override;
+		std::string getDownloadPath(const std::string& file_name) const override;
 
 		afx_msg LRESULT OnKeyBoardHook(WPARAM wParam, LPARAM lParam);
 		afx_msg void OnSize(UINT, int, int);
@@ -62,5 +63,6 @@ namespace bling { namespace ui{
 		CefRefPtr<BrowserClientHandler>	m_cefHandler;
 		CefRefPtr<CefBrowser>			m_cefBrowser;
 		std::string						m_path;
+		std::string						m_downloadPath;
 	};
 }}

@@ -35,7 +35,7 @@ public:
   int ExitInstance() override;
 
   BOOL CreateBrowser(CefRefPtr<bling::ui::BrowserClientHandler> client_handler, HWND hWnd, CRect rect, LPCTSTR pszURL);
-  void onBrowserCreated(CefRefPtr<CefBrowser> browser);
+  std::string onBrowserCreated(CefRefPtr<CefBrowser> browser);
 
   DECLARE_MESSAGE_MAP()
 };

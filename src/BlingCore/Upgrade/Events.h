@@ -1,3 +1,5 @@
+#pragma once
+
 #include "..\Utils\Patterns\PublisherSubscriber\Event.h"
 
 namespace bling { namespace core { namespace events {

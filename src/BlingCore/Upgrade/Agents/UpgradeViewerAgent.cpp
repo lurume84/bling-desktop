@@ -9,19 +9,20 @@
 
 namespace bling { namespace core { namespace agent {
 
-	UpgradeViewerAgent::UpgradeViewerAgent(const std::string& host, std::unique_ptr<service::IDownloadFileService> downloadService,
-																	std::unique_ptr<service::HTTPClientService> clientService,
-																	std::unique_ptr<service::FileIOService> fileIOService,
-																	std::unique_ptr<service::CompressionService> compressionService,
-																	std::unique_ptr<service::ReplaceFolderService> replaceFolderService)
+	UpgradeViewerAgent::UpgradeViewerAgent(const std::string& host, const std::string& inFolder, const std::string& outFolder,
+											std::unique_ptr<service::IDownloadFileService> downloadService,
+											std::unique_ptr<service::HTTPClientService> clientService,
+											std::unique_ptr<service::CompressionService> compressionService,
+											std::unique_ptr<service::ReplaceFolderService> replaceFolderService)
 	: m_ioService()
 	, m_timer(m_ioService, boost::posix_time::seconds(60 * 60 * 12))
 	, m_host(host)
 	, m_downloadService(std::move(downloadService))
 	, m_clientService(std::move(clientService))
-	, m_fileIOService(std::move(fileIOService))
 	, m_compressionService(std::move(compressionService))
 	, m_replaceFolderService(std::move(replaceFolderService))
+	, m_inFolder(inFolder)
+	, m_outFolder(outFolder)
 	{
 		armTimer(1);
 
@@ -52,30 +53,27 @@ namespace bling { namespace core { namespace agent {
 
 				auto version = tree.get_child("tag_name").get_value<std::string>();
 
-				if (!boost::filesystem::exists("versions/" + version + ".zip"))
+				if (!boost::filesystem::exists(m_inFolder + version + ".zip"))
 				{
 					events::DownloadUpgradeEvent evt(version);
 					utils::patterns::Broker::get().publish(evt);
 
-					auto fileContent = m_downloadService->download(m_host, tree.get_child("zipball_url").get_value<std::string>());
+					auto path = m_downloadService->download(m_host, tree.get_child("zipball_url").get_value<std::string>(), m_inFolder + version + ".zip");
 
-					if (fileContent != "")
+					if (path != "")
 					{
-						if (m_fileIOService->save("versions/" + version + ".zip", fileContent))
+						events::ExtractUpgradeEvent evt(path);
+						utils::patterns::Broker::get().publish(evt);
+
+						if (m_compressionService->extract("zip", path, m_inFolder))
 						{
-							events::ExtractUpgradeEvent evt(version + ".zip");
+							auto target = boost::filesystem::path(m_inFolder);
+							boost::filesystem::directory_iterator it(target);
+
+							m_replaceFolderService->replace(it->path().string(), m_outFolder);
+
+							events::UpgradeCompletedEvent evt(version);
 							utils::patterns::Broker::get().publish(evt);
-
-							if (m_compressionService->extract("zip", "versions/" + version + ".zip", "versions/"))
-							{
-								auto target = boost::filesystem::path("versions/");
-								boost::filesystem::directory_iterator it(target);
-
-								m_replaceFolderService->replace(it->path().string(), "Html/viewer");
-
-								events::UpgradeCompletedEvent evt(version);
-								utils::patterns::Broker::get().publish(evt);
-							}
 						}
 					}
 				}
