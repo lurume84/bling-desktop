@@ -1,22 +1,27 @@
 #include "UpgradeViewerAgent.h"
 
-#include "../../Network/Services/HTTPClientService.h"
-#include "../../System/Services/CompressionService.h"
-
 #include "Utils\Patterns\PublisherSubscriber\Broker.h"
 #include "../Events.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include <boost/regex.hpp>
 #include <boost/filesystem.hpp>
 
 namespace bling { namespace core { namespace agent {
 
-	UpgradeViewerAgent::UpgradeViewerAgent(const std::string& host)
+	UpgradeViewerAgent::UpgradeViewerAgent(const std::string& host, std::unique_ptr<service::IDownloadFileService> downloadService,
+																	std::unique_ptr<service::HTTPClientService> clientService,
+																	std::unique_ptr<service::FileIOService> fileIOService,
+																	std::unique_ptr<service::CompressionService> compressionService,
+																	std::unique_ptr<service::ReplaceFolderService> replaceFolderService)
 	: m_ioService()
 	, m_timer(m_ioService, boost::posix_time::seconds(60 * 60 * 12))
 	, m_host(host)
+	, m_downloadService(std::move(downloadService))
+	, m_clientService(std::move(clientService))
+	, m_fileIOService(std::move(fileIOService))
+	, m_compressionService(std::move(compressionService))
+	, m_replaceFolderService(std::move(replaceFolderService))
 	{
 		armTimer(1);
 
@@ -37,8 +42,7 @@ namespace bling { namespace core { namespace agent {
 		std::string content;
 		unsigned int status;
 
-		service::HTTPClientService service(m_host, "443");
-		if (service.send("/repos/lurume84/bling-viewer/releases/latest", headers, content, status))
+		if (m_clientService->send(m_host, "443", "/repos/lurume84/bling-viewer/releases/latest", headers, content, status))
 		{
 			try
 			{
@@ -50,7 +54,30 @@ namespace bling { namespace core { namespace agent {
 
 				if (!boost::filesystem::exists("versions/" + version + ".zip"))
 				{
-					download(tree.get_child("zipball_url").get_value<std::string>(), version);
+					events::DownloadUpgradeEvent evt(version);
+					utils::patterns::Broker::get().publish(evt);
+
+					auto fileContent = m_downloadService->download(tree.get_child("zipball_url").get_value<std::string>(), version);
+
+					if (fileContent != "")
+					{
+						if (m_fileIOService->save("versions/" + version + ".zip", fileContent))
+						{
+							events::ExtractUpgradeEvent evt(version + ".zip");
+							utils::patterns::Broker::get().publish(evt);
+
+							if (m_compressionService->extract("zip", "versions/" + version + ".zip", "versions/"))
+							{
+								auto target = boost::filesystem::path("versions/");
+								boost::filesystem::directory_iterator it(target);
+
+								m_replaceFolderService->replace(it->path().string(), "Html/viewer");
+
+								events::UpgradeCompletedEvent evt(version);
+								utils::patterns::Broker::get().publish(evt);
+							}
+						}
+					}
 				}
 			}
 			catch (std::exception& /*e*/)
@@ -69,99 +96,5 @@ namespace bling { namespace core { namespace agent {
 			execute();
 			armTimer();
 		});
-	}
-
-	void UpgradeViewerAgent::download(const std::string& url, const std::string& version)
-	{
-		events::DownloadUpgradeEvent evt(version);
-		utils::patterns::Broker::get().publish(evt);
-
-		std::map<std::string, std::string> headers;
-		std::string content;
-		unsigned int status;
-
-		auto pos = url.find(m_host) + m_host.size();
-
-		std::string file;
-
-		service::HTTPClientService service(m_host, "443");
-		if (service.send(url.substr(pos), headers, file, status))
-		{
-			if(status == 302)
-			{
-				auto location = headers.find("Location");
-				if (location != headers.end())
-				{
-					std::string protocol, domain, port, path, query, fragment;
-
-					if (parseURI(location->second, protocol, domain, port, path, query, fragment))
-					{
-						std::map<std::string, std::string> headers;
-
-						service::HTTPClientService service(domain, "443");
-						if (service.send(path, headers, file, status) && status == 200)
-						{
-							save(version, file);
-						}
-					}
-				}
-			}
-			else if(status == 200)
-			{
-				save(version, file);
-			}
-		}
-	}
-
-	void UpgradeViewerAgent::save(const std::string& fileName, const std::string& content)
-	{
-		boost::filesystem::create_directories("versions");
-
-		std::ofstream f("versions/" + fileName + ".zip", std::ios::binary);
-		f << content;
-		f.close();
-
-		events::ExtractUpgradeEvent evt(fileName);
-		utils::patterns::Broker::get().publish(evt);
-
-		service::CompressionService service("zip");
-		if (service.extract("versions/" + fileName + ".zip", "versions/"))
-		{
-			auto target = boost::filesystem::path("versions/");
-
-			boost::filesystem::directory_iterator it(target);
-
-			if (boost::filesystem::exists("Html/viewer"))
-			{
-				boost::filesystem::remove_all("Html/viewer");
-			}
-
-			boost::filesystem::rename(it->path(), "Html/viewer");
-
-			events::UpgradeCompletedEvent evt(fileName);
-			utils::patterns::Broker::get().publish(evt);
-		}
-	}
-
-	bool UpgradeViewerAgent::parseURI(const std::string& uri, std::string& protocol, std::string& domain, std::string& port, std::string& path, std::string& query, std::string& fragment)
-	{
-		boost::regex ex("(http|https)://([^/ :]+):?([^/ ]*)(/?[^ #?]*)\\x3f?([^ #]*)#?([^ ]*)");
-		boost::cmatch what;
-
-		if (regex_match(uri.c_str(), what, ex))
-		{
-			protocol = std::string(what[1].first, what[1].second);
-			domain = std::string(what[2].first, what[2].second);
-			port = std::string(what[3].first, what[3].second);
-			path = std::string(what[4].first, what[4].second);
-			query = std::string(what[5].first, what[5].second);
-			fragment = std::string(what[6].first, what[6].second);
-
-			return true;
-		}
-		else
-		{
-			return false;
-		}
 	}
 }}}

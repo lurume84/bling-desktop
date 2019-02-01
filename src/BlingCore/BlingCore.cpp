@@ -5,17 +5,11 @@
 #include "Upgrade\Agents\UpgradeViewerAgent.h"
 
 namespace bling { namespace core {
-	BlingCore::BlingCore()
-	{
-	
-	}
-
+	BlingCore::BlingCore() = default;
 	BlingCore::~BlingCore() = default;
 	
-	void BlingCore::initialize()
+	void BlingCore::initialize(std::unique_ptr<agent::UpgradeViewerAgent> upgradeViewerAgent)
 	{
-		auto upgradeViewerAgent = std::make_unique<agent::UpgradeViewerAgent>("api.github.com");
-
 		m_context = std::make_unique<BlingContext>(std::move(upgradeViewerAgent));
 	}
 }}

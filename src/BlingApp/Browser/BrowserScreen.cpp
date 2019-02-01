@@ -104,6 +104,8 @@ namespace bling { namespace ui{
 	void BrowserScreen::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 	{
 		m_cefBrowser = browser;
+
+		theApp.onBrowserCreated(m_cefBrowser);
 	}
 
 	void BrowserScreen::onBrowserClosed(CefRefPtr<CefBrowser> browser)

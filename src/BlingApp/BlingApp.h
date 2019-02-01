@@ -5,8 +5,17 @@
 #endif
 
 #include "resource.h"
-#include "Toast/Toast.h"
 #include "Browser/BrowserApp.h"
+
+#include <memory>
+
+namespace bling
+{
+	namespace core
+	{
+		class BlingCore;
+	}
+}
 
 class BlingApp : public CWinApp
 {
@@ -19,11 +28,14 @@ public:
 
   CefRefPtr<bling::ui::BrowserApp> m_cefApp;
 
+  std::unique_ptr<bling::core::BlingCore> m_core;
+
 //Methods
   BOOL InitInstance() override;
   int ExitInstance() override;
 
   BOOL CreateBrowser(CefRefPtr<bling::ui::BrowserClientHandler> client_handler, HWND hWnd, CRect rect, LPCTSTR pszURL);
+  void onBrowserCreated(CefRefPtr<CefBrowser> browser);
 
   DECLARE_MESSAGE_MAP()
 };

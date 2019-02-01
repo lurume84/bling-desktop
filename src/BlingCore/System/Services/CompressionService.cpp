@@ -6,25 +6,16 @@
 
 namespace bling { namespace core { namespace service {
 
-	CompressionService::CompressionService(const std::string& format)
-	: m_format(format)
-	{
-		
-	}
-
-	CompressionService::~CompressionService()
-	{
-		
-	}
-
+	CompressionService::CompressionService() = default;
+	CompressionService::~CompressionService() = default;
 	
-	bool CompressionService::extract(const std::string& input, const std::string& output) const
+	bool CompressionService::extract(const std::string& format, const std::string& input, const std::string& output) const
 	{
 		try
 		{
 			SevenZip::SevenZipLibrary lib;
 
-			if (m_format == "zip")
+			if (format == "zip")
 			{
 				lib.Load("7z.dll"); //put 7z.dll here for compressing zip files (7za loaded by default supporting only 7z format)
 			}
@@ -35,7 +26,7 @@ namespace bling { namespace core { namespace service {
 
 			SevenZip::SevenZipExtractor extractor(lib, input);
 
-			if (m_format == "zip")
+			if (format == "zip")
 			{
 				extractor.SetCompressionFormat(SevenZip::CompressionFormat::Zip);
 			}

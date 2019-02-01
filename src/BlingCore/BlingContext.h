@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 
 namespace bling { namespace core {

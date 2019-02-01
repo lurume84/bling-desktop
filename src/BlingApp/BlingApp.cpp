@@ -3,9 +3,12 @@
 #include "BlingApp.h"
 #include "BlingAppDlg.h"
 
-#include "BlingCore/BlingCore.h"
 #include "Toast\ToastCommandLineInfo.h"
 #include "Agents\NotificationAgent.h"
+#include "BlingCore\BlingCore.h"
+#include "BlingCore\Upgrade\Agents\UpgradeViewerAgent.h"
+
+#include "Services\DownloadFileService.h"
 
 #include <boost/optional.hpp>
 
@@ -25,6 +28,8 @@ BlingApp theApp;
 
 BOOL BlingApp::InitInstance()
 {
+	m_core = std::make_unique<bling::core::BlingCore>();
+
 	boost::optional<bool> doRegister;
 
 	bling::ui::toast::CToastPPCommandLineInfo cmdInfo;
@@ -73,9 +78,6 @@ BOOL BlingApp::InitInstance()
 		return exit_code;
 	}
 
-	auto core = std::make_unique<bling::core::BlingCore>();
-	core->initialize();
-
 	m_cefApp = new bling::ui::BrowserApp();
 	m_cefApp->initialize();
 
@@ -98,4 +100,11 @@ int BlingApp::ExitInstance()
 BOOL BlingApp::CreateBrowser(CefRefPtr<bling::ui::BrowserClientHandler> client_handler, HWND hWnd, CRect rect, LPCTSTR pszURL)
 {
 	return m_cefApp->CreateBrowser(client_handler, hWnd, rect, pszURL);
+}
+
+void BlingApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
+{
+	auto downloadService = std::make_unique<bling::ui::service::DownloadFileService>(browser);
+
+	m_core->initialize(std::make_unique<bling::core::agent::UpgradeViewerAgent>("api.github.com", std::move(downloadService)));
 }

@@ -129,8 +129,12 @@
   <ItemGroup>
     <ClCompile Include="BlingContext.cpp" />
     <ClCompile Include="BlingCore.cpp" />
+    <ClCompile Include="Network\Services\DownloadFileService.cpp" />
     <ClCompile Include="Network\Services\HTTPClientService.cpp" />
+    <ClCompile Include="Network\Services\ParseURIService.cpp" />
     <ClCompile Include="System\Services\CompressionService.cpp" />
+    <ClCompile Include="System\Services\FileIOService.cpp" />
+    <ClCompile Include="System\Services\ReplaceFolderService.cpp" />
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp" />
     <ClCompile Include="Utils\Patterns\PublisherSubscriber\Broker.cpp" />
     <ClCompile Include="Utils\Patterns\PublisherSubscriber\Subscriber.cpp" />
@@ -139,8 +143,13 @@
     <ClInclude Include="BlingContext.h" />
     <ClInclude Include="BlingCore.h" />
     <ClInclude Include="Model\Notification.h" />
+    <ClInclude Include="Network\Services\DownloadFileService.h" />
     <ClInclude Include="Network\Services\HTTPClientService.h" />
+    <ClInclude Include="Network\Services\IDownloadFileService.h" />
+    <ClInclude Include="Network\Services\ParseURIService.h" />
     <ClInclude Include="System\Services\CompressionService.h" />
+    <ClInclude Include="System\Services\FileIOService.h" />
+    <ClInclude Include="System\Services\ReplaceFolderService.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />
     <ClInclude Include="Upgrade\Events.h" />
     <ClInclude Include="Utils\Patterns\PublisherSubscriber\Broker.h" />

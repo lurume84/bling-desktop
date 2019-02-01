@@ -59,8 +59,8 @@ namespace bling { namespace ui{
 		virtual BOOL OnInitDialog();
 		//}}AFX_MSG
 	protected:
-		CefRefPtr<BrowserClientHandler> m_cefHandler;
-		CefRefPtr<CefBrowser>					  m_cefBrowser;
-		std::string								  m_path;
+		CefRefPtr<BrowserClientHandler>	m_cefHandler;
+		CefRefPtr<CefBrowser>			m_cefBrowser;
+		std::string						m_path;
 	};
 }}

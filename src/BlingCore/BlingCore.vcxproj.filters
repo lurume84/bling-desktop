@@ -50,6 +50,18 @@
     <ClCompile Include="Utils\Patterns\PublisherSubscriber\Subscriber.cpp">
       <Filter>Utils\Patterns\PublisherSubscriber</Filter>
     </ClCompile>
+    <ClCompile Include="Network\Services\DownloadFileService.cpp">
+      <Filter>Network\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Services\ParseURIService.cpp">
+      <Filter>Network\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Services\FileIOService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Services\ReplaceFolderService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -77,6 +89,21 @@
     </ClInclude>
     <ClInclude Include="Model\Notification.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Services\DownloadFileService.h">
+      <Filter>Network\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Services\ParseURIService.h">
+      <Filter>Network\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\FileIOService.h">
+      <Filter>System\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\ReplaceFolderService.h">
+      <Filter>System\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Services\IDownloadFileService.h">
+      <Filter>Network\Services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

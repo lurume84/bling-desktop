@@ -13,10 +13,8 @@ namespace bling { namespace core { namespace service {
 
 	using boost::asio::ip::tcp;
 
-	HTTPClientService::HTTPClientService(const std::string& server, const std::string& port)
-	: m_server(server)
-	, m_port(port)
-	, m_io_service()
+	HTTPClientService::HTTPClientService()
+	: m_io_service()
 	, context_(boost::asio::ssl::context::sslv23)
 	{
 		context_.set_options(
@@ -30,10 +28,10 @@ namespace bling { namespace core { namespace service {
 
 	HTTPClientService::~HTTPClientService() = default;
 
-	bool HTTPClientService::send(const std::string& path, std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code)
+	bool HTTPClientService::send(const std::string& server, const std::string& port, const std::string& path, std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code)
 	{
 		tcp::resolver resolver(m_io_service);
-		tcp::resolver::query query(m_server, m_port);
+		tcp::resolver::query query(server, port);
 		tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
 
 		boost::system::error_code error;
@@ -44,7 +42,7 @@ namespace bling { namespace core { namespace service {
 		boost::asio::streambuf request;
 		std::ostream request_stream(&request);
 		request_stream << "GET " << path << " HTTP/1.0\r\n";
-		request_stream << "Host: " << m_server << "\r\n";
+		request_stream << "Host: " << server << "\r\n";
 		request_stream << "Accept: */*\r\n";
 		request_stream << "User-Agent: Mozilla / 5.0 (Windows NT 10.0; Win64; x64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 71.0.3578.98 Safari / 537.36\r\n";
 		request_stream << "Connection: close\r\n";
