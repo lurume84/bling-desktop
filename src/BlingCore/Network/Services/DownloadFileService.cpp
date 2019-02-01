@@ -1,6 +1,7 @@
 #include "DownloadFileService.h"
 
 #include "HTTPClientService.h"
+#include "ParseURIService.h"
 
 namespace bling { namespace core { namespace service {
 
@@ -16,7 +17,6 @@ namespace bling { namespace core { namespace service {
 	std::string DownloadFileService::download(const std::string& host, const std::string& url) const
 	{
 		std::map<std::string, std::string> headers;
-		std::string content;
 		unsigned int status;
 
 		auto pos = url.find(host) + host.size();

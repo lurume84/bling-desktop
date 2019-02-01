@@ -1,10 +1,9 @@
 #include "IDownloadFileService.h"
 
-#include "ParseURIService.h"
-
 namespace bling { namespace core { namespace service {
 
 	class HTTPClientService;
+	class ParseURIService;
 
 	class DownloadFileService : public IDownloadFileService
 	{

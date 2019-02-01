@@ -14,13 +14,11 @@ namespace bling { namespace ui { namespace service {
 
 	std::string DownloadFileService::download(const std::string& host, const std::string& url) const
 	{
-		std::map<std::string, std::string> headers;
-		std::string content;
-		unsigned int status;
-
 		auto pos = url.find(host) + host.size();
 
-		std::string file;
+		std::string script = "window.location = 'https://" + host + url.substr(pos) + "';";
+
+		m_browser->GetMainFrame()->ExecuteJavaScript(script, m_browser->GetMainFrame()->GetURL(), 0);
 
 		return "";
 	}

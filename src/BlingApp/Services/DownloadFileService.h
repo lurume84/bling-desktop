@@ -8,7 +8,13 @@
 #include <cef/cef_app.h>
 #pragma warning(pop)
 
-namespace bling { namespace ui { namespace service {
+namespace bling { 
+	
+	namespace core { namespace service {
+		class HTTPClientService;
+	}}
+	
+	namespace ui { namespace service {
 
 	class DownloadFileService : public core::service::IDownloadFileService
 	{

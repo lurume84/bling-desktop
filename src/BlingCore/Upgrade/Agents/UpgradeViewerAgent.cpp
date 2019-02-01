@@ -57,7 +57,7 @@ namespace bling { namespace core { namespace agent {
 					events::DownloadUpgradeEvent evt(version);
 					utils::patterns::Broker::get().publish(evt);
 
-					auto fileContent = m_downloadService->download(tree.get_child("zipball_url").get_value<std::string>(), version);
+					auto fileContent = m_downloadService->download(m_host, tree.get_child("zipball_url").get_value<std::string>());
 
 					if (fileContent != "")
 					{
