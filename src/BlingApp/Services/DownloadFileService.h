@@ -2,6 +2,7 @@
 
 #include "BlingCore\Utils\Patterns\PublisherSubscriber\Subscriber.h"
 
+#include "BlingCore\System\Services\EncodeStringService.h"
 #include "BlingCore\Network\Services\IDownloadFileService.h"
 
 #pragma warning(push)
@@ -26,7 +27,8 @@ namespace bling {
 	class DownloadFileService : public core::service::IDownloadFileService
 	{
 	public:
-		DownloadFileService(CefRefPtr<CefBrowser> browser);
+		DownloadFileService(CefRefPtr<CefBrowser> browser, 
+							std::unique_ptr<core::service::EncodeStringService> encodeService = std::make_unique<core::service::EncodeStringService>());
 		~DownloadFileService();
 		std::string download(const std::string& host, const std::string& url, const std::string &folder) const override;
 	private:
@@ -34,6 +36,8 @@ namespace bling {
 		cup::Subscriber			m_subscriber;
 
 		std::string				m_path;
+
+		std::unique_ptr<core::service::EncodeStringService> m_encodeService;
 
 		mutable std::condition_variable m_cv;
 		mutable std::mutex				m_mutex;

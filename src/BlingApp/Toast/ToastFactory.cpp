@@ -22,9 +22,9 @@ namespace bling { namespace ui {  namespace toast {
 		}
 	}
 
-	std::unique_ptr<ToastPP::CToast> ToastFactory::getBasic(const std::wstring& title, const std::wstring& message) const
+	std::shared_ptr<ToastPP::CToast> ToastFactory::getBasic(const std::wstring& title, const std::wstring& message) const
 	{
-		auto toast = std::make_unique<ToastPP::CToast>();
+		auto toast = std::make_shared<ToastPP::CToast>();
 		
 		std::wstring raw = L"<toast>\r\n\
 								<visual>\r\n\

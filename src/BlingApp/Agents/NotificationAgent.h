@@ -50,8 +50,6 @@ namespace bling { namespace ui {
 	private:
 		cup::Subscriber m_subscriber;
 		ToastPP::CManager m_ToastManager;
-
-		std::shared_ptr<ToastPP::CToast> m_toast;
-		std::shared_ptr<toast::ToastEventHandler> m_handler;
+		Microsoft::WRL::Wrappers::RoInitializeWrapper m_winRTInitializer;
 	};
 }}}

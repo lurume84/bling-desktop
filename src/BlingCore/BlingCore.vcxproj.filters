@@ -62,6 +62,9 @@
     <ClCompile Include="System\Services\ReplaceFolderService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
+    <ClCompile Include="System\Services\EncodeStringService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -104,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="Network\Services\IDownloadFileService.h">
       <Filter>Network\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\EncodeStringService.h">
+      <Filter>System\Services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

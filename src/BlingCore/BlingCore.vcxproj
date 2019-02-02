@@ -133,6 +133,7 @@
     <ClCompile Include="Network\Services\HTTPClientService.cpp" />
     <ClCompile Include="Network\Services\ParseURIService.cpp" />
     <ClCompile Include="System\Services\CompressionService.cpp" />
+    <ClCompile Include="System\Services\EncodeStringService.cpp" />
     <ClCompile Include="System\Services\FileIOService.cpp" />
     <ClCompile Include="System\Services\ReplaceFolderService.cpp" />
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Network\Services\IDownloadFileService.h" />
     <ClInclude Include="Network\Services\ParseURIService.h" />
     <ClInclude Include="System\Services\CompressionService.h" />
+    <ClInclude Include="System\Services\EncodeStringService.h" />
     <ClInclude Include="System\Services\FileIOService.h" />
     <ClInclude Include="System\Services\ReplaceFolderService.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />

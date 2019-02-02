@@ -28,31 +28,6 @@ BlingApp theApp;
 
 BOOL BlingApp::InitInstance()
 {
-	m_core = std::make_unique<bling::core::BlingCore>();
-
-	boost::optional<bool> doRegister;
-
-	bling::ui::toast::CToastPPCommandLineInfo cmdInfo;
-	ParseCommandLine(cmdInfo);
-
-	if (cmdInfo.m_bRegister)
-	{
-		doRegister = true;
-	}
-	else if (cmdInfo.m_bUnRegister)
-	{
-		doRegister = false;
-	}
-
-	std::string reason;
-
-	bling::ui::agent::NotificationAgent agent;
-	if (!agent.initialize(doRegister, reason, m_nExitCode))
-	{
-		AfxMessageBox(reason.c_str(), MB_OK | MB_ICONEXCLAMATION);
-		return FALSE;
-	}
-
 	// Enable High-DPI support on Windows 7 or newer.
 	CefEnableHighDPISupport();
 
@@ -76,6 +51,31 @@ BOOL BlingApp::InitInstance()
 	{
 		// The sub-process has completed so return here.
 		return exit_code;
+	}
+
+	m_core = std::make_unique<bling::core::BlingCore>();
+
+	boost::optional<bool> doRegister;
+
+	bling::ui::toast::CToastPPCommandLineInfo cmdInfo;
+	ParseCommandLine(cmdInfo);
+
+	if (cmdInfo.m_bRegister)
+	{
+		doRegister = true;
+	}
+	else if (cmdInfo.m_bUnRegister)
+	{
+		doRegister = false;
+	}
+
+	std::string reason;
+
+	bling::ui::agent::NotificationAgent agent;
+	if (!agent.initialize(doRegister, reason, m_nExitCode))
+	{
+		AfxMessageBox(reason.c_str(), MB_OK | MB_ICONEXCLAMATION);
+		return FALSE;
 	}
 
 	m_cefApp = new bling::ui::BrowserApp();

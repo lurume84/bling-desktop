@@ -13,6 +13,7 @@ namespace bling { namespace ui {  namespace agent {
 	NotificationAgent::ShowNotificationEvent::~ShowNotificationEvent() = default;
 
 	NotificationAgent::NotificationAgent()
+	: m_winRTInitializer(RO_INIT_MULTITHREADED)
 	{
 		m_subscriber.subscribe([this](const bling::core::utils::patterns::Event& rawEvt)
 		{
@@ -32,74 +33,77 @@ namespace bling { namespace ui {  namespace agent {
 	{
 		ecode = 0;
 
-		HRESULT hr = m_ToastManager.Create(L"Bling.Desktop");
-
-		//Initialize the Windows Runtime
-		Microsoft::WRL::Wrappers::RoInitializeWrapper winRTInitializer(RO_INIT_MULTITHREADED);
+		HRESULT hr = m_winRTInitializer;
+		if (FAILED(hr))
 		{
-			hr = winRTInitializer;
-			if (FAILED(hr))
-			{
-				CString sMsg;
-				sMsg.Format(_T("Failed to initialize Windows Runtime, Error:0x%08X"), hr);
-				reason = sMsg;
-				return false;
-			}
+			CString sMsg;
+			sMsg.Format(_T("Failed to initialize Windows Runtime, Error:0x%08X"), hr);
+			reason = sMsg;
+			return false;
+		}
 
-			//Get the executable path
-			std::wstring sModuleName;
-			hr = ToastPP::CManager::GetExecutablePath(sModuleName);
-			if (FAILED(hr))
-			{
-				CString sMsg;
-				sMsg.Format(_T("Failed to get executable path, Error:0x%08X"), hr);
-				reason = sMsg;
-				return false;
-			}
+		//Get the executable path
+		std::wstring sModuleName;
+		hr = ToastPP::CManager::GetExecutablePath(sModuleName);
+		if (FAILED(hr))
+		{
+			CString sMsg;
+			sMsg.Format(_T("Failed to get executable path, Error:0x%08X"), hr);
+			reason = sMsg;
+			return false;
+		}
 
-			if(doRegister)
+		if (doRegister)
+		{
+			if (*doRegister)
 			{
-				if (*doRegister)
+				ecode = RegisterCOMServer(sModuleName.c_str());
+				if (FAILED(ecode))
 				{
-					ecode = RegisterCOMServer(sModuleName.c_str());
-					if (FAILED(ecode))
-					{
-						CString sMsg;
-						sMsg.Format(_T("Failed to register COM server, Error:0x%08X"), hr);
-						reason = sMsg;
-						return false;
-					}
-				}
-				else
-				{
-					ecode = UnRegisterCOMServer();
-					if (FAILED(ecode))
-					{
-						CString sMsg;
-						sMsg.Format(_T("Failed to unregister COM server, Error:0x%08X"), ecode);
-						reason = sMsg;
-						return false;
-					}
+					CString sMsg;
+					sMsg.Format(_T("Failed to register COM server, Error:0x%08X"), hr);
+					reason = sMsg;
+					return false;
 				}
 			}
-
-			hr = ToastPP::CManager::RegisterForNotificationSupport(L"Bling Desktop", sModuleName.c_str(), L"Bling.Desktop", __uuidof(ui::toast::ToastNotificationActivationCallback));
-			if (FAILED(hr))
+			else
 			{
-				CString sMsg;
-				sMsg.Format(_T("Failed to register for Toast Notifications, Error:0x%08X"), hr);
-				reason = sMsg;
-				return false;
+				ecode = UnRegisterCOMServer();
+				if (FAILED(ecode))
+				{
+					CString sMsg;
+					sMsg.Format(_T("Failed to unregister COM server, Error:0x%08X"), ecode);
+					reason = sMsg;
+					return false;
+				}
 			}
+		}
 
-			ecode = RegisterActivator();
-			if (FAILED(ecode))
-			{
-				CString sMsg;
-				sMsg.Format(_T("Failed to register Activator, Error:0x%08X"), ecode);
-				reason = sMsg;
-				return false;
-			}
+		hr = ToastPP::CManager::RegisterForNotificationSupport(L"Bling Desktop", sModuleName.c_str(), L"Bling.Desktop", __uuidof(ui::toast::ToastNotificationActivationCallback));
+		if (FAILED(hr))
+		{
+			CString sMsg;
+			sMsg.Format(_T("Failed to register for Toast Notifications, Error:0x%08X"), hr);
+			reason = sMsg;
+			return false;
+		}
+
+		ecode = RegisterActivator();
+		if (FAILED(ecode))
+		{
+			CString sMsg;
+			sMsg.Format(_T("Failed to register Activator, Error:0x%08X"), ecode);
+			reason = sMsg;
+			return false;
+		}
+
+		hr = m_ToastManager.Create(L"Bling.Desktop");
+		if (FAILED(hr))
+		{
+			CString sMsg;
+			sMsg.Format(_T("Failed to create manager, Error:0x%08X"), hr);
+			reason = sMsg;
+			return false;
 		}
 
 		return true;
