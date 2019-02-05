@@ -35,6 +35,8 @@ namespace bling { namespace ui{
 		CefBrowserSettings settings;
 		CefWindowInfo info;
 	
+		settings.web_security = STATE_DISABLED;
+
 		// set browser as child
 		info.SetAsChild( hWnd, rect );
 

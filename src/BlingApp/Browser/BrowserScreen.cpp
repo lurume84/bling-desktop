@@ -125,6 +125,18 @@ namespace bling { namespace ui{
 
 	LRESULT BrowserScreen::OnKeyBoardHook(WPARAM /*wParam*/, LPARAM lParam)
 	{
+		MSG* pMsg = (MSG*)lParam;
+
+		switch (pMsg->message)
+		{
+		case WM_KEYDOWN:
+			if (pMsg->wParam == VK_F5)
+			{
+				m_cefBrowser->Reload();
+			}
+			break;
+		}
+
 		return S_OK;
 	}
 
