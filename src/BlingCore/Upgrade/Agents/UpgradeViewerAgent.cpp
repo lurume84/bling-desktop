@@ -72,6 +72,8 @@ namespace bling { namespace core { namespace agent {
 
 							m_replaceFolderService->replace(it->path().string(), m_outFolder);
 
+							boost::filesystem::rename(path, m_inFolder + version + ".zip");
+
 							events::UpgradeCompletedEvent evt(version);
 							utils::patterns::Broker::get().publish(evt);
 						}

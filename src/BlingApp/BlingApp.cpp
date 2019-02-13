@@ -108,6 +108,6 @@ std::string BlingApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 
 	m_core->initialize(std::make_unique<bling::core::agent::UpgradeViewerAgent>("api.github.com", "Download/Versions/", "Html/viewer", 
 																				std::move(downloadService)));
-
+	
 	return "Download/Versions/";
 }
