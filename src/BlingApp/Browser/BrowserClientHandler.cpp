@@ -24,6 +24,8 @@
 #include <cef/cef_trace.h>
 #pragma warning(pop)
 
+#include <boost/filesystem.hpp>
+
 namespace bling { namespace ui{
 
 	#define REQUIRE_UI_THREAD()   ASSERT(CefCurrentlyOn(TID_UI));
@@ -202,8 +204,15 @@ namespace bling { namespace ui{
 	{
 		REQUIRE_UI_THREAD();
 
-		// Continue the download and show the "Save As" dialog.
-		callback->Continue(m_delegate->getDownloadPath(suggested_name), false);
+		if (boost::filesystem::extension(suggested_name.c_str()) == ".mp4")
+		{
+			// Continue the download and show the "Save As" dialog.
+			callback->Continue(GetDownloadPath(suggested_name), true);
+		}
+		else
+		{
+			callback->Continue(m_delegate->getDownloadPath(suggested_name), false);
+		}
 	}
 
 	void BrowserClientHandler::OnDownloadUpdated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, CefRefPtr<CefDownloadItemCallback> callback)
