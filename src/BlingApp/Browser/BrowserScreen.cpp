@@ -10,7 +10,9 @@
 #include "Browser/BrowserClientHandler.h"
 #include "Browser/Resources/InternalResourceManager.h"
 #include "Browser/Resources/ExternalResourceManager.h"
+#include "BlingCore\System\Services\FileInfoService.h"
 #include "Constants.h"
+#include "Events.h"
 
 #include <cef/cef_app.h>
 #include <cef/cef_browser.h>
@@ -106,6 +108,17 @@ namespace bling { namespace ui{
 		m_cefBrowser = browser;
 
 		m_downloadPath = theApp.onBrowserCreated(m_cefBrowser);
+
+		m_subscriber.subscribe([this](const bling::core::utils::patterns::Event& rawEvt)
+		{
+			TCHAR szFileName[MAX_PATH + 1];
+			GetModuleFileName(NULL, szFileName, MAX_PATH + 1);
+
+			core::service::FileInfoService service;
+			auto version = service.getProductVersion(std::string(szFileName));
+
+			executeJS("document.dispatchEvent(new CustomEvent(\"versionEvent\", {'detail': " + version + "}));");
+		}, events::BROWSER_LOAD_END_EVENT);
 	}
 
 	void BrowserScreen::onBrowserClosed(CefRefPtr<CefBrowser> browser)

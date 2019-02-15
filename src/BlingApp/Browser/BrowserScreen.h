@@ -8,7 +8,11 @@
 #include "Browser/BrowserClientHandler.h"
 #pragma warning( pop )
 
+#include "BlingCore\Utils\Patterns\PublisherSubscriber\Subscriber.h"
+
 namespace bling { namespace ui{
+
+	namespace cup = core::utils::patterns;
 
 	class BrowserApp;
 
@@ -64,5 +68,7 @@ namespace bling { namespace ui{
 		CefRefPtr<CefBrowser>			m_cefBrowser;
 		std::string						m_path;
 		std::string						m_downloadPath;
+
+		cup::Subscriber					m_subscriber;
 	};
 }}

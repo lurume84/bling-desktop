@@ -26,4 +26,13 @@ namespace bling { namespace ui { namespace events {
 		unsigned long long nTotal;
 		std::string m_path;
 	};
+
+	const sup::EventType BROWSER_LOAD_END_EVENT = "BROWSER_LOAD_END_EVENT";
+	struct BrowserLoadEndEvent : public sup::Event
+	{
+		BrowserLoadEndEvent()
+		{
+			m_name = BROWSER_LOAD_END_EVENT;
+		}
+	};
 }}}

@@ -258,6 +258,9 @@ namespace bling { namespace ui{
 		// send message
 		//::SendMessage( hWindow, WM_APP_CEF_LOAD_END, httpStatusCode, NULL);
 
+		events::BrowserLoadEndEvent evt;
+		core::utils::patterns::Broker::get().publish(evt);
+
 		// call parent
 		CefLoadHandler::OnLoadEnd(browser, frame, httpStatusCode);
 	}
