@@ -1,5 +1,5 @@
 # Bling desktop
-This application is the container of [Bling Viewer](https://github.com/lurume84/bling-viewer) project. It is a chrome-based application that loads viewer seamlessly and provides local storage capabilities.
+This application is the container of [Bling Viewer](https://github.com/lurume84/bling-viewer) project. It is a chrome-based application (CEF) that loads viewer seamlessly and provides local storage capabilities.
 
 ## What it does
 
