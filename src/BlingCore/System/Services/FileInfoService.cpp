@@ -31,9 +31,9 @@ namespace bling { namespace core { namespace service {
 						if (verInfo->dwSignature == 0xfeef04bd)
 						{
 							std::stringstream ss;
-							ss << ((verInfo->dwFileVersionMS >> 16) & 0xffff)
-								<< ((verInfo->dwFileVersionMS >> 0) & 0xffff)
-								<< ((verInfo->dwFileVersionLS >> 16) & 0xffff)
+							ss << ((verInfo->dwFileVersionMS >> 16) & 0xffff) << "."
+								<< ((verInfo->dwFileVersionMS >> 0) & 0xffff) << "."
+								<< ((verInfo->dwFileVersionLS >> 16) & 0xffff) << "."
 								<< ((verInfo->dwFileVersionLS >> 0) & 0xffff);
 
 							version = ss.str();

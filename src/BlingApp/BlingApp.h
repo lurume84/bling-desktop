@@ -37,6 +37,8 @@ public:
   BOOL CreateBrowser(CefRefPtr<bling::ui::BrowserClientHandler> client_handler, HWND hWnd, CRect rect, LPCTSTR pszURL);
   std::string onBrowserCreated(CefRefPtr<CefBrowser> browser);
 
+  std::wstring m_toastAction;
+
   DECLARE_MESSAGE_MAP()
 };
 

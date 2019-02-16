@@ -14,7 +14,7 @@ namespace bling { namespace ui {  namespace toast {
 
 	ToastEventHandler::~ToastEventHandler()
 	{
-    
+
 	}
 
 	void ToastEventHandler::OnToastActivated(_In_opt_ ABI::Windows::UI::Notifications::IToastNotification* /*pSender*/, _In_opt_ IInspectable* /*pArgs*/)

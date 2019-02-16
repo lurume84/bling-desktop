@@ -4,11 +4,11 @@
 
 #include "Agents/NotificationAgent.h"
 #include "Events.h"
+#include "BlingApp.h"
 
 #include "BlingCore\Upgrade\Events.h"
 #include "Toast\ToastEventHandler.h"
 #include "Toast\ToastCommandLineInfo.h"
-#include "Toast\ToastNotificationActivationCallback.h"
 #include "Toast\ToastFactory.h"
 
 #include "BlingCore\Utils\Patterns\PublisherSubscriber\Broker.h"
@@ -40,15 +40,33 @@ namespace bling { namespace ui { namespace service {
 
 			auto version = m_encodeService->utf8toUtf16(evt.m_version);
 			auto path = m_encodeService->utf8toUtf16(boost::filesystem::canonical("Html/loading/img/logo_download.png").string());
+			
+			auto callback = evt.m_callback;
 
-			auto notification = std::make_unique<core::model::Notification>([]() {return true; }, []() {return true; }, []() {return true; });
+			auto notification = std::make_unique<core::model::Notification>([callback]() 
+			{
+				if (theApp.m_toastAction == L"accept")
+				{
+					return callback();
+				}
+				else
+				{
+					return true;
+				}
+			}, []() 
+			{
+				return true; 
+			}, []() 
+			{
+				return true; 
+			});
 
-			auto handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
+			m_handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
 
 			toast::ToastFactory factory;
-			auto toast = factory.getBasic(L"Version " + version + L" available", path);
+			m_toast = factory.getYesNo(L"Upgrade", L"Version " + version + L" available", L"Download");
 
-			agent::NotificationAgent::ShowNotificationEvent notificationEvt(toast, handler);
+			agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
 			core::utils::patterns::Broker::get().publish(notificationEvt);
 
 		}, core::events::DOWNLOAD_UPGRADE_EVENT);

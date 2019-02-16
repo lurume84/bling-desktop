@@ -6,7 +6,6 @@
 
 #include "Toast\ToastEventHandler.h"
 #include "Toast\ToastCommandLineInfo.h"
-#include "Toast\ToastNotificationActivationCallback.h"
 #include "Toast\ToastFactory.h"
 
 #include <boost\filesystem\operations.hpp>

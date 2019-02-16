@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "ToastNotificationActivationCallback.h"
+#include "BlingApp.h"
 
 namespace bling { namespace ui {  namespace toast {
 	HRESULT ToastNotificationActivationCallback::Activate(__RPC__in_string LPCWSTR appUserModelId, __RPC__in_opt_string LPCWSTR invokedArgs,
@@ -20,6 +21,8 @@ namespace bling { namespace ui {  namespace toast {
 				sMsg.AppendFormat(L"  Key:\"%s\", Value:\"%s\"\r\n", data[i].Key, data[i].Value);
 			}
 		}
+
+		theApp.m_toastAction = invokedArgs;
 
 		return S_OK;
 	}

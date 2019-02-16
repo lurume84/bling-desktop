@@ -12,7 +12,13 @@
 #pragma warning(pop)
 
 #include <mutex>
+#include <memory>
 #include <condition_variable>
+
+namespace ToastPP
+{
+	class CToast;
+}
 
 namespace bling { 
 	
@@ -20,7 +26,14 @@ namespace bling {
 		class HTTPClientService;
 	}}
 	
-	namespace ui { namespace service {
+	namespace ui { 
+		
+		namespace toast
+		{
+			class ToastEventHandler;
+		}
+		
+	namespace service {
 
 	namespace cup = core::utils::patterns;
 
@@ -41,5 +54,8 @@ namespace bling {
 
 		mutable std::condition_variable m_cv;
 		mutable std::mutex				m_mutex;
+
+		std::shared_ptr<toast::ToastEventHandler> m_handler;
+		std::shared_ptr<ToastPP::CToast> m_toast;
 	};
 }}}

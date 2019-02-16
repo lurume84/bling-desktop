@@ -9,13 +9,15 @@ namespace bling { namespace core { namespace events {
 	const sup::EventType DOWNLOAD_UPGRADE_EVENT = "DOWNLOAD_UPGRADE_EVENT";
 	struct DownloadUpgradeEvent : public sup::Event
 	{
-		DownloadUpgradeEvent(const std::string& version)
+		DownloadUpgradeEvent(const std::string& version, std::function<bool()> callback)
 		: m_version(version)
+		, m_callback(callback)
 		{
 			m_name = DOWNLOAD_UPGRADE_EVENT;
 		}
 
 		std::string m_version;
+		std::function<bool()> m_callback;
 	};
 
 	const sup::EventType EXTRACT_UPGRADE_EVENT = "EXTRACT_UPGRADE_EVENT";

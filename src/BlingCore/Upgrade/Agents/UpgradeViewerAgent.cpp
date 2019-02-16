@@ -53,31 +53,42 @@ namespace bling { namespace core { namespace agent {
 
 				auto version = tree.get_child("tag_name").get_value<std::string>();
 
-				if (!boost::filesystem::exists(m_inFolder + version + ".zip"))
+				if (boost::filesystem::exists(m_inFolder + version + ".zip"))
 				{
-					events::DownloadUpgradeEvent evt(version);
-					utils::patterns::Broker::get().publish(evt);
-
-					auto path = m_downloadService->download(m_host, tree.get_child("zipball_url").get_value<std::string>(), m_inFolder + version + ".zip");
-
-					if (path != "")
+					events::DownloadUpgradeEvent evt(version, [this, &tree, &version] ()
 					{
-						events::ExtractUpgradeEvent evt(path);
-						utils::patterns::Broker::get().publish(evt);
+						return true;
+						auto path = m_downloadService->download(m_host, tree.get_child("zipball_url").get_value<std::string>(), m_inFolder + version + ".zip");
 
-						if (m_compressionService->extract("zip", path, m_inFolder))
+						if (path != "")
 						{
-							auto target = boost::filesystem::path(m_inFolder);
-							boost::filesystem::directory_iterator it(target);
-
-							m_replaceFolderService->replace(it->path().string(), m_outFolder);
-
-							boost::filesystem::rename(path, m_inFolder + version + ".zip");
-
-							events::UpgradeCompletedEvent evt(version);
+							events::ExtractUpgradeEvent evt(path);
 							utils::patterns::Broker::get().publish(evt);
+
+							if (m_compressionService->extract("zip", path, m_inFolder))
+							{
+								auto target = boost::filesystem::path(m_inFolder);
+								boost::filesystem::directory_iterator it(target);
+
+								m_replaceFolderService->replace(it->path().string(), m_outFolder);
+
+								boost::filesystem::rename(path, m_inFolder + version + ".zip");
+
+								events::UpgradeCompletedEvent evt(version);
+								utils::patterns::Broker::get().publish(evt);
+							}
 						}
-					}
+
+						armTimer();
+
+						return true;
+					});
+
+					utils::patterns::Broker::get().publish(evt);
+				}
+				else
+				{
+					armTimer();
 				}
 			}
 			catch (std::exception& /*e*/)
@@ -94,7 +105,6 @@ namespace bling { namespace core { namespace agent {
 		m_timer.async_wait([&](const boost::system::error_code& ec)
 		{
 			execute();
-			armTimer();
 		});
 	}
 }}}

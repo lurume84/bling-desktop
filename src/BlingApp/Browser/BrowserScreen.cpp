@@ -117,7 +117,7 @@ namespace bling { namespace ui{
 			core::service::FileInfoService service;
 			auto version = service.getProductVersion(std::string(szFileName));
 
-			executeJS("document.dispatchEvent(new CustomEvent(\"versionEvent\", {'detail': " + version + "}));");
+			executeJS("setAppVersion(\"" + version + "\");");
 		}, events::BROWSER_LOAD_END_EVENT);
 	}
 

@@ -429,6 +429,7 @@ xcopy $(SolutionDir)src\BlingUI\*.* $(SolutionDir)\bin\$(Configuration)\$(Projec
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\BlingApp.ico" />
+    <Image Include="res\logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlingCore\BlingCore.vcxproj">
