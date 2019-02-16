@@ -53,12 +53,13 @@ namespace bling { namespace core { namespace agent {
 
 				auto version = tree.get_child("tag_name").get_value<std::string>();
 
-				if (boost::filesystem::exists(m_inFolder + version + ".zip"))
+				if (!boost::filesystem::exists(m_inFolder + version + ".zip"))
 				{
-					events::DownloadUpgradeEvent evt(version, [this, &tree, &version] ()
+					auto url = tree.get_child("zipball_url").get_value<std::string>();
+
+					events::DownloadUpgradeEvent evt(version, [this, url, version] ()
 					{
-						return true;
-						auto path = m_downloadService->download(m_host, tree.get_child("zipball_url").get_value<std::string>(), m_inFolder + version + ".zip");
+						auto path = m_downloadService->download(m_host, url, m_inFolder + version + ".zip");
 
 						if (path != "")
 						{
