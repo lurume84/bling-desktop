@@ -39,37 +39,42 @@ namespace bling { namespace ui { namespace service {
 			auto evt = static_cast<const core::events::DownloadUpgradeEvent&>(rawEvt);
 
 			auto version = m_encodeService->utf8toUtf16(evt.m_version);
-			auto path = m_encodeService->utf8toUtf16(boost::filesystem::canonical("Html/loading/img/logo_download.png").string());
 			
-			auto callback = evt.m_callback;
-
-			auto notification = std::make_unique<core::model::Notification>([callback]() 
-			{
-				if (theApp.m_toastAction == L"accept")
-				{
-					return callback();
-				}
-				else
-				{
-					return true;
-				}
-			}, []() 
-			{
-				return true; 
-			}, []() 
-			{
-				return true; 
-			});
-
-			m_handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
-
 			toast::ToastFactory factory;
-			m_toast = factory.getYesNo(L"Upgrade", L"Version " + version + L" available", L"Download");
+			
+			if (boost::filesystem::exists("Html/viewer/index.html"))
+			{
+				auto callback = evt.m_callback;
 
-			agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
-			core::utils::patterns::Broker::get().publish(notificationEvt);
+				auto notification = std::make_unique<core::model::Notification>([callback]()
+				{
+					return (theApp.m_toastAction == L"accept") ? callback() : true;
+				}, []() {return true; }, []() {return true; });
 
+				m_handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
+				m_toast = factory.getYesNo(L"Upgrade", L"Version " + version + L" available", L"Download");
+
+				agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
+				core::utils::patterns::Broker::get().publish(notificationEvt);
+			}
+			else
+			{
+				auto notification = std::make_unique<core::model::Notification>([](){return true;}, [](){return true;}, [](){return true;});
+
+				m_handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
+				m_toast = factory.getBasic(L"Upgrading...", L"Version " + version + L"");
+
+				agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
+				core::utils::patterns::Broker::get().publish(notificationEvt);
+
+				evt.m_callback();
+			}
 		}, core::events::DOWNLOAD_UPGRADE_EVENT);
+
+		m_subscriber.subscribe([this](const bling::core::utils::patterns::Event& rawEvt)
+		{
+			m_browser->GetMainFrame()->LoadURL(boost::filesystem::canonical("Html/viewer/index.html").string());
+		}, bling::core::events::UPGRADE_COMPLETED_EVENT);
 	}
 
 	DownloadFileService::~DownloadFileService() = default;
