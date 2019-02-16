@@ -69,14 +69,20 @@ namespace bling { namespace core { namespace agent {
 							if (m_compressionService->extract("zip", path, m_inFolder))
 							{
 								auto target = boost::filesystem::path(m_inFolder);
-								boost::filesystem::directory_iterator it(target);
+								
+								for (auto &it : boost::filesystem::directory_iterator(target))
+								{
+									if (boost::filesystem::is_directory(it.path()))
+									{
+										m_replaceFolderService->replace(it.path().string(), m_outFolder);
 
-								m_replaceFolderService->replace(it->path().string(), m_outFolder);
+										boost::filesystem::rename(path, m_inFolder + version + ".zip");
 
-								boost::filesystem::rename(path, m_inFolder + version + ".zip");
-
-								events::UpgradeCompletedEvent evt(version);
-								utils::patterns::Broker::get().publish(evt);
+										events::UpgradeCompletedEvent evt(version);
+										utils::patterns::Broker::get().publish(evt);
+										break;
+									}
+								}
 							}
 						}
 
