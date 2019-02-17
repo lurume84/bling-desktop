@@ -35,7 +35,6 @@ namespace bling { namespace core { namespace agent {
 
 		std::unique_ptr<service::IDownloadFileService> m_downloadService;
 		std::unique_ptr<service::HTTPClientService> m_clientService;
-		std::unique_ptr<service::FileIOService> m_fileIOService;
 		std::unique_ptr<service::CompressionService> m_compressionService;
 		std::unique_ptr<service::ReplaceFolderService> m_replaceFolderService;
 	};

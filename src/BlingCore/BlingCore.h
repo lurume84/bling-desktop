@@ -7,6 +7,7 @@ namespace bling { namespace core {
 	namespace agent
 	{
 		class UpgradeViewerAgent;
+		class SyncVideoAgent;
 	}
 	
 	class BlingContext;
@@ -16,7 +17,7 @@ namespace bling { namespace core {
 	public:
 		BlingCore();
 		~BlingCore();
-		void initialize(std::unique_ptr<agent::UpgradeViewerAgent>);
+		void initialize(std::unique_ptr<agent::UpgradeViewerAgent>, std::unique_ptr<agent::SyncVideoAgent>);
 	private:
 		std::unique_ptr<BlingContext> m_context;
 	};

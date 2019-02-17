@@ -7,6 +7,8 @@
 #include "Agents\NotificationAgent.h"
 #include "BlingCore\BlingCore.h"
 #include "BlingCore\Upgrade\Agents\UpgradeViewerAgent.h"
+#include "BlingCore\Blink\Agents\SyncVideoAgent.h"
+#include "BlingCore\System\Services\ApplicationDataService.h"
 
 #include "Services\DownloadFileService.h"
 
@@ -104,10 +106,16 @@ BOOL BlingApp::CreateBrowser(CefRefPtr<bling::ui::BrowserClientHandler> client_h
 
 std::string BlingApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 {
-	auto downloadService = std::make_unique<bling::ui::service::DownloadFileService>(browser);
+	bling::core::service::ApplicationDataService service;
 
-	m_core->initialize(std::make_unique<bling::core::agent::UpgradeViewerAgent>("api.github.com", "Download/Versions/", "Html/viewer", 
-																				std::move(downloadService)));
+	boost::filesystem::create_directories(service.getMyDocuments() + "Download\\Versions");
+
+	auto updateAgent = std::make_unique<bling::core::agent::UpgradeViewerAgent>("api.github.com", service.getMyDocuments() + "Download\\Versions\\", "Html/viewer",
+																				std::make_unique<bling::ui::service::DownloadFileService>(browser));
+
+	auto syncVideoAgent = std::make_unique<bling::core::agent::SyncVideoAgent>(service.getMyDocuments() + "Download\\Videos\\");
+
+	m_core->initialize(std::move(updateAgent), std::move(syncVideoAgent));
 	
-	return "Download/Versions/";
+	return service.getMyDocuments() + "Download\\Versions\\";
 }

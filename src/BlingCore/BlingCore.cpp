@@ -3,13 +3,15 @@
 #include "BlingContext.h"
 
 #include "Upgrade\Agents\UpgradeViewerAgent.h"
+#include "Blink\Agents\SyncVideoAgent.h"
 
 namespace bling { namespace core {
 	BlingCore::BlingCore() = default;
 	BlingCore::~BlingCore() = default;
 	
-	void BlingCore::initialize(std::unique_ptr<agent::UpgradeViewerAgent> upgradeViewerAgent)
+	void BlingCore::initialize(std::unique_ptr<agent::UpgradeViewerAgent> upgradeViewerAgent,
+								std::unique_ptr<agent::SyncVideoAgent> syncVideoAgent)
 	{
-		m_context = std::make_unique<BlingContext>(std::move(upgradeViewerAgent));
+		m_context = std::make_unique<BlingContext>(std::move(upgradeViewerAgent), std::move(syncVideoAgent));
 	}
 }}

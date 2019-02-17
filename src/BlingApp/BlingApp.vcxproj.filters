@@ -55,9 +55,6 @@
     <ClInclude Include="Toast\ToastNotificationActivationCallback.h">
       <Filter>Toast</Filter>
     </ClInclude>
-    <ClInclude Include="Agents\UpgradeAgent.h">
-      <Filter>Agents</Filter>
-    </ClInclude>
     <ClInclude Include="Browser\BrowserScreen.h">
       <Filter>Browser</Filter>
     </ClInclude>
@@ -83,9 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agents\NotificationAgent.cpp">
-      <Filter>Agents</Filter>
-    </ClCompile>
-    <ClCompile Include="Agents\UpgradeAgent.cpp">
       <Filter>Agents</Filter>
     </ClCompile>
     <ClCompile Include="Browser\BrowserApp.cpp">

@@ -31,6 +31,15 @@
     <Filter Include="Model">
       <UniqueIdentifier>{36bb02bb-08e4-4ad1-814c-14c9eb277a8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Blink">
+      <UniqueIdentifier>{067a6ef2-903e-48df-9fd9-5a94b69d39e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blink\Agents">
+      <UniqueIdentifier>{3f227f18-e04b-46a6-9195-f7783bfc8ceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Model">
+      <UniqueIdentifier>{75644b66-b126-48fc-890c-9ea92211a343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
@@ -66,6 +75,12 @@
       <Filter>System\Services</Filter>
     </ClCompile>
     <ClCompile Include="System\Services\FileInfoService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Blink\Agents\SyncVideoAgent.cpp">
+      <Filter>Blink\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Services\ApplicationDataService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
   </ItemGroup>
@@ -115,6 +130,18 @@
       <Filter>System\Services</Filter>
     </ClInclude>
     <ClInclude Include="System\Services\FileInfoService.h">
+      <Filter>System\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Events.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Blink\Agents\SyncVideoAgent.h">
+      <Filter>Blink\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Model\Credentials.h">
+      <Filter>Network\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\ApplicationDataService.h">
       <Filter>System\Services</Filter>
     </ClInclude>
   </ItemGroup>

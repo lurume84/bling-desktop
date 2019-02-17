@@ -25,6 +25,18 @@ namespace bling { namespace core { namespace service {
 			query = std::string(what[5].first, what[5].second);
 			fragment = std::string(what[6].first, what[6].second);
 
+			if (port == "")
+			{
+				if (protocol == "https")
+				{
+					port = "443";
+				}
+				else
+				{
+					port = "80";
+				}
+			}
+
 			return true;
 		}
 		else

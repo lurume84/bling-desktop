@@ -1,11 +1,12 @@
+#pragma once
+
 #include "IDownloadFileService.h"
 
 #include "../../System/Services/FileIOService.h"
+#include "ParseURIService.h"
+#include "HTTPClientService.h"
 
 namespace bling { namespace core { namespace service {
-
-	class HTTPClientService;
-	class ParseURIService;
 
 	class DownloadFileService : public IDownloadFileService
 	{

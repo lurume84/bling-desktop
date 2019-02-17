@@ -2,6 +2,11 @@
 
 #include "ExternalResourceManager.h"
 
+#include "BlingCore\Network\Model\Credentials.h"
+#include "BlingCore\Network\Events.h"
+#include "BlingCore\Network\Services\ParseURIService.h"
+#include "BlingCore\Utils\Patterns\PublisherSubscriber\Broker.h"
+
 namespace bling { namespace ui{
 
 	CefRefPtr<CefResourceHandler> ExternalResourceManager::GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
@@ -11,14 +16,25 @@ namespace bling { namespace ui{
 
 	CefRequestHandler::ReturnValue ExternalResourceManager::OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request, CefRefPtr<CefRequestCallback> callback)
 	{
-		std::string url = request->GetURL().ToString();
+		CefRequest::HeaderMap headers;
+		request->GetHeaderMap(headers);
 
-		if(url.find("/rest/api/") != std::string::npos)
+		for (auto &header : headers)
 		{
-			CefRequest::HeaderMap headers;
-			request->GetHeaderMap(headers);
+			if (header.first == "TOKEN_AUTH")
+			{
+				std::string protocol, domain, port, path, query, fragment;
+				std::string url = request->GetURL().ToString();
 
-			request->SetHeaderMap(headers);
+				core::service::ParseURIService service;
+				if (service.parse(url, protocol, domain, port, path, query, fragment))
+				{
+					core::model::Credentials credentials(domain, port, header.second);
+					core::events::CredentialsEvent evt(credentials);
+					core::utils::patterns::Broker::get().publish(evt);
+				}
+				break;
+			}
 		}
 
 		return RV_CONTINUE;

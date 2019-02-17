@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="BlingContext.cpp" />
     <ClCompile Include="BlingCore.cpp" />
+    <ClCompile Include="Blink\Agents\SyncVideoAgent.cpp" />
     <ClCompile Include="Network\Services\DownloadFileService.cpp" />
     <ClCompile Include="Network\Services\HTTPClientService.cpp" />
     <ClCompile Include="Network\Services\ParseURIService.cpp" />
+    <ClCompile Include="System\Services\ApplicationDataService.cpp" />
     <ClCompile Include="System\Services\CompressionService.cpp" />
     <ClCompile Include="System\Services\EncodeStringService.cpp" />
     <ClCompile Include="System\Services\FileInfoService.cpp" />
@@ -144,11 +146,15 @@
   <ItemGroup>
     <ClInclude Include="BlingContext.h" />
     <ClInclude Include="BlingCore.h" />
+    <ClInclude Include="Blink\Agents\SyncVideoAgent.h" />
     <ClInclude Include="Model\Notification.h" />
+    <ClInclude Include="Network\Events.h" />
+    <ClInclude Include="Network\Model\Credentials.h" />
     <ClInclude Include="Network\Services\DownloadFileService.h" />
     <ClInclude Include="Network\Services\HTTPClientService.h" />
     <ClInclude Include="Network\Services\IDownloadFileService.h" />
     <ClInclude Include="Network\Services\ParseURIService.h" />
+    <ClInclude Include="System\Services\ApplicationDataService.h" />
     <ClInclude Include="System\Services\CompressionService.h" />
     <ClInclude Include="System\Services\EncodeStringService.h" />
     <ClInclude Include="System\Services\FileInfoService.h" />

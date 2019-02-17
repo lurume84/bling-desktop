@@ -1,8 +1,5 @@
 #include "DownloadFileService.h"
 
-#include "HTTPClientService.h"
-#include "ParseURIService.h"
-
 namespace bling { namespace core { namespace service {
 
 	DownloadFileService::DownloadFileService(std::unique_ptr<service::HTTPClientService> clientService, 
