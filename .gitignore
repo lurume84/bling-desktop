@@ -6,3 +6,4 @@ bin/
 include/
 lib/
 src/BlingApp/Debug/
+src/BlingInstaller/Release/
