@@ -31,6 +31,7 @@ namespace bling { namespace core { namespace agent {
 		std::string					m_host;
 		std::string					m_inFolder;
 		std::string					m_outFolder;
+		bool						m_enabled;
 
 		std::unique_ptr<service::IDownloadFileService> m_downloadService;
 		std::unique_ptr<service::HTTPClientService> m_clientService;

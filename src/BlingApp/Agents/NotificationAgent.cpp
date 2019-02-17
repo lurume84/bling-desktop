@@ -15,18 +15,13 @@ namespace bling { namespace ui {  namespace agent {
 	NotificationAgent::NotificationAgent()
 	: m_winRTInitializer(RO_INIT_MULTITHREADED)
 	{
-		m_subscriber.subscribe([this](const bling::core::utils::patterns::Event& rawEvt)
-		{
-			const auto& evt = static_cast<const ShowNotificationEvent&>(rawEvt);
-
-			m_ToastManager.Show(*evt.m_toast.get(), evt.m_handler.get());
-
-		}, SHOW_NOTIFICATION_EVENT);
+		
 	}
 
 	NotificationAgent::~NotificationAgent()
 	{
 		UnregisterActivator();
+		UnRegisterCOMServer();
 	}
 
 	bool NotificationAgent::initialize(boost::optional<bool> doRegister, std::string& reason, int &ecode)
@@ -53,30 +48,13 @@ namespace bling { namespace ui {  namespace agent {
 			return false;
 		}
 
-		if (doRegister)
+		ecode = RegisterCOMServer(sModuleName.c_str());
+		if (FAILED(ecode))
 		{
-			if (*doRegister)
-			{
-				ecode = RegisterCOMServer(sModuleName.c_str());
-				if (FAILED(ecode))
-				{
-					CString sMsg;
-					sMsg.Format(_T("Failed to register COM server, Error:0x%08X"), hr);
-					reason = sMsg;
-					return false;
-				}
-			}
-			else
-			{
-				ecode = UnRegisterCOMServer();
-				if (FAILED(ecode))
-				{
-					CString sMsg;
-					sMsg.Format(_T("Failed to unregister COM server, Error:0x%08X"), ecode);
-					reason = sMsg;
-					return false;
-				}
-			}
+			CString sMsg;
+			sMsg.Format(_T("Failed to register COM server, Error:0x%08X"), hr);
+			reason = sMsg;
+			return false;
 		}
 
 		hr = ToastPP::CManager::RegisterForNotificationSupport(L"Bling Desktop", sModuleName.c_str(), L"Bling.Desktop", __uuidof(ui::toast::ToastNotificationActivationCallback));
@@ -101,10 +79,18 @@ namespace bling { namespace ui {  namespace agent {
 		if (FAILED(hr))
 		{
 			CString sMsg;
-			sMsg.Format(_T("Failed to create manager, Error:0x%08X"), hr);
+			sMsg.Format(_T("Failed to create Notification Manager, Error:0x%08X"), hr);
 			reason = sMsg;
 			return false;
 		}
+
+		m_subscriber.subscribe([this](const bling::core::utils::patterns::Event& rawEvt)
+		{
+			const auto& evt = static_cast<const ShowNotificationEvent&>(rawEvt);
+
+			m_ToastManager.Show(*evt.m_toast.get(), evt.m_handler.get());
+
+		}, SHOW_NOTIFICATION_EVENT);
 
 		return true;
 	}

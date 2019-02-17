@@ -23,6 +23,7 @@ namespace bling { namespace core { namespace agent {
 	, m_replaceFolderService(std::move(replaceFolderService))
 	, m_inFolder(inFolder)
 	, m_outFolder(outFolder)
+	, m_enabled(true)
 	{
 		armTimer(1);
 
@@ -32,6 +33,7 @@ namespace bling { namespace core { namespace agent {
 
 	UpgradeViewerAgent::~UpgradeViewerAgent()
 	{
+		m_enabled = false;
 		m_timer.cancel();
 		m_backgroundThread.join();
 		m_ioService.reset();
@@ -39,68 +41,71 @@ namespace bling { namespace core { namespace agent {
 
 	void UpgradeViewerAgent::execute()
 	{
-		std::map<std::string, std::string> headers;
-		std::string content;
-		unsigned int status;
-
-		if (m_clientService->send(m_host, "443", "/repos/lurume84/bling-viewer/releases/latest", headers, content, status))
+		if (m_enabled)
 		{
-			try
+			std::map<std::string, std::string> headers;
+			std::string content;
+			unsigned int status;
+
+			if (m_clientService->send(m_host, "443", "/repos/lurume84/bling-viewer/releases/latest", headers, content, status))
 			{
-				std::stringstream ss(content);
-				boost::property_tree::ptree tree;
-				boost::property_tree::json_parser::read_json(ss, tree);
-
-				auto version = tree.get_child("tag_name").get_value<std::string>();
-
-				if (!boost::filesystem::exists(m_inFolder + version + ".zip"))
+				try
 				{
-					auto url = tree.get_child("zipball_url").get_value<std::string>();
+					std::stringstream ss(content);
+					boost::property_tree::ptree tree;
+					boost::property_tree::json_parser::read_json(ss, tree);
 
-					events::DownloadUpgradeEvent evt(version, [this, url, version] ()
+					auto version = tree.get_child("tag_name").get_value<std::string>();
+
+					if (!boost::filesystem::exists(m_inFolder + version + ".zip"))
 					{
-						auto path = m_downloadService->download(m_host, url, m_inFolder + version + ".zip");
+						auto url = tree.get_child("zipball_url").get_value<std::string>();
 
-						if (path != "")
+						events::DownloadUpgradeEvent evt(version, [this, url, version]()
 						{
-							events::ExtractUpgradeEvent evt(path);
-							utils::patterns::Broker::get().publish(evt);
+							auto path = m_downloadService->download(m_host, url, m_inFolder + version + ".zip");
 
-							if (m_compressionService->extract("zip", path, m_inFolder))
+							if (path != "")
 							{
-								auto target = boost::filesystem::path(m_inFolder);
-								
-								for (auto &it : boost::filesystem::directory_iterator(target))
+								events::ExtractUpgradeEvent evt(path);
+								utils::patterns::Broker::get().publish(evt);
+
+								if (m_compressionService->extract("zip", path, m_inFolder))
 								{
-									if (boost::filesystem::is_directory(it.path()))
+									auto target = boost::filesystem::path(m_inFolder);
+
+									for (auto &it : boost::filesystem::directory_iterator(target))
 									{
-										m_replaceFolderService->replace(it.path().string(), m_outFolder);
+										if (boost::filesystem::is_directory(it.path()))
+										{
+											m_replaceFolderService->replace(it.path().string(), m_outFolder);
 
-										boost::filesystem::rename(path, m_inFolder + version + ".zip");
+											boost::filesystem::rename(path, m_inFolder + version + ".zip");
 
-										events::UpgradeCompletedEvent evt(version);
-										utils::patterns::Broker::get().publish(evt);
-										break;
+											events::UpgradeCompletedEvent evt(version);
+											utils::patterns::Broker::get().publish(evt);
+											break;
+										}
 									}
 								}
 							}
-						}
 
+							armTimer();
+
+							return true;
+						});
+
+						utils::patterns::Broker::get().publish(evt);
+					}
+					else
+					{
 						armTimer();
-
-						return true;
-					});
-
-					utils::patterns::Broker::get().publish(evt);
+					}
 				}
-				else
+				catch (std::exception& /*e*/)
 				{
-					armTimer();
+
 				}
-			}
-			catch (std::exception& /*e*/)
-			{
-				
 			}
 		}
 	}

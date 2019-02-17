@@ -74,8 +74,8 @@ BOOL BlingApp::InitInstance()
 	bling::ui::agent::NotificationAgent agent;
 	if (!agent.initialize(doRegister, reason, m_nExitCode))
 	{
-		AfxMessageBox(reason.c_str(), MB_OK | MB_ICONEXCLAMATION);
-		return FALSE;
+		std::string reason2 = reason + ". Check if Windows Notification Platform is available. Application will continue but notifications will not work.";
+		AfxMessageBox(reason2.c_str(), MB_OK | MB_ICONEXCLAMATION);
 	}
 
 	m_cefApp = new bling::ui::BrowserApp();
