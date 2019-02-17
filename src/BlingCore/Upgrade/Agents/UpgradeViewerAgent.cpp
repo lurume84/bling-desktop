@@ -43,11 +43,11 @@ namespace bling { namespace core { namespace agent {
 	{
 		if (m_enabled)
 		{
-			std::map<std::string, std::string> headers;
+			std::map<std::string, std::string> requestHeaders, responseHeaders;
 			std::string content;
 			unsigned int status;
 
-			if (m_clientService->send(m_host, "443", "/repos/lurume84/bling-viewer/releases/latest", headers, content, status))
+			if (m_clientService->send(m_host, "443", "/repos/lurume84/bling-viewer/releases/latest", requestHeaders, responseHeaders, content, status))
 			{
 				try
 				{

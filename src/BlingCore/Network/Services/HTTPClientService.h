@@ -11,7 +11,10 @@ namespace bling { namespace core { namespace service {
 	public:
 		HTTPClientService();
 		~HTTPClientService();
-		bool send(const std::string& server, const std::string& port, const std::string&, std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code);
+		bool send(const std::string& server, const std::string& port, const std::string&, 
+					const std::map<std::string, std::string>& requestHeaders, 
+					std::map<std::string, std::string>& responseHeaders, 
+					std::string& content, unsigned int& status_code);
 	private:
 		bool receive(std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code);
 	private:

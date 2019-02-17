@@ -28,7 +28,10 @@ namespace bling { namespace core { namespace service {
 
 	HTTPClientService::~HTTPClientService() = default;
 
-	bool HTTPClientService::send(const std::string& server, const std::string& port, const std::string& path, std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code)
+	bool HTTPClientService::send(const std::string& server, const std::string& port, const std::string& path, 
+								const std::map<std::string, std::string>& requestHeaders,
+								std::map<std::string, std::string>& responseHeaders,
+								std::string& content, unsigned int& status_code)
 	{
 		tcp::resolver resolver(m_io_service);
 		tcp::resolver::query query(server, port);
@@ -46,11 +49,17 @@ namespace bling { namespace core { namespace service {
 		request_stream << "Accept: */*\r\n";
 		request_stream << "User-Agent: Mozilla / 5.0 (Windows NT 10.0; Win64; x64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 71.0.3578.98 Safari / 537.36\r\n";
 		request_stream << "Connection: close\r\n";
+		
+		for (auto& header : requestHeaders)
+		{
+			request_stream << header.first << ": " << header.second << "\r\n";
+		}
+
 		request_stream << "\r\n";
 
 		boost::asio::write(*(m_socket.get()), request);
 
-		bool result = receive(headers, content, status_code);
+		bool result = receive(responseHeaders, content, status_code);
 
 		m_socket->shutdown(error);
 		m_socket->lowest_layer().close(error);

@@ -46,15 +46,15 @@ namespace bling { namespace core { namespace agent {
 	{
 		if (m_enabled && m_credentials)
 		{
-			std::map<std::string, std::string> headers;
+			std::map<std::string, std::string> requestHeaders, responseHeaders;
 			std::string content;
 			unsigned int status;
 
-			headers["AUTH_TOKEN"] = m_credentials->m_token;
+			requestHeaders["token_auth"] = m_credentials->m_token;
 
-			if (m_clientService->send(m_credentials->m_host, m_credentials->m_port, "/api/v2/videos/changed?since=-999999999-01-01T00:00:00+18:00", headers, content, status))
+			if (m_clientService->send(m_credentials->m_host, m_credentials->m_port, "/api/v2/videos/changed?since=-999999999-01-01T00:00:00+18:00", requestHeaders, responseHeaders, content, status))
 			{
-				content = content;
+				
 			}
 		}
 	}
