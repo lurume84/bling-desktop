@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Agents">
+      <UniqueIdentifier>{ab502881-0691-43c3-81dc-1df042784a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Browser">
+      <UniqueIdentifier>{4f5350f5-b995-4e67-acf2-7c1f8b18793c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Browser\Resources">
+      <UniqueIdentifier>{3494a525-a0cf-4e38-8d3a-e98c7226b5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Toast">
+      <UniqueIdentifier>{5c06e29d-7f5e-4079-b8f1-8e0517750877}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services">
+      <UniqueIdentifier>{82f4fc99-d8ae-411d-9d94-9fb7818ff681}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Toast\Toast.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Toast\ToastPayload.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\ExternalResourceManager.h">
+      <Filter>Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\InternalResourceManager.h">
+      <Filter>Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\IResourceManager.h">
+      <Filter>Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\RequestResourceProvider.h">
+      <Filter>Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Agents\NotificationAgent.h">
+      <Filter>Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="Toast\ToastEventHandler.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Toast\ToastFactory.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Toast\ToastCommandLineInfo.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Toast\ToastNotificationActivationCallback.h">
+      <Filter>Toast</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserScreen.h">
+      <Filter>Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserApp.h">
+      <Filter>Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserClientHandler.h">
+      <Filter>Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserKeyboardHandler.h">
+      <Filter>Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="DesktopApp.h" />
+    <ClInclude Include="DesktopAppDlg.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Services\DownloadFileService.h">
+      <Filter>Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Events.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Agents\NotificationAgent.cpp">
+      <Filter>Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserApp.cpp">
+      <Filter>Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserClientHandler.cpp">
+      <Filter>Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserKeyboardHandler.cpp">
+      <Filter>Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserScreen.cpp">
+      <Filter>Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\Resources\ExternalResourceManager.cpp">
+      <Filter>Browser\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\Resources\InternalResourceManager.cpp">
+      <Filter>Browser\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\Resources\RequestResourceProvider.cpp">
+      <Filter>Browser\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Toast\ToastNotificationActivationCallback.cpp">
+      <Filter>Toast</Filter>
+    </ClCompile>
+    <ClCompile Include="Toast\ToastEventHandler.cpp">
+      <Filter>Toast</Filter>
+    </ClCompile>
+    <ClCompile Include="Toast\ToastFactory.cpp">
+      <Filter>Toast</Filter>
+    </ClCompile>
+    <ClCompile Include="DesktopApp.cpp" />
+    <ClCompile Include="DesktopAppDlg.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Services\DownloadFileService.cpp">
+      <Filter>Services</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DesktopApp.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\DesktopApp.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\logo.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
