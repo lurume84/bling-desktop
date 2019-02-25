@@ -3680,28 +3680,6 @@
                         {
                         }
                     }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_B2CBE14EB9744F5BAEC97D41E32D5ED0"
-                    {
-                    "Name" = "8:Download"
-                    "AlwaysCreate" = "11:TRUE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_10BAE64BA4A14FD79C35583AF9C81B3E"
-                        "Folders"
-                        {
-                            "{9EF0B969-E518-4E46-987F-47570745A589}:_B9641A7D891149C78253F5391FF20915"
-                            {
-                            "Name" = "8:Versions"
-                            "AlwaysCreate" = "11:TRUE"
-                            "Condition" = "8:"
-                            "Transitive" = "11:FALSE"
-                            "Property" = "8:_F59F2989D70C4D43A7B207359D2D9A45"
-                                "Folders"
-                                {
-                                }
-                            }
-                        }
-                    }
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_F41E808E768945B785C245AB70933820"
                     {
                     "Name" = "8:swiftshader"
@@ -3820,7 +3798,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Bling Desktop"
         "ProductCode" = "8:{2B3462DB-7B79-4827-B906-35BAEE918DE8}"
-        "PackageCode" = "8:{EE5D7BC4-352E-40BF-9D77-B761EBE40340}"
+        "PackageCode" = "8:{E297B514-5D1F-47E6-8616-F744AE1E5C3B}"
         "UpgradeCode" = "8:{5241AE29-ABD8-47FB-A6B7-BC71BA1CDACF}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -3942,7 +3920,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8E10E28C71464CE2AA72543D918336B1"
             {
-            "Name" = "8:Desktop"
+            "Name" = "8:Bling"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
