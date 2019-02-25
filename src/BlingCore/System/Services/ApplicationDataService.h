@@ -10,5 +10,6 @@ namespace bling { namespace core { namespace service {
 		~ApplicationDataService();
 
 		std::string getMyDocuments() const;
+		std::string getApplicationName() const;
 	};
 }}}

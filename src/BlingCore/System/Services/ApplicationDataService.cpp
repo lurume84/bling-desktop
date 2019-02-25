@@ -16,12 +16,20 @@ namespace bling { namespace core { namespace service {
 
 		if (result == S_OK)
 		{
-			return std::string(my_documents) + "\\Bling Desktop\\";
+			return std::string(my_documents) + "\\" + getApplicationName() + "\\";
 		}
 		else
 		{
 			return "";
 		}
+	}
+
+	std::string ApplicationDataService::getApplicationName() const
+	{
+		char moduleName[MAX_PATH + 1] = { '\0' };
+		(void)GetModuleFileName(NULL, moduleName, MAX_PATH);
+
+		return std::string(moduleName);
 	}
 	
 }}}

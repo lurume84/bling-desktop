@@ -9,7 +9,7 @@
 
 namespace bling { namespace core { namespace agent {
 
-	UpgradeViewerAgent::UpgradeViewerAgent(const std::string& host, const std::string& inFolder, const std::string& outFolder,
+	UpgradeViewerAgent::UpgradeViewerAgent(const std::string& host, const std::string& repository, const std::string& inFolder, const std::string& outFolder,
 											std::unique_ptr<service::IDownloadFileService> downloadService,
 											std::unique_ptr<service::HTTPClientService> clientService,
 											std::unique_ptr<service::CompressionService> compressionService,
@@ -17,6 +17,7 @@ namespace bling { namespace core { namespace agent {
 	: m_ioService()
 	, m_timer(m_ioService, boost::posix_time::seconds(60 * 60 * 12))
 	, m_host(host)
+	, m_repository(repository)
 	, m_downloadService(std::move(downloadService))
 	, m_clientService(std::move(clientService))
 	, m_compressionService(std::move(compressionService))
@@ -47,7 +48,7 @@ namespace bling { namespace core { namespace agent {
 			std::string content;
 			unsigned int status;
 
-			if (m_clientService->send(m_host, "443", "/repos/lurume84/bling-viewer/releases/latest", requestHeaders, responseHeaders, content, status))
+			if (m_clientService->send(m_host, "443", m_repository, requestHeaders, responseHeaders, content, status))
 			{
 				try
 				{

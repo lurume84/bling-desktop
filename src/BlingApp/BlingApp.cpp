@@ -108,14 +108,17 @@ std::string BlingApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 {
 	bling::core::service::ApplicationDataService service;
 
-	boost::filesystem::create_directories(service.getMyDocuments() + "Download\\Versions");
+	auto documents = service.getMyDocuments();
 
-	auto updateAgent = std::make_unique<bling::core::agent::UpgradeViewerAgent>("api.github.com", service.getMyDocuments() + "Download\\Versions\\", "Html/viewer",
+	boost::filesystem::create_directories(documents + "Download\\Versions");
+
+	auto updateAgent = std::make_unique<bling::core::agent::UpgradeViewerAgent>("api.github.com", "/repos/lurume84/bling-viewer/releases/latest",
+																				documents + "Download\\Versions\\", "Html/viewer",
 																				std::make_unique<bling::ui::service::DownloadFileService>(browser));
 
-	auto syncVideoAgent = std::make_unique<bling::core::agent::SyncVideoAgent>(service.getMyDocuments() + "Download\\Videos\\");
+	auto syncVideoAgent = std::make_unique<bling::core::agent::SyncVideoAgent>(documents + "Download\\Videos\\");
 
 	m_core->initialize(std::move(updateAgent), std::move(syncVideoAgent));
 	
-	return service.getMyDocuments() + "Download\\Versions\\";
+	return documents + "Download\\Versions\\";
 }
