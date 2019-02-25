@@ -37,7 +37,7 @@ namespace desktop { namespace ui {
 			std::shared_ptr<toast::ToastEventHandler> m_handler;
 		};
 
-		NotificationAgent();
+		NotificationAgent(const std::wstring& appName);
 		~NotificationAgent();
 
 		bool initialize(boost::optional<bool> doRegister, std::string& reason, int &ecode);
@@ -51,5 +51,7 @@ namespace desktop { namespace ui {
 		cup::Subscriber m_subscriber;
 		ToastPP::CManager m_ToastManager;
 		Microsoft::WRL::Wrappers::RoInitializeWrapper m_winRTInitializer;
+
+		std::wstring m_appName;
 	};
 }}}

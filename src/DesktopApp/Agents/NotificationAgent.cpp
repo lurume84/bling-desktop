@@ -12,8 +12,9 @@ namespace desktop { namespace ui {  namespace agent {
 
 	NotificationAgent::ShowNotificationEvent::~ShowNotificationEvent() = default;
 
-	NotificationAgent::NotificationAgent()
+	NotificationAgent::NotificationAgent(const std::wstring& appName)
 	: m_winRTInitializer(RO_INIT_MULTITHREADED)
+	, m_appName(L"Desktop." + appName)
 	{
 		
 	}
@@ -57,7 +58,7 @@ namespace desktop { namespace ui {  namespace agent {
 			return false;
 		}
 
-		hr = ToastPP::CManager::RegisterForNotificationSupport(L"Desktop Desktop", sModuleName.c_str(), L"Desktop.Desktop", __uuidof(ui::toast::ToastNotificationActivationCallback));
+		hr = ToastPP::CManager::RegisterForNotificationSupport(m_appName.c_str(), sModuleName.c_str(), m_appName.c_str(), __uuidof(ui::toast::ToastNotificationActivationCallback));
 		if (FAILED(hr))
 		{
 			CString sMsg;
@@ -75,7 +76,7 @@ namespace desktop { namespace ui {  namespace agent {
 			return false;
 		}
 
-		hr = m_ToastManager.Create(L"Desktop.Desktop");
+		hr = m_ToastManager.Create(m_appName.c_str());
 		if (FAILED(hr))
 		{
 			CString sMsg;
