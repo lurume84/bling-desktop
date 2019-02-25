@@ -83,6 +83,9 @@
     <ClCompile Include="System\Services\ApplicationDataService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
+    <ClCompile Include="System\Services\CopyFolderService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -142,6 +145,9 @@
       <Filter>Network\Model</Filter>
     </ClInclude>
     <ClInclude Include="System\Services\ApplicationDataService.h">
+      <Filter>System\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\CopyFolderService.h">
       <Filter>System\Services</Filter>
     </ClInclude>
   </ItemGroup>
