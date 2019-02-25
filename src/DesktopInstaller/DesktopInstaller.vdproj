@@ -477,12 +477,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8B933FE7CDD645ECA7835AEDBB04625A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_8D74A613342643F5B300E25CADA3A484"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -628,6 +622,12 @@
         "Entry"
         {
         "MsmKey" = "8:_BBB1A9E59FA344E1BD1A223CD6BB582F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BF3B7EFE5DAB469C91D37F3993859360"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -860,6 +860,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -867,7 +875,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release/DesktopSetup.msi"
+        "OutputFilename" = "8:DesktopSetup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -2454,26 +2462,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8B933FE7CDD645ECA7835AEDBB04625A"
-            {
-            "SourcePath" = "8:..\\..\\bin\\Release\\DesktopApp\\DesktopApp.exe"
-            "TargetName" = "8:DesktopApp.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_B883C89C14114B449AC8380F0EE475E7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8D74A613342643F5B300E25CADA3A484"
             {
             "SourcePath" = "8:..\\..\\bin\\Release\\DesktopApp\\locales\\pt-BR.pak"
@@ -3960,10 +3948,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:128"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_8B933FE7CDD645ECA7835AEDBB04625A"
+            "Target" = "8:_BF3B7EFE5DAB469C91D37F3993859360"
             "Folder" = "8:_5E3F4748B57841DE9F91D9147874C085"
             "WorkingFolder" = "8:_B883C89C14114B449AC8380F0EE475E7"
-            "Icon" = "8:_8B933FE7CDD645ECA7835AEDBB04625A"
+            "Icon" = "8:_BF3B7EFE5DAB469C91D37F3993859360"
             "Feature" = "8:"
             }
         }
@@ -4321,6 +4309,34 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BF3B7EFE5DAB469C91D37F3993859360"
+            {
+            "SourcePath" = "8:..\\..\\bin\\Release\\DesktopApp\\Bling.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_B883C89C14114B449AC8380F0EE475E7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{4625EB79-3302-4D1D-9CFB-6A51DC925BCF}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
         }
     }
 }

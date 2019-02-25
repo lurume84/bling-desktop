@@ -7,3 +7,5 @@ include/
 lib/
 src/BlingApp/Debug/
 src/BlingInstaller/Release/
+src/DesktopInstaller/DesktopSetup.msi
+src/DesktopInstaller/setup.exe
