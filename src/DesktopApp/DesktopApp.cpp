@@ -111,6 +111,7 @@ std::string DesktopApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 	auto documents = service.getMyDocuments();
 
 	boost::filesystem::create_directories(documents + "Download\\Versions");
+	boost::filesystem::create_directories(documents + "Download\\Videos");
 
 	auto updateAgent = std::make_unique<desktop::core::agent::UpgradeViewerAgent>("api.github.com", "/repos/lurume84/bling-viewer/releases/latest",
 																				documents + "Download\\Versions\\", "Html/viewer",
