@@ -14,16 +14,14 @@ namespace desktop { namespace core { namespace service {
 
 	DownloadFileService::~DownloadFileService() = default;
 
-	std::string DownloadFileService::download(const std::string& host, const std::string& url, const std::string &folder) const
+	std::string DownloadFileService::download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const
 	{
-		std::map<std::string, std::string> requestHeaders, responseHeaders;
+		std::map<std::string, std::string> responseHeaders;
 		unsigned int status;
-
-		auto pos = url.find(host) + host.size();
 
 		std::string file;
 
-		if (m_clientService->send(host, "443", url.substr(pos), requestHeaders, responseHeaders, file, status))
+		if (m_clientService->send(host, "443", url, requestHeaders, responseHeaders, file, status))
 		{
 			if (status == 302)
 			{
@@ -48,9 +46,9 @@ namespace desktop { namespace core { namespace service {
 			}
 			else if (status == 200)
 			{
-				if (m_fileIOService->save(folder + "latest.zip", file))
+				if (m_fileIOService->save(folder, file))
 				{
-					return folder + "latest.zip";
+					return folder;
 				}
 			}
 		}

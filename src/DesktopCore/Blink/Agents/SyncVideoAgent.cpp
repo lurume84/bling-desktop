@@ -7,13 +7,16 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/filesystem.hpp>
+#include <iostream>
+#include <chrono>
+#include <thread>
 
 namespace desktop { namespace core { namespace agent {
 
 	SyncVideoAgent::SyncVideoAgent(const std::string& outFolder,
 									std::unique_ptr<service::IDownloadFileService> downloadService,
 									std::unique_ptr<service::HTTPClientService> clientService,
-									std::unique_ptr<desktop::core::service::ApplicationDataService> applicationService)
+									std::unique_ptr<service::ApplicationDataService> applicationService)
 	: m_ioService()
 	, m_timer(m_ioService, boost::posix_time::seconds(60))
 	, m_downloadService(std::move(downloadService))
@@ -82,23 +85,60 @@ namespace desktop { namespace core { namespace agent {
 		os.close();
 	}
 
+	void SyncVideoAgent::setLastUpdateTimestamp(const std::string& timestamp) const
+	{
+		auto documents = m_applicationService->getMyDocuments();
+
+		std::ofstream os(documents + "Download\\Videos\\last_update.txt");
+		os << timestamp;
+		os.close();
+	}
+
 	void SyncVideoAgent::execute()
 	{
 		if (m_enabled && m_credentials)
 		{
-			std::string timestamp = getLastUpdateTimestamp();
+			std::vector<std::pair<std::string, std::string>> videos;
 
-			std::vector<std::string> videos;
+			getVideos(videos, "/api/v2/videos/changed?since=" + getLastUpdateTimestamp(), 1);
 
-			getVideos(videos, "/api/v2/videos/changed?since=" + timestamp, 1);
+			auto documents = m_applicationService->getMyDocuments();
 
+			std::map<std::string, std::string> requestHeaders;
+			requestHeaders["token_auth"] = m_credentials->m_token;
 
+			std::string months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-			setLastUpdateTimestamp();
+			for (auto &video : videos)
+			{
+				std::stringstream ss(video.first);
+
+				std::string year, month, day;
+				getline(ss, year, '-'); getline(ss, month, '-'); getline(ss, day, 'T');
+
+				int monthNumber = std::stoi(month);
+
+				if (monthNumber <= 12)
+				{
+					month = months[monthNumber - 1];
+				}
+
+				auto fileName = boost::filesystem::path(video.second);
+
+				auto folder = documents + "Download\\Videos\\" + year + "\\" + month + "\\" + day + "\\";
+				auto target = folder + fileName.filename().string();
+
+				boost::filesystem::create_directories(folder);
+				m_downloadService->download(m_credentials->m_host, video.second, requestHeaders, target);
+
+				std::this_thread::sleep_for(std::chrono::seconds{20});
+
+				setLastUpdateTimestamp(video.first);
+			}
 		}
 	}
 
-	void SyncVideoAgent::getVideos(std::vector<std::string>& videos, const std::string& path, unsigned int page) const
+	void SyncVideoAgent::getVideos(std::vector<std::pair<std::string, std::string>>& videos, const std::string& path, unsigned int page) const
 	{
 		std::map<std::string, std::string> requestHeaders, responseHeaders;
 		std::string content;
@@ -124,7 +164,8 @@ namespace desktop { namespace core { namespace agent {
 				{
 					for (auto &video : videosTag)
 					{
-						videos.push_back(video.second.get_child("address").get_value<std::string>());
+						videos.push_back(std::make_pair(video.second.get_child("created_at").get_value<std::string>(), 
+														video.second.get_child("address").get_value<std::string>()));
 					}
 
 					getVideos(videos, path, page + 1);

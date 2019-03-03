@@ -15,7 +15,7 @@ namespace desktop { namespace core { namespace service {
 							std::unique_ptr<service::ParseURIService> uriService = std::make_unique<service::ParseURIService>(),
 							std::unique_ptr<service::FileIOService> fileIOService = std::make_unique<service::FileIOService>());
 		~DownloadFileService();
-		std::string download(const std::string& host, const std::string& url, const std::string &folder) const override;
+		std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 	private:
 		std::unique_ptr<service::HTTPClientService> m_clientService;
 		std::unique_ptr<service::ParseURIService> m_uriService;

@@ -43,7 +43,7 @@ namespace desktop {
 		DownloadFileService(CefRefPtr<CefBrowser> browser, 
 							std::unique_ptr<core::service::EncodeStringService> encodeService = std::make_unique<core::service::EncodeStringService>());
 		~DownloadFileService();
-		std::string download(const std::string& host, const std::string& url, const std::string &folder) const override;
+		std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 	private:
 		CefRefPtr<CefBrowser>	m_browser;
 		cup::Subscriber			m_subscriber;

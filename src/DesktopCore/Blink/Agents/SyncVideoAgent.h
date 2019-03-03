@@ -31,12 +31,13 @@ namespace desktop { namespace core {
 						std::unique_ptr<service::ApplicationDataService> applicationService = std::make_unique<service::ApplicationDataService>());
 		~SyncVideoAgent();
 
-		void getVideos(std::vector<std::string>& videos, const std::string& timestamp, unsigned int page) const;
+		void getVideos(std::vector<std::pair<std::string, std::string>>& videos, const std::string& timestamp, unsigned int page) const;
 		void execute();
 	private:
 		void armTimer(unsigned int seconds = 60);
 		std::string getLastUpdateTimestamp() const;
 		void setLastUpdateTimestamp() const;
+		void setLastUpdateTimestamp(const std::string&) const;
 	private:
 		boost::asio::io_service		m_ioService;
 		boost::asio::deadline_timer	m_timer;

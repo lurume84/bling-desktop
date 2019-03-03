@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 #include <memory>
 
 namespace desktop { namespace core { namespace service {
@@ -9,6 +10,6 @@ namespace desktop { namespace core { namespace service {
 	{
 	public:
 		virtual ~IDownloadFileService() = default;
-		virtual std::string download(const std::string& host, const std::string& url, const std::string &folder) const = 0;
+		virtual std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const = 0;
 	};
 }}}

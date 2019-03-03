@@ -64,7 +64,8 @@ namespace desktop { namespace core { namespace agent {
 
 						events::DownloadUpgradeEvent evt(version, [this, url, version]()
 						{
-							auto path = m_downloadService->download(m_host, url, m_inFolder + version + ".zip");
+							std::map<std::string, std::string> requestHeaders;
+							auto path = m_downloadService->download(m_host, url, requestHeaders, m_inFolder + version + ".zip");
 
 							if (path != "")
 							{

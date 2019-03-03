@@ -79,7 +79,7 @@ namespace desktop { namespace ui { namespace service {
 
 	DownloadFileService::~DownloadFileService() = default;
 
-	std::string DownloadFileService::download(const std::string& host, const std::string& url, const std::string &/*folder*/) const
+	std::string DownloadFileService::download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &/*folder*/) const
 	{
 		auto pos = url.find(host) + host.size();
 
