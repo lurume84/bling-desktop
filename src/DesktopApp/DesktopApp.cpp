@@ -109,7 +109,7 @@ std::string DesktopApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 	desktop::core::service::ApplicationDataService service;
 
 	auto documents = service.getMyDocuments();
-
+	
 	boost::filesystem::create_directories(documents + "Download\\Versions");
 	boost::filesystem::create_directories(documents + "Download\\Videos");
 
