@@ -98,7 +98,7 @@ namespace desktop { namespace core { namespace agent {
 	{
 		if (m_enabled && m_credentials)
 		{
-			std::vector<std::pair<std::string, std::string>> videos;
+			std::list<std::pair<std::string, std::string>> videos;
 
 			getVideos(videos, "/api/v2/videos/changed?since=" + getLastUpdateTimestamp(), 1);
 
@@ -128,17 +128,31 @@ namespace desktop { namespace core { namespace agent {
 				auto folder = documents + "Download\\Videos\\" + year + "\\" + month + "\\" + day + "\\";
 				auto target = folder + fileName.filename().string();
 
-				boost::filesystem::create_directories(folder);
-				m_downloadService->download(m_credentials->m_host, video.second, requestHeaders, target);
+				if (!boost::filesystem::exists(target))
+				{
+					boost::filesystem::create_directories(folder);
 
-				std::this_thread::sleep_for(std::chrono::seconds{20});
+					try
+					{
+						m_downloadService->download(m_credentials->m_host, video.second, requestHeaders, target);
+						setLastUpdateTimestamp(video.first);
 
-				setLastUpdateTimestamp(video.first);
+						std::this_thread::sleep_for(std::chrono::seconds{ 20 });
+					}
+					catch (...)
+					{
+						break;
+					}
+				}
+				else
+				{
+					setLastUpdateTimestamp(video.first);
+				}
 			}
 		}
 	}
 
-	void SyncVideoAgent::getVideos(std::vector<std::pair<std::string, std::string>>& videos, const std::string& path, unsigned int page) const
+	void SyncVideoAgent::getVideos(std::list<std::pair<std::string, std::string>>& videos, const std::string& path, unsigned int page) const
 	{
 		std::map<std::string, std::string> requestHeaders, responseHeaders;
 		std::string content;

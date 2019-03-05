@@ -1,15 +1,15 @@
 #pragma once
 
-#include <string>
-
-#include <boost/thread.hpp>
-#include <boost/asio.hpp>
-
 #include "../../Network/Services/HTTPClientService.h"
 #include "../../Network/Services/DownloadFileService.h"
 #include "../../System/Services/ApplicationDataService.h"
 
 #include "../../Utils\Patterns\PublisherSubscriber\Subscriber.h"
+
+#include <string>
+#include <list>
+#include <boost/thread.hpp>
+#include <boost/asio.hpp>
 
 namespace desktop { namespace core { 
 	
@@ -31,7 +31,7 @@ namespace desktop { namespace core {
 						std::unique_ptr<service::ApplicationDataService> applicationService = std::make_unique<service::ApplicationDataService>());
 		~SyncVideoAgent();
 
-		void getVideos(std::vector<std::pair<std::string, std::string>>& videos, const std::string& timestamp, unsigned int page) const;
+		void getVideos(std::list<std::pair<std::string, std::string>>& videos, const std::string& timestamp, unsigned int page) const;
 		void execute();
 	private:
 		void armTimer(unsigned int seconds = 60);
