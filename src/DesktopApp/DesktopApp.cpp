@@ -106,20 +106,12 @@ BOOL DesktopApp::CreateBrowser(CefRefPtr<desktop::ui::BrowserClientHandler> clie
 
 std::string DesktopApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 {
-	desktop::core::service::ApplicationDataService service;
-
-	auto documents = service.getMyDocuments();
-	
-	boost::filesystem::create_directories(documents + "Download\\Versions");
-	boost::filesystem::create_directories(documents + "Download\\Videos");
-
-	auto updateAgent = std::make_unique<desktop::core::agent::UpgradeViewerAgent>("api.github.com", "/repos/lurume84/bling-viewer/releases/latest",
-																				documents + "Download\\Versions\\", "Html/viewer",
-																				std::make_unique<desktop::ui::service::DownloadFileService>(browser));
-
-	auto syncVideoAgent = std::make_unique<desktop::core::agent::SyncVideoAgent>(documents + "Download\\Videos\\");
+	auto updateAgent = std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadFileService>(browser));
+	auto syncVideoAgent = std::make_unique<desktop::core::agent::SyncVideoAgent>();
 
 	m_core->initialize(std::move(updateAgent), std::move(syncVideoAgent));
 	
+	desktop::core::service::ApplicationDataService service;
+	auto documents = service.getMyDocuments();
 	return documents + "Download\\Versions\\";
 }

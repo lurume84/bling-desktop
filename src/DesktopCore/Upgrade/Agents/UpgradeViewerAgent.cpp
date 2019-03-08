@@ -9,27 +9,35 @@
 
 namespace desktop { namespace core { namespace agent {
 
-	UpgradeViewerAgent::UpgradeViewerAgent(const std::string& host, const std::string& repository, const std::string& inFolder, const std::string& outFolder,
-											std::unique_ptr<service::IDownloadFileService> downloadService,
+	UpgradeViewerAgent::UpgradeViewerAgent(std::unique_ptr<service::IDownloadFileService> downloadService,
+											std::unique_ptr<service::IniFileService> iniFileService,
+											std::unique_ptr<service::ApplicationDataService> applicationService,
 											std::unique_ptr<service::HTTPClientService> clientService,
 											std::unique_ptr<service::CompressionService> compressionService,
 											std::unique_ptr<service::ReplaceFolderService> replaceFolderService)
 	: m_ioService()
 	, m_timer(m_ioService, boost::posix_time::seconds(60 * 60 * 12))
-	, m_host(host)
-	, m_repository(repository)
 	, m_downloadService(std::move(downloadService))
 	, m_clientService(std::move(clientService))
 	, m_compressionService(std::move(compressionService))
 	, m_replaceFolderService(std::move(replaceFolderService))
-	, m_inFolder(inFolder)
-	, m_outFolder(outFolder)
+	, m_applicationService(std::move(applicationService))
+	, m_iniFileService(std::move(iniFileService))
 	, m_enabled(true)
 	{
 		armTimer(1);
 
 		boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
 		m_backgroundThread.swap(t);
+
+		auto documents = m_applicationService->getMyDocuments();
+		
+		m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "Upgrade", "Host", "api.github.com");
+		m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "Repository", "Host", "/repos/lurume84/bling-viewer/releases/latest");
+		m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "Upgrade", "Input", documents + "Download\\Versions\\");
+		m_outFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "Upgrade", "Output", "Html/viewer");
+
+		boost::filesystem::create_directories(m_inFolder);
 	}
 
 	UpgradeViewerAgent::~UpgradeViewerAgent()

@@ -11,6 +11,7 @@ namespace desktop { namespace core { namespace service {
 		FileIOService();
 		~FileIOService();
 
+		bool load(const boost::filesystem::path& input, std::stringstream& content) const;
 		bool save(const boost::filesystem::path& output, const std::string& content) const;
 	};
 }}}

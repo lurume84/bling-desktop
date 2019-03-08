@@ -139,6 +139,7 @@
     <ClCompile Include="System\Services\FileInfoService.cpp" />
     <ClCompile Include="System\Services\FileIOService.cpp" />
     <ClCompile Include="System\Services\CopyFolderService.cpp" />
+    <ClCompile Include="System\Services\IniFileService.cpp" />
     <ClCompile Include="System\Services\ReplaceFolderService.cpp" />
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp" />
     <ClCompile Include="Utils\Patterns\PublisherSubscriber\Broker.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="System\Services\FileInfoService.h" />
     <ClInclude Include="System\Services\FileIOService.h" />
     <ClInclude Include="System\Services\CopyFolderService.h" />
+    <ClInclude Include="System\Services\IniFileService.h" />
     <ClInclude Include="System\Services\ReplaceFolderService.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />
     <ClInclude Include="Upgrade\Events.h" />

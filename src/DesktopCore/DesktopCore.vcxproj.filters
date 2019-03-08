@@ -86,6 +86,9 @@
     <ClCompile Include="System\Services\CopyFolderService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
+    <ClCompile Include="System\Services\IniFileService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -148,6 +151,9 @@
       <Filter>System\Services</Filter>
     </ClInclude>
     <ClInclude Include="System\Services\CopyFolderService.h">
+      <Filter>System\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\IniFileService.h">
       <Filter>System\Services</Filter>
     </ClInclude>
   </ItemGroup>
