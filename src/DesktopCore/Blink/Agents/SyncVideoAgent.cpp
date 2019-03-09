@@ -24,32 +24,39 @@ namespace desktop { namespace core { namespace agent {
 	, m_clientService(std::move(clientService))
 	, m_applicationService(std::move(applicationService))
 	{
+		auto documents = m_applicationService->getMyDocuments();
+
 		{
-			auto documents = m_applicationService->getMyDocuments();
-			m_seconds = m_iniFileService->get<unsigned int>(documents + "Blink.ini", "Synchronize", "Interval", 60);
+			m_seconds = m_iniFileService->get<unsigned int>(documents + "Blink.ini", "SyncVideo", "Interval", 60);
 
 			m_timer = std::make_unique<boost::asio::deadline_timer>(m_ioService, boost::posix_time::seconds(m_seconds));
 
-			m_outFolder = m_iniFileService->get<std::string>(documents + "Blink.ini", "Synchronize", "Output", documents + "Download\\Videos\\");
+			m_outFolder = m_iniFileService->get<std::string>(documents + "Blink.ini", "SyncVideo", "Output", documents + "Download\\Videos\\");
 
 			boost::filesystem::create_directories(m_outFolder);
 		}
 
-		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
+		if(m_iniFileService->get<bool>(documents + "Blink.ini", "SyncVideo", "Enabled", true))
 		{
-			const auto& evt = static_cast<const core::events::CredentialsEvent&>(rawEvt);
-
-			m_credentials = std::make_unique<model::Credentials>(evt.m_credentials);
-
-			if (!m_enabled)
+			m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 			{
-				m_enabled = true;
-				armTimer(1);
+				const auto& evt = static_cast<const core::events::CredentialsEvent&>(rawEvt);
 
-				boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
-				m_backgroundThread.swap(t);
-			}
-		}, events::CREDENTIALS_EVENT);
+				m_credentials = std::make_unique<model::Credentials>(evt.m_credentials);
+
+				auto documents = m_applicationService->getMyDocuments();
+			
+				if (!m_enabled)
+				{
+					m_enabled = true;
+
+					armTimer(1);
+
+					boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
+					m_backgroundThread.swap(t);
+				}
+			}, events::CREDENTIALS_EVENT);
+		}
 	}
 
 	SyncVideoAgent::~SyncVideoAgent()
@@ -63,7 +70,7 @@ namespace desktop { namespace core { namespace agent {
 	std::string SyncVideoAgent::getLastUpdateTimestamp() const
 	{
 		auto documents = m_applicationService->getMyDocuments();
-		auto timestamp = m_iniFileService->get<std::string>(documents + "Blink.ini", "Synchronize", "LastUpdate", "-999999999-01-01T00:00:00+00:00");
+		auto timestamp = m_iniFileService->get<std::string>(documents + "Blink.ini", "SyncVideo", "LastUpdate", "-999999999-01-01T00:00:00+00:00");
 
 		return timestamp;
 	}
@@ -91,7 +98,7 @@ namespace desktop { namespace core { namespace agent {
 	{
 		auto documents = m_applicationService->getMyDocuments();
 
-		m_iniFileService->set<std::string>(documents + "Blink.ini", "Synchronize", "LastUpdate", timestamp);
+		m_iniFileService->set<std::string>(documents + "Blink.ini", "SyncVideo", "LastUpdate", timestamp);
 	}
 
 	void SyncVideoAgent::execute()
@@ -107,7 +114,7 @@ namespace desktop { namespace core { namespace agent {
 			if (videos.size() > 0)
 			{
 				auto documents = m_applicationService->getMyDocuments();
-				unsigned int sleep = m_iniFileService->get<unsigned int>(documents + "Blink.ini", "Synchronize", "Sleep", 20);
+				unsigned int sleep = m_iniFileService->get<unsigned int>(documents + "Blink.ini", "SyncVideo", "Sleep", 20);
 
 				std::map<std::string, std::string> requestHeaders;
 				requestHeaders["token_auth"] = m_credentials->m_token;
