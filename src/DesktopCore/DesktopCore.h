@@ -4,12 +4,11 @@
 
 namespace desktop { namespace core {
 	
-	namespace agent
+	namespace model
 	{
-		class UpgradeViewerAgent;
-		class SyncVideoAgent;
+		class IAgent;
 	}
-	
+
 	class DesktopContext;
 	
 	class DesktopCore
@@ -17,7 +16,8 @@ namespace desktop { namespace core {
 	public:
 		DesktopCore();
 		~DesktopCore();
-		void initialize(std::unique_ptr<agent::UpgradeViewerAgent>, std::unique_ptr<agent::SyncVideoAgent>);
+		void initialize();
+		void addAgent(std::unique_ptr<model::IAgent> agent);
 	private:
 		std::unique_ptr<DesktopContext> m_context;
 	};

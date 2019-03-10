@@ -23,16 +23,17 @@ namespace desktop { namespace core {
 	
 	namespace cup = core::utils::patterns;
 	
-	class SyncVideoAgent : public model::IAgent
+	class SyncThumbnailAgent : public model::IAgent
 	{
 	public:
-		SyncVideoAgent(std::unique_ptr<service::IDownloadFileService> downloadService = std::make_unique<service::DownloadFileService>(),
+		SyncThumbnailAgent(std::unique_ptr<service::IDownloadFileService> downloadService = std::make_unique<service::DownloadFileService>(),
 						std::unique_ptr<service::HTTPClientService> clientService = std::make_unique<service::HTTPClientService>(),
 						std::unique_ptr<service::ApplicationDataService> applicationService = std::make_unique<service::ApplicationDataService>(),
 						std::unique_ptr<service::IniFileService> iniFileService = std::make_unique<service::IniFileService>());
-		~SyncVideoAgent();
+		~SyncThumbnailAgent();
 
-		void getVideos(std::map<std::string, std::string>& videos, const std::string& timestamp, unsigned int page) const;
+		void getNetworkInfo(std::vector<std::pair<unsigned int, std::vector<unsigned int>>>& cameras) const;
+		void getThumbnail(unsigned int network, unsigned int camera) const;
 		void execute();
 	private:
 		void armTimer(unsigned int seconds = 60);

@@ -8,6 +8,7 @@
 #include "DesktopCore\DesktopCore.h"
 #include "DesktopCore\Upgrade\Agents\UpgradeViewerAgent.h"
 #include "DesktopCore\Blink\Agents\SyncVideoAgent.h"
+#include "DesktopCore\Blink\Agents\SyncThumbnailAgent.h"
 #include "DesktopCore\System\Services\ApplicationDataService.h"
 
 #include "Services\DownloadFileService.h"
@@ -106,11 +107,12 @@ BOOL DesktopApp::CreateBrowser(CefRefPtr<desktop::ui::BrowserClientHandler> clie
 
 std::string DesktopApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 {
-	auto updateAgent = std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadFileService>(browser));
-	auto syncVideoAgent = std::make_unique<desktop::core::agent::SyncVideoAgent>();
+	m_core->initialize();
 
-	m_core->initialize(std::move(updateAgent), std::move(syncVideoAgent));
-	
+	m_core->addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadFileService>(browser)));
+	m_core->addAgent(std::make_unique<desktop::core::agent::SyncVideoAgent>());
+	m_core->addAgent(std::make_unique<desktop::core::agent::SyncThumbnailAgent>());
+
 	desktop::core::service::ApplicationDataService service;
 	auto documents = service.getMyDocuments();
 	return documents + "Download\\Versions\\";

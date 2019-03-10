@@ -21,7 +21,7 @@ namespace desktop { namespace core { namespace service {
 
 		std::string file;
 
-		if (m_clientService->send(host, "443", url, requestHeaders, responseHeaders, file, status))
+		if (m_clientService->get(host, "443", url, requestHeaders, responseHeaders, file, status))
 		{
 			if (status == 302)
 			{
@@ -34,7 +34,7 @@ namespace desktop { namespace core { namespace service {
 					{
 						std::map<std::string, std::string> requestHeaders, responseHeaders;
 
-						if (m_clientService->send(domain, "443", path, requestHeaders, responseHeaders, file, status) && status == 200)
+						if (m_clientService->get(domain, "443", path, requestHeaders, responseHeaders, file, status) && status == 200)
 						{
 							if (m_fileIOService->save(folder, file))
 							{

@@ -28,8 +28,24 @@ namespace desktop { namespace core { namespace service {
 
 	HTTPClientService::~HTTPClientService() = default;
 
-	bool HTTPClientService::send(const std::string& server, const std::string& port, const std::string& path, 
-								const std::map<std::string, std::string>& requestHeaders,
+	bool HTTPClientService::get(const std::string& server, const std::string& port, const std::string& path,
+		const std::map<std::string, std::string>& requestHeaders,
+		std::map<std::string, std::string>& responseHeaders,
+		std::string& content, unsigned int& status_code)
+	{
+		send(server, port, "GET", path, requestHeaders, responseHeaders, content, status_code);
+	}
+
+	bool HTTPClientService::post(const std::string& server, const std::string& port, const std::string& path,
+		const std::map<std::string, std::string>& requestHeaders,
+		std::map<std::string, std::string>& responseHeaders,
+		std::string& content, unsigned int& status_code)
+	{
+		send(server, port, "POST", path, requestHeaders, responseHeaders, content, status_code);
+	}
+
+	bool HTTPClientService::send(const std::string& server, const std::string& port, const std::string& action, 
+								const std::string& path, const std::map<std::string, std::string>& requestHeaders,
 								std::map<std::string, std::string>& responseHeaders,
 								std::string& content, unsigned int& status_code)
 	{
@@ -44,7 +60,7 @@ namespace desktop { namespace core { namespace service {
 
 		boost::asio::streambuf request;
 		std::ostream request_stream(&request);
-		request_stream << "GET " << path << " HTTP/1.0\r\n";
+		request_stream << action << " " << path << " HTTP/1.0\r\n";
 		request_stream << "Host: " << server << "\r\n";
 		request_stream << "Accept: */*\r\n";
 		request_stream << "User-Agent: Mozilla / 5.0 (Windows NT 10.0; Win64; x64) AppleWebKit / 537.36 (KHTML, like Gecko) Chrome / 71.0.3578.98 Safari / 537.36\r\n";

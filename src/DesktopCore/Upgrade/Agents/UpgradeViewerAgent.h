@@ -11,9 +11,10 @@
 #include "../../System/Services/ReplaceFolderService.h"
 #include "../../System/Services/IniFileService.h"
 #include "../../System/Services/ApplicationDataService.h"
+#include "../../Model/IAgent.h"
 
 namespace desktop { namespace core { namespace agent {
-	class UpgradeViewerAgent
+	class UpgradeViewerAgent : public model::IAgent
 	{
 	public:
 		UpgradeViewerAgent(std::unique_ptr<service::IDownloadFileService> downloadService = std::make_unique<service::DownloadFileService>(),

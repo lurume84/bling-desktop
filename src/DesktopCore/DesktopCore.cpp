@@ -2,16 +2,19 @@
 
 #include "DesktopContext.h"
 
-#include "Upgrade\Agents\UpgradeViewerAgent.h"
-#include "Blink\Agents\SyncVideoAgent.h"
+#include "Model/IAgent.h"
 
 namespace desktop { namespace core {
 	DesktopCore::DesktopCore() = default;
 	DesktopCore::~DesktopCore() = default;
 	
-	void DesktopCore::initialize(std::unique_ptr<agent::UpgradeViewerAgent> upgradeViewerAgent,
-								std::unique_ptr<agent::SyncVideoAgent> syncVideoAgent)
+	void DesktopCore::initialize()
 	{
-		m_context = std::make_unique<DesktopContext>(std::move(upgradeViewerAgent), std::move(syncVideoAgent));
+		m_context = std::make_unique<DesktopContext>();
+	}
+
+	void DesktopCore::addAgent(std::unique_ptr<model::IAgent> agent)
+	{
+		m_context->m_agents.push_back(std::move(agent));
 	}
 }}

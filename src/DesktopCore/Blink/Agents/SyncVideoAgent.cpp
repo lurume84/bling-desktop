@@ -176,7 +176,7 @@ namespace desktop { namespace core { namespace agent {
 		std::stringstream ss;
 		ss << path << "&page=" << page;
 
-		if (m_clientService->send(m_credentials->m_host, m_credentials->m_port, ss.str(), requestHeaders, responseHeaders, content, status))
+		if (m_clientService->get(m_credentials->m_host, m_credentials->m_port, ss.str(), requestHeaders, responseHeaders, content, status))
 		{
 			std::stringstream contentSS(content);
 

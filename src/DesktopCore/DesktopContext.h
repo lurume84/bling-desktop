@@ -1,21 +1,17 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 namespace desktop { namespace core {
 
-	namespace agent
+	namespace model
 	{
-		class UpgradeViewerAgent;
-		class SyncVideoAgent;
+		class IAgent;
 	}
 
-	class DesktopContext
+	struct DesktopContext
 	{
-	public:
-		DesktopContext(std::unique_ptr<agent::UpgradeViewerAgent>, std::unique_ptr<agent::SyncVideoAgent>);
-	private:
-		std::unique_ptr<agent::UpgradeViewerAgent> m_upgradeVieweragent;
-		std::unique_ptr<agent::SyncVideoAgent>		m_syncVideoAgent;
+		std::vector<std::unique_ptr<model::IAgent>> m_agents;
 	};
 }}

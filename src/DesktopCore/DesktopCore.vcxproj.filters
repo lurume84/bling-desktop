@@ -89,6 +89,9 @@
     <ClCompile Include="System\Services\IniFileService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
+    <ClCompile Include="Blink\Agents\SyncThumbnailAgent.cpp">
+      <Filter>Blink\Agents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -155,6 +158,12 @@
     </ClInclude>
     <ClInclude Include="System\Services\IniFileService.h">
       <Filter>System\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Blink\Agents\SyncThumbnailAgent.h">
+      <Filter>Blink\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\IAgent.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

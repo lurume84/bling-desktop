@@ -56,7 +56,7 @@ namespace desktop { namespace core { namespace agent {
 			std::string content;
 			unsigned int status;
 
-			if (m_clientService->send(m_host, "443", m_repository, requestHeaders, responseHeaders, content, status))
+			if (m_clientService->get(m_host, "443", m_repository, requestHeaders, responseHeaders, content, status))
 			{
 				try
 				{

@@ -11,11 +11,19 @@ namespace desktop { namespace core { namespace service {
 	public:
 		HTTPClientService();
 		~HTTPClientService();
-		bool send(const std::string& server, const std::string& port, const std::string&, 
+		bool get(const std::string& server, const std::string& port, const std::string&, 
 					const std::map<std::string, std::string>& requestHeaders, 
 					std::map<std::string, std::string>& responseHeaders, 
 					std::string& content, unsigned int& status_code);
+		bool post(const std::string& server, const std::string& port, const std::string&,
+			const std::map<std::string, std::string>& requestHeaders,
+			std::map<std::string, std::string>& responseHeaders,
+			std::string& content, unsigned int& status_code);
 	private:
+		bool send(const std::string& server, const std::string& port, const std::string& action,
+			const std::string& path, const std::map<std::string, std::string>& requestHeaders,
+			std::map<std::string, std::string>& responseHeaders,
+			std::string& content, unsigned int& status_code);
 		bool receive(std::map<std::string, std::string>& headers, std::string& content, unsigned int& status_code);
 	private:
 		boost::asio::io_service m_io_service;
