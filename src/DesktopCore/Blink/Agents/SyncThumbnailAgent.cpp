@@ -18,12 +18,14 @@ namespace desktop { namespace core { namespace agent {
 	SyncThumbnailAgent::SyncThumbnailAgent(std::unique_ptr<service::IDownloadFileService> downloadService,
 									std::unique_ptr<service::HTTPClientService> clientService,
 									std::unique_ptr<service::ApplicationDataService> applicationService,
-									std::unique_ptr<service::IniFileService> iniFileService)
+									std::unique_ptr<service::IniFileService> iniFileService,
+									std::unique_ptr<service::TimestampFolderService> timestampFolderService)
 	: m_ioService()
 	, m_iniFileService(std::move(iniFileService))
 	, m_downloadService(std::move(downloadService))
 	, m_clientService(std::move(clientService))
 	, m_applicationService(std::move(applicationService))
+	, m_timestampFolderService(std::move(timestampFolderService))
 	{
 		auto documents = m_applicationService->getMyDocuments();
 
@@ -114,13 +116,13 @@ namespace desktop { namespace core { namespace agent {
 			{
 				for (auto& camera : network.second)
 				{
-					getThumbnail(network.first, camera);
+					requestThumbnail(network.first, camera);
 				}
 			}
 		}
 	}
 
-	void SyncThumbnailAgent::getThumbnail(unsigned int network, unsigned int camera) const
+	void SyncThumbnailAgent::requestThumbnail(unsigned int network, unsigned int camera) const
 	{
 		std::map<std::string, std::string> requestHeaders, responseHeaders;
 		std::string content;
@@ -133,7 +135,103 @@ namespace desktop { namespace core { namespace agent {
 
 		if (m_clientService->post(m_credentials->m_host, m_credentials->m_port, path.str(), requestHeaders, responseHeaders, content, status))
 		{
-			
+			boost::property_tree::ptree tree;
+
+			std::stringstream contentSS(content);
+			boost::property_tree::json_parser::read_json(contentSS, tree);
+
+			auto command = tree.get_child("id").get_value<unsigned int>();
+
+			if (waitForCompletion(network, command))
+			{
+				saveThumbnail(network, camera);
+			}
+		}
+	}
+
+	bool SyncThumbnailAgent::waitForCompletion(unsigned int network, unsigned int command) const
+	{
+		std::map<std::string, std::string> requestHeaders, responseHeaders;
+		std::string content;
+		unsigned int status;
+
+		requestHeaders["token_auth"] = m_credentials->m_token;
+
+		auto documents = m_applicationService->getMyDocuments();
+		unsigned int sleep = m_iniFileService->get<unsigned int>(documents + "Blink.ini", "SyncThumbnail", "Sleep", 5);
+		unsigned int maxRetries = m_iniFileService->get<unsigned int>(documents + "Blink.ini", "SyncThumbnail", "Retries", 10);
+
+		std::stringstream path;
+		path << "/network/" << network << "/command/" << command;
+
+		boost::property_tree::ptree tree;
+
+		bool completed = false;
+		unsigned int retry = 0;
+
+		try
+		{
+			do
+			{
+				std::this_thread::sleep_for(std::chrono::seconds{ sleep });
+				m_clientService->get(m_credentials->m_host, m_credentials->m_port, path.str(), requestHeaders, responseHeaders, content, status);
+
+				std::stringstream contentSS(content);
+				boost::property_tree::json_parser::read_json(contentSS, tree);
+
+				completed = tree.get_child("complete").get_value<bool>();
+
+				++retry;
+			} while (!completed && retry < maxRetries);
+
+			return true;
+		}
+		catch (...)
+		{
+		
+		}
+
+		return false;
+	}
+
+	void SyncThumbnailAgent::saveThumbnail(unsigned int network, unsigned int camera) const
+	{
+		std::map<std::string, std::string> requestHeaders, responseHeaders;
+		std::string content;
+		unsigned int status;
+
+		requestHeaders["token_auth"] = m_credentials->m_token;
+
+		std::stringstream path;
+		path << "/network/" << network << "/camera/" << camera;
+
+		if (m_clientService->get(m_credentials->m_host, m_credentials->m_port, path.str(), requestHeaders, responseHeaders, content, status))
+		{
+			boost::property_tree::ptree tree;
+
+			std::stringstream contentSS(content);
+			boost::property_tree::json_parser::read_json(contentSS, tree);
+
+			auto status = tree.get_child("camera_status");
+
+			auto thumbnail = status.get_child("thumbnail").get_value<std::string>();
+
+			auto folder = m_outFolder + m_timestampFolderService->get(status.get_child("updated_at").get_value<std::string>());
+			auto target = folder + boost::filesystem::path(thumbnail + ".jpg").filename().string();
+
+			if (!boost::filesystem::exists(folder))
+			{
+				boost::filesystem::create_directories(folder);
+			}
+
+			try
+			{
+				m_downloadService->download(m_credentials->m_host, thumbnail + ".jpg", requestHeaders, target);
+			}
+			catch (...)
+			{
+				
+			}
 		}
 	}
 

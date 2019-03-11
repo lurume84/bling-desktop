@@ -92,6 +92,9 @@
     <ClCompile Include="Blink\Agents\SyncThumbnailAgent.cpp">
       <Filter>Blink\Agents</Filter>
     </ClCompile>
+    <ClCompile Include="System\Services\TimestampFolderService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="Model\IAgent.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\TimestampFolderService.h">
+      <Filter>System\Services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

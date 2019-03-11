@@ -17,12 +17,14 @@ namespace desktop { namespace core { namespace agent {
 	SyncVideoAgent::SyncVideoAgent(std::unique_ptr<service::IDownloadFileService> downloadService,
 									std::unique_ptr<service::HTTPClientService> clientService,
 									std::unique_ptr<service::ApplicationDataService> applicationService,
-									std::unique_ptr<service::IniFileService> iniFileService)
+									std::unique_ptr<service::IniFileService> iniFileService,
+									std::unique_ptr<service::TimestampFolderService> timestampFolderService)
 	: m_ioService()
 	, m_iniFileService(std::move(iniFileService))
 	, m_downloadService(std::move(downloadService))
 	, m_clientService(std::move(clientService))
 	, m_applicationService(std::move(applicationService))
+	, m_timestampFolderService(std::move(timestampFolderService))
 	{
 		auto documents = m_applicationService->getMyDocuments();
 
@@ -119,26 +121,10 @@ namespace desktop { namespace core { namespace agent {
 				std::map<std::string, std::string> requestHeaders;
 				requestHeaders["token_auth"] = m_credentials->m_token;
 
-				std::string months[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
-
 				for (auto &video : videos)
 				{
-					std::stringstream ss(video.first);
-
-					std::string year, month, day;
-					getline(ss, year, '-'); getline(ss, month, '-'); getline(ss, day, 'T');
-
-					int monthNumber = std::stoi(month);
-
-					if (monthNumber <= 12)
-					{
-						month = months[monthNumber - 1];
-					}
-
-					auto fileName = boost::filesystem::path(video.second);
-
-					auto folder = m_outFolder + year + "\\" + month + "\\" + day + "\\";
-					auto target = folder + fileName.filename().string();
+					auto folder = m_outFolder + m_timestampFolderService->get(video.first);
+					auto target = folder + boost::filesystem::path(video.second).filename().string();
 
 					if (!boost::filesystem::exists(target))
 					{
