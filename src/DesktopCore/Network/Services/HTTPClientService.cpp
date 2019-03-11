@@ -33,7 +33,7 @@ namespace desktop { namespace core { namespace service {
 		std::map<std::string, std::string>& responseHeaders,
 		std::string& content, unsigned int& status_code)
 	{
-		send(server, port, "GET", path, requestHeaders, responseHeaders, content, status_code);
+		return send(server, port, "GET", path, requestHeaders, responseHeaders, content, status_code);
 	}
 
 	bool HTTPClientService::post(const std::string& server, const std::string& port, const std::string& path,
@@ -41,7 +41,7 @@ namespace desktop { namespace core { namespace service {
 		std::map<std::string, std::string>& responseHeaders,
 		std::string& content, unsigned int& status_code)
 	{
-		send(server, port, "POST", path, requestHeaders, responseHeaders, content, status_code);
+		return send(server, port, "POST", path, requestHeaders, responseHeaders, content, status_code);
 	}
 
 	bool HTTPClientService::send(const std::string& server, const std::string& port, const std::string& action, 
