@@ -9,6 +9,7 @@
 #include "DesktopCore\Upgrade\Agents\UpgradeViewerAgent.h"
 #include "DesktopCore\Blink\Agents\SyncVideoAgent.h"
 #include "DesktopCore\Blink\Agents\SyncThumbnailAgent.h"
+#include "DesktopCore\Blink\Agents\SaveTokenAgent.h"
 #include "DesktopCore\System\Services\ApplicationDataService.h"
 
 #include "Services\DownloadFileService.h"
@@ -112,6 +113,7 @@ std::string DesktopApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 	m_core->addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadFileService>(browser)));
 	m_core->addAgent(std::make_unique<desktop::core::agent::SyncVideoAgent>());
 	m_core->addAgent(std::make_unique<desktop::core::agent::SyncThumbnailAgent>());
+	m_core->addAgent(std::make_unique<desktop::core::agent::SaveTokenAgent>());
 
 	desktop::core::service::ApplicationDataService service;
 	auto documents = service.getMyDocuments();

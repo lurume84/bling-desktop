@@ -24,6 +24,26 @@ namespace desktop { namespace core { namespace service {
 		}
 	}
 
+	std::string ApplicationDataService::getApplicationFolder() const
+	{
+		char moduleName[MAX_PATH + 1] = { '\0' };
+		(void)GetModuleFileName(NULL, moduleName, MAX_PATH);
+
+		auto path = boost::filesystem::path(moduleName).parent_path().string();
+
+		return std::string(path);
+	}
+
+	std::string ApplicationDataService::getViewerFolder() const
+	{
+		char moduleName[MAX_PATH + 1] = { '\0' };
+		(void)GetModuleFileName(NULL, moduleName, MAX_PATH);
+
+		auto path = boost::filesystem::path(moduleName).parent_path() / "Html" / "viewer";
+
+		return std::string(path.string());
+	}
+
 	std::string ApplicationDataService::getApplicationName() const
 	{
 		char moduleName[MAX_PATH + 1] = { '\0' };

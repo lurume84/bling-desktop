@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Blink\Agents\SaveTokenAgent.cpp" />
     <ClCompile Include="Blink\Agents\SyncThumbnailAgent.cpp" />
     <ClCompile Include="DesktopContext.cpp" />
     <ClCompile Include="DesktopCore.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Utils\Patterns\PublisherSubscriber\Subscriber.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Blink\Agents\SaveTokenAgent.h" />
     <ClInclude Include="Blink\Agents\SyncThumbnailAgent.h" />
     <ClInclude Include="DesktopContext.h" />
     <ClInclude Include="DesktopCore.h" />

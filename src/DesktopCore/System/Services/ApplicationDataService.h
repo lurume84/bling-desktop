@@ -10,6 +10,8 @@ namespace desktop { namespace core { namespace service {
 		~ApplicationDataService();
 
 		std::string getMyDocuments() const;
+		std::string getApplicationFolder() const;
+		std::string getViewerFolder() const;
 		std::string getApplicationName() const;
 	};
 }}}
