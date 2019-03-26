@@ -405,6 +405,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7627929C06F541D6A552D486D1434EB5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_77DCE20B46A141E686200680B9EA5660"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -639,6 +645,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C42CB61E32514636B930AFAD0AB5BDD7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C43627EF8F37438D9FBFB8B3AD43D81F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -694,6 +706,12 @@
         "Entry"
         {
         "MsmKey" = "8:_D2D8366342E4418A83BFD7EA0972304D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D470059503D941868831394C85F1C402"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2222,6 +2240,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7627929C06F541D6A552D486D1434EB5"
+            {
+            "SourcePath" = "8:..\\..\\bin\\Release\\DesktopApp\\CrashRpt1403.dll"
+            "TargetName" = "8:CrashRpt1403.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_B883C89C14114B449AC8380F0EE475E7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_77DCE20B46A141E686200680B9EA5660"
             {
             "SourcePath" = "8:..\\..\\bin\\Release\\DesktopApp\\locales\\kn.pak.info"
@@ -2982,6 +3020,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C42CB61E32514636B930AFAD0AB5BDD7"
+            {
+            "SourcePath" = "8:..\\..\\bin\\Release\\DesktopApp\\CrashSender1403.exe"
+            "TargetName" = "8:CrashSender1403.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_B883C89C14114B449AC8380F0EE475E7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C43627EF8F37438D9FBFB8B3AD43D81F"
             {
             "SourcePath" = "8:..\\..\\bin\\Release\\DesktopApp\\locales\\da.pak"
@@ -3166,6 +3224,26 @@
             {
             "SourcePath" = "8:..\\..\\bin\\Release\\DesktopApp\\icudtl.dat"
             "TargetName" = "8:icudtl.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_B883C89C14114B449AC8380F0EE475E7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D470059503D941868831394C85F1C402"
+            {
+            "SourcePath" = "8:..\\..\\bin\\Release\\DesktopApp\\crashrpt_lang.ini"
+            "TargetName" = "8:crashrpt_lang.ini"
             "Tag" = "8:"
             "Folder" = "8:_B883C89C14114B449AC8380F0EE475E7"
             "Condition" = "8:"
@@ -3798,7 +3876,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Bling Desktop"
         "ProductCode" = "8:{2B3462DB-7B79-4827-B906-35BAEE918DE8}"
-        "PackageCode" = "8:{E297B514-5D1F-47E6-8616-F744AE1E5C3B}"
+        "PackageCode" = "8:{10186C5A-BD70-46BF-916B-54D17A6E2503}"
         "UpgradeCode" = "8:{5241AE29-ABD8-47FB-A6B7-BC71BA1CDACF}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
