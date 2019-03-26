@@ -16,6 +16,11 @@ namespace desktop { namespace ui {
 			{
 				return true;
 			}
+			else if (os_event->wParam == VK_ESCAPE)
+			{
+				browser->GetMainFrame()->ExecuteJavaScript("document.exitFullscreen();", browser->GetMainFrame()->GetURL(), 0);
+				return true;
+			}
 			else
 			{
 				HWND hWindow = GetParent( browser->GetHost()->GetWindowHandle() );
