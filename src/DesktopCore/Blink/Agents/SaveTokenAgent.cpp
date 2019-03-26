@@ -23,28 +23,35 @@ namespace desktop { namespace core { namespace agent {
 
 			auto viewerFolder = m_applicationService->getViewerFolder();
 			
-			boost::property_tree::ptree tree;
-
+			try
 			{
-				boost::property_tree::ptree token;
-				token.add_child("authtoken", boost::property_tree::ptree{ credentials->m_token });
+				boost::property_tree::ptree tree;
 
-				tree.add_child("authtoken", token);
+				{
+					boost::property_tree::ptree token;
+					token.add_child("authtoken", boost::property_tree::ptree{ credentials->m_token });
+
+					tree.add_child("authtoken", token);
+				}
+
+				{
+					std::string region;
+
+					std::stringstream ss(credentials->m_host);
+					getline(ss, region, '-'); getline(ss, region, '.');
+
+					boost::property_tree::ptree token;
+					token.add_child(region, boost::property_tree::ptree{ "" });
+
+					tree.add_child("region", token);
+				}
+
+				boost::property_tree::json_parser::write_json(viewerFolder + "\\token.json", tree);
 			}
-
+			catch (...)
 			{
-				std::string region;
-
-				std::stringstream ss(credentials->m_host);
-				getline(ss, region, '-'); getline(ss, region, '.');
-
-				boost::property_tree::ptree token;
-				token.add_child(region, boost::property_tree::ptree{ "" });
-
-				tree.add_child("region", token);
+				
 			}
-
-			boost::property_tree::json_parser::write_json(viewerFolder + "\\token.json", tree);
 			
 		}, events::CREDENTIALS_EVENT);
 	}

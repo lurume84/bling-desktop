@@ -135,16 +135,23 @@ namespace desktop { namespace core { namespace agent {
 
 		if (m_clientService->post(m_credentials->m_host, m_credentials->m_port, path.str(), requestHeaders, responseHeaders, content, status))
 		{
-			boost::property_tree::ptree tree;
-
-			std::stringstream contentSS(content);
-			boost::property_tree::json_parser::read_json(contentSS, tree);
-
-			auto command = tree.get_child("id").get_value<unsigned int>();
-
-			if (waitForCompletion(network, command))
+			try
 			{
-				saveThumbnail(network, camera);
+				boost::property_tree::ptree tree;
+
+				std::stringstream contentSS(content);
+				boost::property_tree::json_parser::read_json(contentSS, tree);
+
+				auto command = tree.get_child("id").get_value<unsigned int>();
+
+				if (waitForCompletion(network, command))
+				{
+					saveThumbnail(network, camera);
+				}
+			}
+			catch (...)
+			{
+
 			}
 		}
 	}
@@ -164,13 +171,13 @@ namespace desktop { namespace core { namespace agent {
 		std::stringstream path;
 		path << "/network/" << network << "/command/" << command;
 
-		boost::property_tree::ptree tree;
-
 		bool completed = false;
 		unsigned int retry = 0;
 
 		try
 		{
+			boost::property_tree::ptree tree;
+			
 			do
 			{
 				std::this_thread::sleep_for(std::chrono::seconds{ sleep });
@@ -207,25 +214,25 @@ namespace desktop { namespace core { namespace agent {
 
 		if (m_clientService->get(m_credentials->m_host, m_credentials->m_port, path.str(), requestHeaders, responseHeaders, content, status))
 		{
-			boost::property_tree::ptree tree;
-
-			std::stringstream contentSS(content);
-			boost::property_tree::json_parser::read_json(contentSS, tree);
-
-			auto status = tree.get_child("camera_status");
-
-			auto thumbnail = status.get_child("thumbnail").get_value<std::string>();
-
-			auto folder = m_outFolder + m_timestampFolderService->get(status.get_child("updated_at").get_value<std::string>());
-			auto target = folder + boost::filesystem::path(thumbnail + ".jpg").filename().string();
-
-			if (!boost::filesystem::exists(folder))
-			{
-				boost::filesystem::create_directories(folder);
-			}
-
 			try
 			{
+				boost::property_tree::ptree tree;
+
+				std::stringstream contentSS(content);
+				boost::property_tree::json_parser::read_json(contentSS, tree);
+
+				auto status = tree.get_child("camera_status");
+
+				auto thumbnail = status.get_child("thumbnail").get_value<std::string>();
+
+				auto folder = m_outFolder + m_timestampFolderService->get(status.get_child("updated_at").get_value<std::string>());
+				auto target = folder + boost::filesystem::path(thumbnail + ".jpg").filename().string();
+
+				if (!boost::filesystem::exists(folder))
+				{
+					boost::filesystem::create_directories(folder);
+				}
+
 				m_downloadService->download(m_credentials->m_host, thumbnail + ".jpg", requestHeaders, target);
 			}
 			catch (...)
