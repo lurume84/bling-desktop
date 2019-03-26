@@ -98,6 +98,9 @@
     <ClCompile Include="Blink\Agents\SaveTokenAgent.cpp">
       <Filter>Blink\Agents</Filter>
     </ClCompile>
+    <ClCompile Include="System\Services\CrashReportService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -176,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="Blink\Agents\SaveTokenAgent.h">
       <Filter>Blink\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\CrashReportService.h">
+      <Filter>System\Services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

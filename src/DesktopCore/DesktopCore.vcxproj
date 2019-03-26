@@ -137,6 +137,7 @@
     <ClCompile Include="Network\Services\ParseURIService.cpp" />
     <ClCompile Include="System\Services\ApplicationDataService.cpp" />
     <ClCompile Include="System\Services\CompressionService.cpp" />
+    <ClCompile Include="System\Services\CrashReportService.cpp" />
     <ClCompile Include="System\Services\EncodeStringService.cpp" />
     <ClCompile Include="System\Services\FileInfoService.cpp" />
     <ClCompile Include="System\Services\FileIOService.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Network\Services\ParseURIService.h" />
     <ClInclude Include="System\Services\ApplicationDataService.h" />
     <ClInclude Include="System\Services\CompressionService.h" />
+    <ClInclude Include="System\Services\CrashReportService.h" />
     <ClInclude Include="System\Services\EncodeStringService.h" />
     <ClInclude Include="System\Services\FileInfoService.h" />
     <ClInclude Include="System\Services\FileIOService.h" />

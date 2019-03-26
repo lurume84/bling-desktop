@@ -11,7 +11,7 @@
 #include "DesktopCore\Blink\Agents\SyncThumbnailAgent.h"
 #include "DesktopCore\Blink\Agents\SaveTokenAgent.h"
 #include "DesktopCore\System\Services\ApplicationDataService.h"
-
+#include "DesktopCore\System\Services\CrashReportService.h"
 #include "Services\DownloadFileService.h"
 
 #include <boost/optional.hpp>
@@ -32,6 +32,9 @@ DesktopApp theApp;
 
 BOOL DesktopApp::InitInstance()
 {
+	desktop::core::service::CrashReportService service;
+	service.initialize({});
+
 	// Enable High-DPI support on Windows 7 or newer.
 	CefEnableHighDPISupport();
 

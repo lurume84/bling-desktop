@@ -22,7 +22,7 @@ namespace desktop { namespace core { namespace agent {
 			auto credentials = std::make_unique<model::Credentials>(evt.m_credentials);
 
 			auto viewerFolder = m_applicationService->getViewerFolder();
-
+			
 			boost::property_tree::ptree tree;
 
 			{
