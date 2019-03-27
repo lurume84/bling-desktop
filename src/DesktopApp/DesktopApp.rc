@@ -77,8 +77,8 @@ LANGUAGE LANG_SPANISH, SUBLANG_SPANISH_MODERN
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION 0,1,8,0
+ PRODUCTVERSION 0,1,8,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -95,12 +95,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "DesktopApp"
             VALUE "FileDescription", "DesktopApp"
-            VALUE "FileVersion", "1.0.0.1"
+            VALUE "FileVersion", "0.1.8.0"
             VALUE "InternalName", "DesktopApp.exe"
             VALUE "LegalCopyright", "Copyright (C) 2019"
             VALUE "OriginalFilename", "DesktopApp.exe"
             VALUE "ProductName", "DesktopApp"
-            VALUE "ProductVersion", "1.0.0.1"
+            VALUE "ProductVersion", "0.1.8.0"
         END
     END
     BLOCK "VarFileInfo"
