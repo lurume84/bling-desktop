@@ -40,7 +40,7 @@ namespace desktop { namespace core { namespace service {
 		char moduleName[MAX_PATH + 1] = { '\0' };
 		(void)GetModuleFileName(NULL, moduleName, MAX_PATH);
 
-		auto path = boost::filesystem::path(moduleName).parent_path() / "Html" / "viewer";
+		auto path = boost::filesystem::path(getMyDocuments()) / "Html" / "viewer";
 
 		return std::string(path.string());
 	}

@@ -3,6 +3,7 @@
 #include "DesktopCore\Utils\Patterns\PublisherSubscriber\Subscriber.h"
 
 #include "DesktopCore\System\Services\EncodeStringService.h"
+#include "DesktopCore\System\Services\ApplicationDataService.h"
 #include "DesktopCore\Network\Services\IDownloadFileService.h"
 
 #pragma warning(push)
@@ -41,7 +42,8 @@ namespace desktop {
 	{
 	public:
 		DownloadFileService(CefRefPtr<CefBrowser> browser, 
-							std::unique_ptr<core::service::EncodeStringService> encodeService = std::make_unique<core::service::EncodeStringService>());
+							std::unique_ptr<core::service::EncodeStringService> encodeService = std::make_unique<core::service::EncodeStringService>(),
+							std::unique_ptr<core::service::ApplicationDataService> applicationService = std::make_unique<core::service::ApplicationDataService>());
 		~DownloadFileService();
 		std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 	private:
@@ -51,6 +53,7 @@ namespace desktop {
 		std::string				m_path;
 
 		std::unique_ptr<core::service::EncodeStringService> m_encodeService;
+		std::unique_ptr<core::service::ApplicationDataService> m_applicationService;
 
 		mutable std::condition_variable m_cv;
 		mutable std::mutex				m_mutex;

@@ -17,9 +17,11 @@
 
 namespace desktop { namespace ui { namespace service {
 
-	DownloadFileService::DownloadFileService(CefRefPtr<CefBrowser> browser, std::unique_ptr<core::service::EncodeStringService> encodeService)
+	DownloadFileService::DownloadFileService(CefRefPtr<CefBrowser> browser, std::unique_ptr<core::service::EncodeStringService> encodeService, 
+											std::unique_ptr<core::service::ApplicationDataService> applicationService)
 	: m_browser(browser)
 	, m_encodeService(std::move(encodeService))
+	, m_applicationService(std::move(applicationService))
 	{
 		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 		{
@@ -42,7 +44,7 @@ namespace desktop { namespace ui { namespace service {
 			
 			toast::ToastFactory factory;
 			
-			if (boost::filesystem::exists("Html/viewer/index.html"))
+			if (boost::filesystem::exists(m_applicationService->getViewerFolder() + "/index.html"))
 			{
 				auto callback = evt.m_callback;
 
@@ -73,7 +75,7 @@ namespace desktop { namespace ui { namespace service {
 
 		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 		{
-			m_browser->GetMainFrame()->LoadURL(boost::filesystem::canonical("Html/viewer/index.html").string());
+			m_browser->GetMainFrame()->LoadURL(boost::filesystem::canonical(m_applicationService->getViewerFolder() + "/index.html").string());
 		}, desktop::core::events::UPGRADE_COMPLETED_EVENT);
 	}
 

@@ -76,7 +76,17 @@ Section "Desktop" SecDummy
 
   SetOutPath "$INSTDIR\swiftshader"
   File /r "..\..\bin\Release\DesktopApp\swiftshader\*.dll"
-  
+
+  ; Create application shortcut (first in installation dir to have the correct "start in" target)
+  SetOutPath "$INSTDIR"
+  CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\Bling.exe"
+
+  ; Start menu entries
+  SetOutPath "$SMPROGRAMS\${PRODUCT_NAME}\"
+  CopyFiles "$INSTDIR\${PRODUCT_NAME}.lnk" "$SMPROGRAMS\${PRODUCT_NAME}\"
+  CopyFiles "$INSTDIR\${PRODUCT_NAME}.lnk" "$desktop"
+  Delete "$INSTDIR\${PRODUCT_NAME}.lnk"
+
   ;Store installation folder
   WriteRegStr HKCU "Software\Bling Desktop" "" $INSTDIR
   

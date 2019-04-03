@@ -3,6 +3,7 @@
 #include "DesktopAppDlg.h"
 #include "Toast/Toast.h"
 #include "Toast/ToastPayload.h"
+#include "DesktopCore\System\Services\ApplicationDataService.h"
 
 #include <boost\filesystem.hpp>
 #include <boost\filesystem\operations.hpp>
@@ -44,9 +45,11 @@ BOOL DesktopAppDlg::OnInitDialog()
   
   std::string url;
 
-  if (boost::filesystem::exists("Html/viewer/index.html"))
+  desktop::core::service::ApplicationDataService applicationService;
+
+  if (boost::filesystem::exists(applicationService.getViewerFolder() + "/index.html"))
   {
-	  url = boost::filesystem::canonical("Html/viewer/index.html").string();
+	  url = boost::filesystem::canonical(applicationService.getViewerFolder() + "/index.html").string();
   }
   else
   {
