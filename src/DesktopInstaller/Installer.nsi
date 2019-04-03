@@ -66,7 +66,7 @@ VIAddVersionKey "FileDescription" "Bling Desktop"
 Section "Desktop" SecDummy
 
   SetOutPath "$INSTDIR"
-  File /x "*.pdb" /x "*.ipdb" /x "*.iobj" "..\..\bin\Release\DesktopApp\*.*"
+  File /x "*.pdb" /x "*.ipdb" /x "*.iobj" /x "*.lib" "..\..\bin\Release\DesktopApp\*.*"
   
   SetOutPath "$INSTDIR\Html"
   File /r "..\..\bin\Release\DesktopApp\Html\loading"
