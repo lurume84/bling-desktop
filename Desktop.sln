@@ -8,8 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesktopCore", "src\DesktopCore\DesktopCore.vcxproj", "{F82C7792-4DCA-4682-8265-617A67AC6C9F}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DesktopInstaller", "src\DesktopInstaller\DesktopInstaller.vdproj", "{9E59E6DA-148C-4537-9B5E-BFD2C0F68A41}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -32,10 +30,6 @@ Global
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F}.Release|Win32.Build.0 = Release|Win32
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F}.Release|x64.ActiveCfg = Release|x64
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F}.Release|x64.Build.0 = Release|x64
-		{9E59E6DA-148C-4537-9B5E-BFD2C0F68A41}.Debug|Win32.ActiveCfg = Debug
-		{9E59E6DA-148C-4537-9B5E-BFD2C0F68A41}.Debug|x64.ActiveCfg = Debug
-		{9E59E6DA-148C-4537-9B5E-BFD2C0F68A41}.Release|Win32.ActiveCfg = Release
-		{9E59E6DA-148C-4537-9B5E-BFD2C0F68A41}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
