@@ -16,7 +16,7 @@ namespace desktop { namespace core { namespace agent {
 											std::unique_ptr<service::CompressionService> compressionService,
 											std::unique_ptr<service::ReplaceFolderService> replaceFolderService)
 	: m_ioService()
-	, m_timer(m_ioService, boost::posix_time::seconds(60 * 60 * 12))
+	, m_timer(m_ioService, boost::posix_time::seconds(60 * 10))
 	, m_downloadService(std::move(downloadService))
 	, m_clientService(std::move(clientService))
 	, m_compressionService(std::move(compressionService))
@@ -107,16 +107,14 @@ namespace desktop { namespace core { namespace agent {
 
 						utils::patterns::Broker::get().publish(evt);
 					}
-					else
-					{
-						armTimer();
-					}
 				}
 				catch (std::exception& /*e*/)
 				{
 
 				}
 			}
+
+			armTimer();
 		}
 	}
 
