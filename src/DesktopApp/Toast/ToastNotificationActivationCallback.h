@@ -3,6 +3,9 @@
 #include <wrl.h>
 //Define INotificationActivationCallback for older versions of the Windows SDK
 #include <ntverp.h>
+
+#define CLSID "291FBF2D-1B32-4708-BB13-6CA6CAB6840A"
+
 #if VER_PRODUCTBUILD < 10011
 
 typedef struct NOTIFICATION_USER_INPUT_DATA
@@ -11,7 +14,7 @@ typedef struct NOTIFICATION_USER_INPUT_DATA
 	LPCWSTR Value;
 }  NOTIFICATION_USER_INPUT_DATA;
 
-MIDL_INTERFACE("53E31837-6600-4A81-9395-75CFFE746F94")
+MIDL_INTERFACE(CLSID)
 INotificationActivationCallback : public IUnknown
 {
 public:
@@ -25,7 +28,7 @@ public:
 
 namespace desktop { namespace ui {  namespace toast {
 	//The COM server which implements the callback notifcation from Action Center
-	class DECLSPEC_UUID("383803B6-AFDA-4220-BFC3-0DBF810106BF")
+	class DECLSPEC_UUID(CLSID)
 		ToastNotificationActivationCallback : public Microsoft::WRL::RuntimeClass<Microsoft::WRL::RuntimeClassFlags<Microsoft::WRL::ClassicCom>, INotificationActivationCallback>
 	{
 	public:
