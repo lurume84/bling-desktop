@@ -40,6 +40,9 @@
     <Filter Include="Network\Model">
       <UniqueIdentifier>{75644b66-b126-48fc-890c-9ea92211a343}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Blink\Services">
+      <UniqueIdentifier>{aa5fd162-3479-4f9a-a232-6cd7fc883343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
@@ -100,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="System\Services\CrashReportService.cpp">
       <Filter>System\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Blink\Agents\ActivityAgent.cpp">
+      <Filter>Blink\Agents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +188,12 @@
     </ClInclude>
     <ClInclude Include="System\Services\CrashReportService.h">
       <Filter>System\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Blink\Agents\ActivityAgent.h">
+      <Filter>Blink\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="Blink\Services\IActivityNotificationService.h">
+      <Filter>Blink\Services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

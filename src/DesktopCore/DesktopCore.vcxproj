@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Blink\Agents\ActivityAgent.cpp" />
     <ClCompile Include="Blink\Agents\SaveTokenAgent.cpp" />
     <ClCompile Include="Blink\Agents\SyncThumbnailAgent.cpp" />
     <ClCompile Include="DesktopContext.cpp" />
@@ -150,8 +151,10 @@
     <ClCompile Include="Utils\Patterns\PublisherSubscriber\Subscriber.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Blink\Agents\ActivityAgent.h" />
     <ClInclude Include="Blink\Agents\SaveTokenAgent.h" />
     <ClInclude Include="Blink\Agents\SyncThumbnailAgent.h" />
+    <ClInclude Include="Blink\Services\IActivityNotificationService.h" />
     <ClInclude Include="DesktopContext.h" />
     <ClInclude Include="DesktopCore.h" />
     <ClInclude Include="Blink\Agents\SyncVideoAgent.h" />

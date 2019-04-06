@@ -10,9 +10,11 @@
 #include "DesktopCore\Blink\Agents\SyncVideoAgent.h"
 #include "DesktopCore\Blink\Agents\SyncThumbnailAgent.h"
 #include "DesktopCore\Blink\Agents\SaveTokenAgent.h"
+#include "DesktopCore\Blink\Agents\ActivityAgent.h"
 #include "DesktopCore\System\Services\ApplicationDataService.h"
 #include "DesktopCore\System\Services\CrashReportService.h"
 #include "Services\DownloadFileService.h"
+#include "Services\ActivityNotificationService.h"
 
 #include <boost/optional.hpp>
 
@@ -117,6 +119,7 @@ std::string DesktopApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 	m_core->addAgent(std::make_unique<desktop::core::agent::SyncVideoAgent>());
 	m_core->addAgent(std::make_unique<desktop::core::agent::SyncThumbnailAgent>());
 	m_core->addAgent(std::make_unique<desktop::core::agent::SaveTokenAgent>());
+	m_core->addAgent(std::make_unique<desktop::core::agent::ActivityAgent>(std::make_unique<desktop::ui::service::ActivityNotificationService>(browser)));
 
 	desktop::core::service::ApplicationDataService service;
 	auto documents = service.getMyDocuments();
