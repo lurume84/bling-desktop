@@ -12,8 +12,8 @@
 !define MUI_HEADERIMAGE_BITMAP "..\..\src\DesktopUI\img\logo.bmp"
 !define MUI_HEADERIMAGE_RIGHT
 !define PRODUCT_NAME "Bling Desktop"
-!define PRODUCT_VERSION "0.1.9.0"
-!define VERSION "0.1.9.0"
+!define PRODUCT_VERSION "0.1.10.0"
+!define VERSION "0.1.10.0"
 !define PRODUCT_PUBLISHER "Luis Ruiz"
 !define PRODUCT_WEB_SITE "https://github.com/lurume84/bling-desktop"
 
