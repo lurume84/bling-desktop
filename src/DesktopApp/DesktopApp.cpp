@@ -119,7 +119,7 @@ std::string DesktopApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 	m_core->addAgent(std::make_unique<desktop::core::agent::SyncVideoAgent>());
 	m_core->addAgent(std::make_unique<desktop::core::agent::SyncThumbnailAgent>());
 	m_core->addAgent(std::make_unique<desktop::core::agent::SaveTokenAgent>());
-	m_core->addAgent(std::make_unique<desktop::core::agent::ActivityAgent>(std::make_unique<desktop::ui::service::ActivityNotificationService>(browser)));
+	//m_core->addAgent(std::make_unique<desktop::core::agent::ActivityAgent>(std::make_unique<desktop::ui::service::ActivityNotificationService>(browser)));
 
 	desktop::core::service::ApplicationDataService service;
 	auto documents = service.getMyDocuments();

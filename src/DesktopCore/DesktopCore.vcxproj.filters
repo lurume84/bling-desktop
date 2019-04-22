@@ -107,6 +107,9 @@
     <ClCompile Include="Blink\Agents\ActivityAgent.cpp">
       <Filter>Blink\Agents</Filter>
     </ClCompile>
+    <ClCompile Include="System\Services\TimeZoneService.cpp">
+      <Filter>System\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -194,6 +197,9 @@
     </ClInclude>
     <ClInclude Include="Blink\Services\IActivityNotificationService.h">
       <Filter>Blink\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\TimeZoneService.h">
+      <Filter>System\Services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

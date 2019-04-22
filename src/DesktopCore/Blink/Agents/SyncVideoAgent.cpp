@@ -8,6 +8,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/algorithm/string.hpp> 
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -18,17 +19,21 @@ namespace desktop { namespace core { namespace agent {
 									std::unique_ptr<service::HTTPClientService> clientService,
 									std::unique_ptr<service::ApplicationDataService> applicationService,
 									std::unique_ptr<service::IniFileService> iniFileService,
-									std::unique_ptr<service::TimestampFolderService> timestampFolderService)
+									std::unique_ptr<service::TimestampFolderService> timestampFolderService,
+									std::unique_ptr<service::TimeZoneService> timeZoneService)
 	: m_ioService()
 	, m_iniFileService(std::move(iniFileService))
 	, m_downloadService(std::move(downloadService))
 	, m_clientService(std::move(clientService))
 	, m_applicationService(std::move(applicationService))
 	, m_timestampFolderService(std::move(timestampFolderService))
+	, m_timeZoneService(std::move(timeZoneService))
 	{
 		auto documents = m_applicationService->getMyDocuments();
 
 		{
+			m_saveLocalTime = m_iniFileService->get<bool>(documents + "Blink.ini", "SyncVideo", "UseLocalTime", false);
+
 			m_seconds = m_iniFileService->get<unsigned int>(documents + "Blink.ini", "SyncVideo", "Interval", 60);
 
 			m_timer = std::make_unique<boost::asio::deadline_timer>(m_ioService, boost::posix_time::seconds(m_seconds));
@@ -124,7 +129,7 @@ namespace desktop { namespace core { namespace agent {
 				for (auto &video : videos)
 				{
 					auto folder = m_outFolder + m_timestampFolderService->get(video.first);
-					auto target = folder + boost::filesystem::path(video.second).filename().string();
+					auto target = folder + formatFileName(video.first, video.second);
 
 					if (!boost::filesystem::exists(target))
 					{
@@ -202,5 +207,17 @@ namespace desktop { namespace core { namespace agent {
 			execute();
 			armTimer(m_seconds);
 		});
+	}
+
+	std::string SyncVideoAgent::formatFileName(const std::string& timestamp, const std::string& fileName) const
+	{
+		if (m_saveLocalTime)
+		{
+			return boost::replace_all_copy(m_timeZoneService->universalToLocal(timestamp), ":", "_") + ".mp4";
+		}
+		else
+		{
+			return boost::filesystem::path(fileName).filename().string();
+		}
 	}
 }}}

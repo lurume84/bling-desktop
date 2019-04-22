@@ -129,9 +129,9 @@ namespace desktop { namespace core { namespace agent {
 		requestHeaders["token_auth"] = m_credentials->m_token;
 
 		std::stringstream ss;
-		ss << path << "&page=" << page;
+		ss << "/api/v2/notification";// << "&page=" << page;
 
-		if (m_clientService->get(m_credentials->m_host, m_credentials->m_port, ss.str(), requestHeaders, responseHeaders, content, status))
+		if (m_clientService->post(m_credentials->m_host, m_credentials->m_port, ss.str(), requestHeaders, responseHeaders, content, status))
 		{
 			std::stringstream contentSS(content);
 
@@ -140,7 +140,15 @@ namespace desktop { namespace core { namespace agent {
 				boost::property_tree::ptree tree;
 				boost::property_tree::json_parser::read_json(contentSS, tree);
 				
-				auto videosTag = tree.get_child("videos");
+				auto videosTag = tree.get_child("notification_recipient");
+
+				/*std::string pepe = videosTag.data();
+
+				if(pepe != "{}" && pepe != "")
+				{
+					pepe = pepe;
+					return;
+				}*/
 
 				if (videosTag.size() > 0)
 				{
