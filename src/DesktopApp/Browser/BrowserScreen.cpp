@@ -107,7 +107,7 @@ namespace desktop { namespace ui{
 	{
 		m_cefBrowser = browser;
 
-		m_downloadPath = theApp.onBrowserCreated(m_cefBrowser);
+		m_downloadBasePath = theApp.onBrowserCreated(m_cefBrowser);
 
 		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 		{
@@ -131,9 +131,14 @@ namespace desktop { namespace ui{
 		
 	}
 
+	void BrowserScreen::setDownloadFolder(const std::string& downloadFolder)
+	{
+		m_downloadFolder = downloadFolder;
+	}
+
 	std::string BrowserScreen::getDownloadPath(const std::string& file_name) const
 	{
-		return m_downloadPath + file_name;
+		return m_downloadBasePath + m_downloadFolder + file_name;
 	}
 
 	LRESULT BrowserScreen::OnKeyBoardHook(WPARAM /*wParam*/, LPARAM lParam)

@@ -43,6 +43,8 @@ namespace desktop { namespace ui{
 		void onBrowserCreated(CefRefPtr<CefBrowser> browser) override;
 		void onBrowserClosed(CefRefPtr<CefBrowser> browser) override;
 		void onTitleChange(const std::string& title) override;
+
+		void setDownloadFolder(const std::string& file_name);
 		std::string getDownloadPath(const std::string& file_name) const override;
 
 		afx_msg LRESULT OnKeyBoardHook(WPARAM wParam, LPARAM lParam);
@@ -67,7 +69,8 @@ namespace desktop { namespace ui{
 		CefRefPtr<BrowserClientHandler>	m_cefHandler;
 		CefRefPtr<CefBrowser>			m_cefBrowser;
 		std::string						m_path;
-		std::string						m_downloadPath;
+		std::string						m_downloadFolder;
+		std::string						m_downloadBasePath;
 
 		cup::Subscriber					m_subscriber;
 	};

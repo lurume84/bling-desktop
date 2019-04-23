@@ -398,7 +398,8 @@ xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Conf
     <ClInclude Include="Events.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Services\ActivityNotificationService.h" />
-    <ClInclude Include="Services\DownloadFileService.h" />
+    <ClInclude Include="Services\DownloadDesktopService.h" />
+    <ClInclude Include="Services\DownloadViewerService.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="DesktopAppDlg.h" />
@@ -420,7 +421,8 @@ xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Conf
     <ClCompile Include="Browser\Resources\InternalResourceManager.cpp" />
     <ClCompile Include="Browser\Resources\RequestResourceProvider.cpp" />
     <ClCompile Include="Services\ActivityNotificationService.cpp" />
-    <ClCompile Include="Services\DownloadFileService.cpp" />
+    <ClCompile Include="Services\DownloadDesktopService.cpp" />
+    <ClCompile Include="Services\DownloadViewerService.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -38,13 +38,13 @@ namespace desktop {
 
 	namespace cup = core::utils::patterns;
 
-	class DownloadFileService : public core::service::IDownloadFileService
+	class DownloadDesktopService : public core::service::IDownloadFileService
 	{
 	public:
-		DownloadFileService(CefRefPtr<CefBrowser> browser, 
+		DownloadDesktopService(CefRefPtr<CefBrowser> browser,
 							std::unique_ptr<core::service::EncodeStringService> encodeService = std::make_unique<core::service::EncodeStringService>(),
 							std::unique_ptr<core::service::ApplicationDataService> applicationService = std::make_unique<core::service::ApplicationDataService>());
-		~DownloadFileService();
+		~DownloadDesktopService();
 		std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 	private:
 		CefRefPtr<CefBrowser>	m_browser;

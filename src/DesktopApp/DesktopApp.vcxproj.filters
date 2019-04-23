@@ -73,11 +73,14 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Services\DownloadFileService.h">
-      <Filter>Services</Filter>
-    </ClInclude>
     <ClInclude Include="Events.h" />
     <ClInclude Include="Services\ActivityNotificationService.h">
+      <Filter>Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\DownloadViewerService.h">
+      <Filter>Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\DownloadDesktopService.h">
       <Filter>Services</Filter>
     </ClInclude>
   </ItemGroup>
@@ -118,10 +121,13 @@
     <ClCompile Include="DesktopApp.cpp" />
     <ClCompile Include="DesktopAppDlg.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Services\DownloadFileService.cpp">
+    <ClCompile Include="Services\ActivityNotificationService.cpp">
       <Filter>Services</Filter>
     </ClCompile>
-    <ClCompile Include="Services\ActivityNotificationService.cpp">
+    <ClCompile Include="Services\DownloadViewerService.cpp">
+      <Filter>Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\DownloadDesktopService.cpp">
       <Filter>Services</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,4 +1,4 @@
-#include "UpgradeViewerAgent.h"
+#include "UpgradeDesktopAgent.h"
 
 #include "Utils\Patterns\PublisherSubscriber\Broker.h"
 #include "../Events.h"
@@ -9,7 +9,7 @@
 
 namespace desktop { namespace core { namespace agent {
 
-	UpgradeViewerAgent::UpgradeViewerAgent(std::unique_ptr<service::IDownloadFileService> downloadService,
+	UpgradeDesktopAgent::UpgradeDesktopAgent(std::unique_ptr<service::IDownloadFileService> downloadService,
 											std::unique_ptr<service::IniFileService> iniFileService,
 											std::unique_ptr<service::ApplicationDataService> applicationService,
 											std::unique_ptr<service::HTTPClientService> clientService,
@@ -32,15 +32,15 @@ namespace desktop { namespace core { namespace agent {
 
 		auto documents = m_applicationService->getMyDocuments();
 		
-		m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Host", "api.github.com");
-		m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Repository", "/repos/lurume84/bling-viewer/releases/latest");
-		m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Input", documents + "Download\\Versions\\Viewer\\");
-		m_outFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Output", m_applicationService->getViewerFolder());
+		m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Host", "api.github.com");
+		m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Repository", "/repos/lurume84/bling-desktop/releases/latest");
+		m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Input", documents + "Download\\Versions\\Desktop\\");
+		m_outFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Output", m_applicationService->getViewerFolder());
 
 		boost::filesystem::create_directories(m_inFolder);
 	}
 
-	UpgradeViewerAgent::~UpgradeViewerAgent()
+	UpgradeDesktopAgent::~UpgradeDesktopAgent()
 	{
 		m_enabled = false;
 		m_timer.cancel();
@@ -48,7 +48,7 @@ namespace desktop { namespace core { namespace agent {
 		m_ioService.reset();
 	}
 
-	void UpgradeViewerAgent::execute()
+	void UpgradeDesktopAgent::execute()
 	{
 		if (m_enabled)
 		{
@@ -66,38 +66,19 @@ namespace desktop { namespace core { namespace agent {
 
 					auto version = tree.get_child("tag_name").get_value<std::string>();
 
-					if (!boost::filesystem::exists(m_inFolder + version + ".zip"))
+					if (!boost::filesystem::exists(m_inFolder + version + ".exe"))
 					{
-						auto url = tree.get_child("zipball_url").get_value<std::string>();
+						auto url = tree.get_child("browser_download_url").get_value<std::string>();
 
 						events::DownloadUpgradeEvent evt(version, [this, url, version]()
 						{
 							std::map<std::string, std::string> requestHeaders;
-							auto path = m_downloadService->download(m_host, url, requestHeaders, m_inFolder + version + ".zip");
+							auto path = m_downloadService->download(m_host, url, requestHeaders, m_inFolder + version + ".exe");
 
 							if (path != "")
 							{
-								events::ExtractUpgradeEvent evt(path);
+								events::UpgradeDesktopCompletedEvent evt(version);
 								utils::patterns::Broker::get().publish(evt);
-
-								if (m_compressionService->extract("zip", path, m_inFolder))
-								{
-									auto target = boost::filesystem::path(m_inFolder);
-
-									for (auto &it : boost::filesystem::directory_iterator(target))
-									{
-										if (boost::filesystem::is_directory(it.path()))
-										{
-											m_replaceFolderService->replace(it.path().string(), m_outFolder);
-
-											boost::filesystem::rename(path, m_inFolder + version + ".zip");
-
-											events::UpgradeViewerCompletedEvent evt(version);
-											utils::patterns::Broker::get().publish(evt);
-											break;
-										}
-									}
-								}
 							}
 
 							armTimer();
@@ -118,7 +99,7 @@ namespace desktop { namespace core { namespace agent {
 		}
 	}
 
-	void UpgradeViewerAgent::armTimer(unsigned int seconds)
+	void UpgradeDesktopAgent::armTimer(unsigned int seconds)
 	{
 		m_timer.expires_from_now(boost::posix_time::seconds(seconds));
 

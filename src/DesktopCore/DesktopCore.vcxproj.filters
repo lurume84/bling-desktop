@@ -110,6 +110,9 @@
     <ClCompile Include="System\Services\TimeZoneService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
+    <ClCompile Include="Upgrade\Agents\UpgradeDesktopAgent.cpp">
+      <Filter>Upgrade\Agents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h">
@@ -200,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="System\Services\TimeZoneService.h">
       <Filter>System\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Upgrade\Agents\UpgradeDesktopAgent.h">
+      <Filter>Upgrade\Agents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

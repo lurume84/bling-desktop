@@ -147,6 +147,7 @@
     <ClCompile Include="System\Services\ReplaceFolderService.cpp" />
     <ClCompile Include="System\Services\TimestampFolderService.cpp" />
     <ClCompile Include="System\Services\TimeZoneService.cpp" />
+    <ClCompile Include="Upgrade\Agents\UpgradeDesktopAgent.cpp" />
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp" />
     <ClCompile Include="Utils\Patterns\PublisherSubscriber\Broker.cpp" />
     <ClCompile Include="Utils\Patterns\PublisherSubscriber\Subscriber.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="System\Services\ReplaceFolderService.h" />
     <ClInclude Include="System\Services\TimestampFolderService.h" />
     <ClInclude Include="System\Services\TimeZoneService.h" />
+    <ClInclude Include="Upgrade\Agents\UpgradeDesktopAgent.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeViewerAgent.h" />
     <ClInclude Include="Upgrade\Events.h" />
     <ClInclude Include="Utils\Patterns\PublisherSubscriber\Broker.h" />

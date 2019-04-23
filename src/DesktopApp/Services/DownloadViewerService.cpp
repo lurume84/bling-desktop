@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "DownloadFileService.h"
+#include "DownloadViewerService.h"
 
 #include "Agents/NotificationAgent.h"
 #include "Events.h"
@@ -17,7 +17,7 @@
 
 namespace desktop { namespace ui { namespace service {
 
-	DownloadFileService::DownloadFileService(CefRefPtr<CefBrowser> browser, std::unique_ptr<core::service::EncodeStringService> encodeService, 
+	DownloadViewerService::DownloadViewerService(CefRefPtr<CefBrowser> browser, std::unique_ptr<core::service::EncodeStringService> encodeService, 
 											std::unique_ptr<core::service::ApplicationDataService> applicationService)
 	: m_browser(browser)
 	, m_encodeService(std::move(encodeService))
@@ -54,7 +54,7 @@ namespace desktop { namespace ui { namespace service {
 				}, []() {return true; }, []() {return true; });
 
 				m_handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
-				m_toast = factory.getYesNo(L"Upgrade", L"Version " + version + L" available", L"Download");
+				m_toast = factory.getYesNo(L"Viewer upgrade", L"Version " + version + L" available", L"Download");
 
 				agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
 				core::utils::patterns::Broker::get().publish(notificationEvt);
@@ -64,7 +64,7 @@ namespace desktop { namespace ui { namespace service {
 				auto notification = std::make_unique<core::model::Notification>([](){return true;}, [](){return true;}, [](){return true;});
 
 				m_handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
-				m_toast = factory.getBasic(L"Upgrading...", L"Version " + version + L"");
+				m_toast = factory.getBasic(L"Upgrading Viewer...", L"Version " + version + L"");
 
 				agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
 				core::utils::patterns::Broker::get().publish(notificationEvt);
@@ -76,12 +76,12 @@ namespace desktop { namespace ui { namespace service {
 		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 		{
 			m_browser->GetMainFrame()->LoadURL(boost::filesystem::canonical(m_applicationService->getViewerFolder() + "/index.html").string());
-		}, desktop::core::events::UPGRADE_COMPLETED_EVENT);
+		}, desktop::core::events::UPGRADE_VIEWER_COMPLETED_EVENT);
 	}
 
-	DownloadFileService::~DownloadFileService() = default;
+	DownloadViewerService::~DownloadViewerService() = default;
 
-	std::string DownloadFileService::download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &/*folder*/) const
+	std::string DownloadViewerService::download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &/*folder*/) const
 	{
 		auto pos = url.find(host) + host.size();
 

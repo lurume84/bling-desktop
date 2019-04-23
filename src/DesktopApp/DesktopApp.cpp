@@ -7,13 +7,15 @@
 #include "Agents\NotificationAgent.h"
 #include "DesktopCore\DesktopCore.h"
 #include "DesktopCore\Upgrade\Agents\UpgradeViewerAgent.h"
+#include "DesktopCore\Upgrade\Agents\UpgradeDesktopAgent.h"
 #include "DesktopCore\Blink\Agents\SyncVideoAgent.h"
 #include "DesktopCore\Blink\Agents\SyncThumbnailAgent.h"
 #include "DesktopCore\Blink\Agents\SaveTokenAgent.h"
 #include "DesktopCore\Blink\Agents\ActivityAgent.h"
 #include "DesktopCore\System\Services\ApplicationDataService.h"
 #include "DesktopCore\System\Services\CrashReportService.h"
-#include "Services\DownloadFileService.h"
+#include "Services\DownloadViewerService.h"
+#include "Services\DownloadDesktopService.h"
 #include "Services\ActivityNotificationService.h"
 
 #include <boost/optional.hpp>
@@ -115,7 +117,8 @@ std::string DesktopApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 {
 	m_core->initialize();
 
-	m_core->addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadFileService>(browser)));
+	m_core->addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadViewerService>(browser)));
+	m_core->addAgent(std::make_unique<desktop::core::agent::UpgradeDesktopAgent>(std::make_unique<desktop::ui::service::DownloadDesktopService>(browser)));
 	m_core->addAgent(std::make_unique<desktop::core::agent::SyncVideoAgent>());
 	m_core->addAgent(std::make_unique<desktop::core::agent::SyncThumbnailAgent>());
 	m_core->addAgent(std::make_unique<desktop::core::agent::SaveTokenAgent>());
