@@ -116,7 +116,7 @@ namespace desktop { namespace core { namespace agent {
 
 			std::string lastUpdate = getLastUpdateTimestamp();
 
-			getVideos(videos, "/api/v2/videos/changed?since=" + lastUpdate, 1);
+			getVideos(videos, "/api/v1/accounts/a/media/changed?since=" + lastUpdate, 1);
 
 			if (videos.size() > 0)
 			{
@@ -176,7 +176,7 @@ namespace desktop { namespace core { namespace agent {
 				boost::property_tree::ptree tree;
 				boost::property_tree::json_parser::read_json(contentSS, tree);
 				
-				auto videosTag = tree.get_child("videos");
+				auto videosTag = tree.get_child("media");
 
 				if (videosTag.size() > 0)
 				{
@@ -184,7 +184,7 @@ namespace desktop { namespace core { namespace agent {
 					{
 						if (!video.second.get_child("deleted").get_value<bool>())
 						{
-							videos[video.second.get_child("created_at").get_value<std::string>()] = video.second.get_child("address").get_value<std::string>();
+							videos[video.second.get_child("created_at").get_value<std::string>()] = video.second.get_child("media").get_value<std::string>();
 						}
 					}
 
@@ -217,7 +217,7 @@ namespace desktop { namespace core { namespace agent {
 		}
 		else
 		{
-			return boost::filesystem::path(fileName).filename().string();
+			return boost::filesystem::path(boost::replace_all_copy(timestamp, ":", "_")).filename().string() + ".mp4";
 		}
 	}
 }}}

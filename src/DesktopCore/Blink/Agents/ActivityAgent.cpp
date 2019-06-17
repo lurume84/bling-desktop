@@ -109,7 +109,7 @@ namespace desktop { namespace core { namespace agent {
 
 			std::string lastUpdate = getLastUpdateTimestamp();
 
-			getVideos(videos, "/api/v2/videos/changed?since=" + lastUpdate, 1);
+			getVideos(videos, "/api/v1/accounts/a/media/changed?since=" + lastUpdate, 1);
 
 			if (videos.size() > 0)
 			{
@@ -142,21 +142,13 @@ namespace desktop { namespace core { namespace agent {
 				
 				auto videosTag = tree.get_child("notification_recipient");
 
-				/*std::string pepe = videosTag.data();
-
-				if(pepe != "{}" && pepe != "")
-				{
-					pepe = pepe;
-					return;
-				}*/
-
 				if (videosTag.size() > 0)
 				{
 					for (auto &video : videosTag)
 					{
 						if (!video.second.get_child("deleted").get_value<bool>())
 						{
-							videos[video.second.get_child("created_at").get_value<std::string>()] = video.second.get_child("address").get_value<std::string>();
+							videos[video.second.get_child("created_at").get_value<std::string>()] = video.second.get_child("media").get_value<std::string>();
 						}
 					}
 				}

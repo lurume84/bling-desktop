@@ -1,0 +1,76 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup>
+    <ProjectGuid>{620BA895-A366-46BD-9013-8DAF4BD7D438}</ProjectGuid>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration" />
+  <PropertyGroup>
+    <OptionCompare>Text</OptionCompare>
+  </PropertyGroup>
+  <UsingTask TaskName="TaskRunner" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <App ParameterType="System.String" Required="true" />
+      <Args ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs">
+        System.Diagnostics.Process p = new System.Diagnostics.Process();
+        p.StartInfo.RedirectStandardError = true;
+        p.StartInfo.RedirectStandardOutput = true;
+        p.StartInfo.UseShellExecute = false;
+        p.StartInfo.CreateNoWindow = true;
+        p.StartInfo.FileName = App;
+        p.StartInfo.Arguments = Args;
+
+        p.Start();
+        
+        var output = p.StandardOutput.ReadLine();
+        
+        while (output != null)
+        {
+            Log.LogMessage(MessageImportance.High, output);
+            output = p.StandardOutput.ReadLine();
+        }
+        
+        var error = p.StandardError.ReadLine();
+
+        while (error != null)
+        {
+            Log.LogError(error);
+            error = p.StandardError.ReadLine();
+        }
+        
+        p.WaitForExit();
+        
+        Success = (p.ExitCode == 0);
+      </Code>
+    </Task>
+  </UsingTask>
+  <Target Name="Build">
+    <TaskRunner Condition="'$(Configuration)'=='Release'" App="C:\Program Files (x86)\NSIS\makensis.exe" Args="Installer.nsi" />
+  </Target>
+</Project>
