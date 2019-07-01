@@ -30,7 +30,6 @@ BEGIN_MESSAGE_MAP(DesktopAppDlg, CDialog)
   ON_WM_SIZE()
   ON_WM_QUERYDRAGICON()
   /*
-  ON_CBN_SELCHANGE(IDC_PAYLOADS, &DesktopAppDlg::OnSelchangePayloads)
   ON_EN_CHANGE(IDC_PAYLOAD, &DesktopAppDlg::OnChangePayload)
   ON_BN_CLICKED(IDC_CLEAR, &DesktopAppDlg::OnClickedClear)*/
 END_MESSAGE_MAP()
@@ -102,15 +101,6 @@ void DesktopAppDlg::ReportToastNotification(_In_z_ LPCTSTR pszDetails, _In_ BOOL
   }
   else
     m_wndStatusMessages.SetWindowText(pszDetails);
-}
-
-void DesktopAppDlg::OnSelchangePayloads()
-{
-  int nCurSel = m_wndPayloads.GetCurSel();
-  if (nCurSel == CB_ERR)
-    return;
-  CString sXML(g_ToastPayloads[nCurSel].pszXML);
-  m_wndPayload.SetWindowText(sXML);
 }
 
 HRESULT DesktopAppDlg::VerifyXML(_Inout_ CString& sError)

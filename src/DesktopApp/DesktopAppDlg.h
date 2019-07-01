@@ -34,8 +34,6 @@ protected:
 //Message handlers
   afx_msg void OnPaint();
   afx_msg HCURSOR OnQueryDragIcon();
-  afx_msg void OnPopToast();
-  afx_msg void OnSelchangePayloads();
   afx_msg void OnChangePayload();
   afx_msg void OnClickedClear();
   afx_msg void OnSize(UINT, int, int);
