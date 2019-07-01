@@ -5,7 +5,8 @@
 ;--------------------------------
 ;Include Bling Desktop
 
-  !include "MUI2.nsh"
+!include "MUI2.nsh"
+!include "WinVer.nsh"
 
 !define MUI_ICON "..\..\src\DesktopUI\img\logo2.ico"
 !define MUI_HEADERIMAGE
@@ -66,6 +67,8 @@ Section "Desktop" SecDummy
   SetOutPath "$INSTDIR"
   File /x "*.pdb" /x "*.ipdb" /x "*.iobj" /x "*.lib" "..\..\bin\Release\DesktopApp\*.*"
   
+  File /oname=BlingW7.exe "..\..\bin\Release\DesktopAppW7\Bling.exe"
+  
   SetOutPath "$INSTDIR\Html"
   File /r "..\..\bin\Release\DesktopApp\Html\loading"
 
@@ -77,8 +80,13 @@ Section "Desktop" SecDummy
 
   ; Create application shortcut (first in installation dir to have the correct "start in" target)
   SetOutPath "$INSTDIR"
-  CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\Bling.exe"
-
+  
+  ${If} ${IsWin7}
+    CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\BlingW7.exe"
+  ${Else} 
+    CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\Bling.exe"
+  ${EndIf} 
+  
   ; Start menu entries
   SetOutPath "$SMPROGRAMS\${PRODUCT_NAME}\"
   CopyFiles "$INSTDIR\${PRODUCT_NAME}.lnk" "$SMPROGRAMS\${PRODUCT_NAME}\"

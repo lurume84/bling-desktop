@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Browser">
+      <UniqueIdentifier>{4f5350f5-b995-4e67-acf2-7c1f8b18793c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Browser\Resources">
+      <UniqueIdentifier>{3494a525-a0cf-4e38-8d3a-e98c7226b5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services">
+      <UniqueIdentifier>{9ac8c0b7-78f7-43d4-b879-eedd7c44a515}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Browser\Resources\ExternalResourceManager.h">
+      <Filter>Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\InternalResourceManager.h">
+      <Filter>Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\IResourceManager.h">
+      <Filter>Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\Resources\RequestResourceProvider.h">
+      <Filter>Browser\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserScreen.h">
+      <Filter>Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserApp.h">
+      <Filter>Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserClientHandler.h">
+      <Filter>Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="Browser\BrowserKeyboardHandler.h">
+      <Filter>Browser</Filter>
+    </ClInclude>
+    <ClInclude Include="DesktopApp.h" />
+    <ClInclude Include="DesktopAppDlg.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Events.h" />
+    <ClInclude Include="Services\DownloadViewerService.h">
+      <Filter>Services</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Browser\BrowserApp.cpp">
+      <Filter>Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserClientHandler.cpp">
+      <Filter>Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserKeyboardHandler.cpp">
+      <Filter>Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\BrowserScreen.cpp">
+      <Filter>Browser</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\Resources\ExternalResourceManager.cpp">
+      <Filter>Browser\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\Resources\InternalResourceManager.cpp">
+      <Filter>Browser\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Browser\Resources\RequestResourceProvider.cpp">
+      <Filter>Browser\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="DesktopApp.cpp" />
+    <ClCompile Include="DesktopAppDlg.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Services\DownloadViewerService.cpp">
+      <Filter>Services</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DesktopApp.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\DesktopApp.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\logo.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

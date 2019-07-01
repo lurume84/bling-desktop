@@ -215,6 +215,7 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s
 xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -259,6 +260,7 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s
 xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -308,6 +310,7 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s
 xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -360,6 +363,7 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s
 xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
