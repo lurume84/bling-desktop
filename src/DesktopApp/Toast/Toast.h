@@ -84,9 +84,6 @@ EXTERN_C const PROPERTYKEY DECLSPEC_SELECTANY PKEY_AppUserModel_ToastActivatorCL
 #define INIT_PKEY_AppUserModel_ToastActivatorCLSID { { 0x9F4C2855, 0x9F79, 0x4B39, 0xA8, 0xD0, 0xE1, 0xD4, 0x2D, 0xE1, 0xD5, 0xF3 }, 26 }
 #endif //#ifndef INIT_PKEY_AppUserModel_ToastActivatorCLSID
 
-#pragma comment(lib, "runtimeobject.lib")
-
-
 ////////////////////////// Classes ////////////////////////////////////////////
 
 namespace ToastPP
