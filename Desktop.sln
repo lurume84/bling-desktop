@@ -1,12 +1,17 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27428.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesktopApp", "src\DesktopApp\DesktopApp.vcxproj", "{4625EB79-3302-4D1D-9CFB-6A51DC925BCF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{6B697E99-6D10-4723-9C4E-71338D08D49A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesktopCore", "src\DesktopCore\DesktopCore.vcxproj", "{F82C7792-4DCA-4682-8265-617A67AC6C9F}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DesktopInstaller", "src\DesktopInstaller\DesktopInstaller.vbproj", "{620BA895-A366-46BD-9013-8DAF4BD7D438}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4625EB79-3302-4D1D-9CFB-6A51DC925BCF} = {4625EB79-3302-4D1D-9CFB-6A51DC925BCF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +35,12 @@ Global
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F}.Release|Win32.Build.0 = Release|Win32
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F}.Release|x64.ActiveCfg = Release|x64
 		{F82C7792-4DCA-4682-8265-617A67AC6C9F}.Release|x64.Build.0 = Release|x64
+		{620BA895-A366-46BD-9013-8DAF4BD7D438}.Debug|Win32.ActiveCfg = Debug|Win32
+		{620BA895-A366-46BD-9013-8DAF4BD7D438}.Debug|Win32.Build.0 = Debug|Win32
+		{620BA895-A366-46BD-9013-8DAF4BD7D438}.Debug|x64.ActiveCfg = Debug|Win32
+		{620BA895-A366-46BD-9013-8DAF4BD7D438}.Release|Win32.ActiveCfg = Release|Win32
+		{620BA895-A366-46BD-9013-8DAF4BD7D438}.Release|Win32.Build.0 = Release|Win32
+		{620BA895-A366-46BD-9013-8DAF4BD7D438}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
