@@ -43,6 +43,12 @@
     <Filter Include="Blink\Services">
       <UniqueIdentifier>{aa5fd162-3479-4f9a-a232-6cd7fc883343}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\Services\Process">
+      <UniqueIdentifier>{5e216970-cfa3-4a71-8789-c9f762402ff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Model">
+      <UniqueIdentifier>{21c17bd1-5482-4899-9ec2-c9e55d92fd8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
@@ -112,6 +118,24 @@
     </ClCompile>
     <ClCompile Include="Upgrade\Agents\UpgradeDesktopAgent.cpp">
       <Filter>Upgrade\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="Blink\Agents\LiveViewAgent.cpp">
+      <Filter>Blink\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Services\Process\CreateProcessService.cpp">
+      <Filter>System\Services\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Services\Process\LifeTimeProcessService.cpp">
+      <Filter>System\Services\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Services\Process\TerminateProcessService.cpp">
+      <Filter>System\Services\Process</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Model\ExecutableFile.cpp">
+      <Filter>System\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Model\ProcessInformation.cpp">
+      <Filter>System\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +230,30 @@
     </ClInclude>
     <ClInclude Include="Upgrade\Agents\UpgradeDesktopAgent.h">
       <Filter>Upgrade\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Model\RTP.h">
+      <Filter>Network\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Blink\Agents\LiveViewAgent.h">
+      <Filter>Blink\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\Process\CreateProcessService.h">
+      <Filter>System\Services\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\Process\LifeTimeProcessService.h">
+      <Filter>System\Services\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\Process\TerminateProcessService.h">
+      <Filter>System\Services\Process</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\NamedType.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Model\ExecutableFile.h">
+      <Filter>System\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Model\ProcessInformation.h">
+      <Filter>System\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

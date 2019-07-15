@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Blink\Agents\ActivityAgent.cpp" />
+    <ClCompile Include="Blink\Agents\LiveViewAgent.cpp" />
     <ClCompile Include="Blink\Agents\SaveTokenAgent.cpp" />
     <ClCompile Include="Blink\Agents\SyncThumbnailAgent.cpp" />
     <ClCompile Include="DesktopContext.cpp" />
@@ -136,6 +137,8 @@
     <ClCompile Include="Network\Services\DownloadFileService.cpp" />
     <ClCompile Include="Network\Services\HTTPClientService.cpp" />
     <ClCompile Include="Network\Services\ParseURIService.cpp" />
+    <ClCompile Include="System\Model\ExecutableFile.cpp" />
+    <ClCompile Include="System\Model\ProcessInformation.cpp" />
     <ClCompile Include="System\Services\ApplicationDataService.cpp" />
     <ClCompile Include="System\Services\CompressionService.cpp" />
     <ClCompile Include="System\Services\CrashReportService.cpp" />
@@ -144,6 +147,9 @@
     <ClCompile Include="System\Services\FileIOService.cpp" />
     <ClCompile Include="System\Services\CopyFolderService.cpp" />
     <ClCompile Include="System\Services\IniFileService.cpp" />
+    <ClCompile Include="System\Services\Process\CreateProcessService.cpp" />
+    <ClCompile Include="System\Services\Process\LifeTimeProcessService.cpp" />
+    <ClCompile Include="System\Services\Process\TerminateProcessService.cpp" />
     <ClCompile Include="System\Services\ReplaceFolderService.cpp" />
     <ClCompile Include="System\Services\TimestampFolderService.cpp" />
     <ClCompile Include="System\Services\TimeZoneService.cpp" />
@@ -154,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Blink\Agents\ActivityAgent.h" />
+    <ClInclude Include="Blink\Agents\LiveViewAgent.h" />
     <ClInclude Include="Blink\Agents\SaveTokenAgent.h" />
     <ClInclude Include="Blink\Agents\SyncThumbnailAgent.h" />
     <ClInclude Include="Blink\Services\IActivityNotificationService.h" />
@@ -161,13 +168,17 @@
     <ClInclude Include="DesktopCore.h" />
     <ClInclude Include="Blink\Agents\SyncVideoAgent.h" />
     <ClInclude Include="Model\IAgent.h" />
+    <ClInclude Include="Model\NamedType.h" />
     <ClInclude Include="Model\Notification.h" />
     <ClInclude Include="Network\Events.h" />
     <ClInclude Include="Network\Model\Credentials.h" />
+    <ClInclude Include="Network\Model\RTP.h" />
     <ClInclude Include="Network\Services\DownloadFileService.h" />
     <ClInclude Include="Network\Services\HTTPClientService.h" />
     <ClInclude Include="Network\Services\IDownloadFileService.h" />
     <ClInclude Include="Network\Services\ParseURIService.h" />
+    <ClInclude Include="System\Model\ExecutableFile.h" />
+    <ClInclude Include="System\Model\ProcessInformation.h" />
     <ClInclude Include="System\Services\ApplicationDataService.h" />
     <ClInclude Include="System\Services\CompressionService.h" />
     <ClInclude Include="System\Services\CrashReportService.h" />
@@ -176,6 +187,9 @@
     <ClInclude Include="System\Services\FileIOService.h" />
     <ClInclude Include="System\Services\CopyFolderService.h" />
     <ClInclude Include="System\Services\IniFileService.h" />
+    <ClInclude Include="System\Services\Process\CreateProcessService.h" />
+    <ClInclude Include="System\Services\Process\LifeTimeProcessService.h" />
+    <ClInclude Include="System\Services\Process\TerminateProcessService.h" />
     <ClInclude Include="System\Services\ReplaceFolderService.h" />
     <ClInclude Include="System\Services\TimestampFolderService.h" />
     <ClInclude Include="System\Services\TimeZoneService.h" />

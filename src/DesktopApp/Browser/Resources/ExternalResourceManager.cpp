@@ -7,6 +7,10 @@
 #include "DesktopCore\Network\Services\ParseURIService.h"
 #include "DesktopCore\Utils\Patterns\PublisherSubscriber\Broker.h"
 
+#include <locale>
+#include <codecvt> 
+#include <cstdint>
+
 namespace desktop { namespace ui{
 
 	CefRefPtr<CefResourceHandler> ExternalResourceManager::GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
@@ -16,24 +20,60 @@ namespace desktop { namespace ui{
 
 	CefRequestHandler::ReturnValue ExternalResourceManager::OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request, CefRefPtr<CefRequestCallback> callback)
 	{
-		CefRequest::HeaderMap headers;
-		request->GetHeaderMap(headers);
+		std::string url(request->GetURL());
 
-		for (auto &header : headers)
+		//http://localhost/live/join
+
+		if (url.size() > 20 && url.substr(16, 5) == "/live")
 		{
-			if (header.first == "TOKEN_AUTH")
-			{
-				std::string protocol, domain, port, path, query, fragment;
-				std::string url = request->GetURL().ToString();
+			auto postData = request->GetPostData();
 
-				core::service::ParseURIService service;
-				if (service.parse(url, protocol, domain, port, path, query, fragment))
+			if (postData)
+			{
+				std::string content;
+
+				CefPostData::ElementVector elements;
+
+				postData->GetElements(elements);
+
+				for (auto& element : elements)
 				{
-					core::model::Credentials credentials(domain, port, header.second);
-					core::events::CredentialsEvent evt(credentials);
-					core::utils::patterns::Broker::get().publish(evt);
+					if (element->GetType() == CefPostDataElement::Type::PDE_TYPE_BYTES)
+					{
+						std::wstring_convert<std::codecvt_utf8<char>, char> convert;
+
+						char *buff = new char[element->GetBytesCount()];
+						element->GetBytes(element->GetBytesCount(), buff);
+						content = convert.from_bytes(std::string(buff, element->GetBytesCount()));
+						delete[] buff;
+					}
 				}
-				break;
+
+				core::model::RTP rtp(content);
+				core::events::LiveViewEvent evt(rtp);
+				core::utils::patterns::Broker::get().publish(evt);
+			}
+		}
+		else
+		{
+			CefRequest::HeaderMap headers;
+			request->GetHeaderMap(headers);
+
+			for (auto &header : headers)
+			{
+				if (header.first == "TOKEN_AUTH")
+				{
+					std::string protocol, domain, port, path, query, fragment;
+
+					core::service::ParseURIService service;
+					if (service.parse(request->GetURL().ToString(), protocol, domain, port, path, query, fragment))
+					{
+						core::model::Credentials credentials(domain, port, header.second);
+						core::events::CredentialsEvent evt(credentials);
+						core::utils::patterns::Broker::get().publish(evt);
+					}
+					break;
+				}
 			}
 		}
 
