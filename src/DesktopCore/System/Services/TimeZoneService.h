@@ -10,5 +10,6 @@ namespace desktop { namespace core { namespace service {
 		~TimeZoneService();
 
 		std::string universalToLocal(const std::string& timestamp) const;
+		std::string universalToLocal(time_t timestamp) const;
 	};
 }}}

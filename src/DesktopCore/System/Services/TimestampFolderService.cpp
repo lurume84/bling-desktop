@@ -23,4 +23,13 @@ namespace desktop { namespace core { namespace service {
 
 		return year + "\\" + month + "\\" + day + "\\";
 	}
+
+	std::string TimestampFolderService::get(time_t timestamp) const
+	{
+		std::stringstream ss;
+		ss << timestamp;
+
+		std::string raw = ss.str();
+		return get(raw);
+	}
 }}}

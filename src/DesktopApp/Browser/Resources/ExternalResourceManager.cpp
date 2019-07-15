@@ -22,58 +22,23 @@ namespace desktop { namespace ui{
 	{
 		std::string url(request->GetURL());
 
-		//http://localhost/live/join
+		CefRequest::HeaderMap headers;
+		request->GetHeaderMap(headers);
 
-		if (url.size() > 20 && url.substr(16, 5) == "/live")
+		for (auto &header : headers)
 		{
-			auto postData = request->GetPostData();
-
-			if (postData)
+			if (header.first == "TOKEN_AUTH")
 			{
-				std::string content;
+				std::string protocol, domain, port, path, query, fragment;
 
-				CefPostData::ElementVector elements;
-
-				postData->GetElements(elements);
-
-				for (auto& element : elements)
+				core::service::ParseURIService service;
+				if (service.parse(request->GetURL().ToString(), protocol, domain, port, path, query, fragment))
 				{
-					if (element->GetType() == CefPostDataElement::Type::PDE_TYPE_BYTES)
-					{
-						std::wstring_convert<std::codecvt_utf8<char>, char> convert;
-
-						char *buff = new char[element->GetBytesCount()];
-						element->GetBytes(element->GetBytesCount(), buff);
-						content = convert.from_bytes(std::string(buff, element->GetBytesCount()));
-						delete[] buff;
-					}
+					core::model::Credentials credentials(domain, port, header.second);
+					core::events::CredentialsEvent evt(credentials);
+					core::utils::patterns::Broker::get().publish(evt);
 				}
-
-				core::model::RTP rtp(content);
-				core::events::LiveViewEvent evt(rtp);
-				core::utils::patterns::Broker::get().publish(evt);
-			}
-		}
-		else
-		{
-			CefRequest::HeaderMap headers;
-			request->GetHeaderMap(headers);
-
-			for (auto &header : headers)
-			{
-				if (header.first == "TOKEN_AUTH")
-				{
-					std::string protocol, domain, port, path, query, fragment;
-
-					core::service::ParseURIService service;
-					if (service.parse(request->GetURL().ToString(), protocol, domain, port, path, query, fragment))
-					{
-						core::model::Credentials credentials(domain, port, header.second);
-						core::events::CredentialsEvent evt(credentials);
-						core::utils::patterns::Broker::get().publish(evt);
-					}
-					break;
-				}
+				break;
 			}
 		}
 
