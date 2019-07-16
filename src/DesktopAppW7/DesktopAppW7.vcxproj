@@ -204,8 +204,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
-      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;version.lib;CrashRpt.lib;runtimeobject.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;version.lib;CrashRpt.lib;runtimeobject.lib;cpprest_2_10d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration);$(SolutionDir)\lib\cpprestsdk\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
@@ -215,7 +215,9 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s
 xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
-xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
+xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\ffmpeg\Release\ffmpeg.exe $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -249,7 +251,7 @@ xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Config
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;version.lib;CrashRpt.lib;runtimeobject.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration);$(SolutionDir)\lib\cpprestsdk\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
@@ -259,7 +261,9 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s
 xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
-xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
+xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\ffmpeg\Release\ffmpeg.exe $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'">
@@ -297,8 +301,8 @@ xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Config
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;version.lib;CrashRpt.lib;runtimeobject.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;version.lib;CrashRpt.lib;runtimeobject.lib;cpprest_2_10.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration);$(SolutionDir)\lib\cpprestsdk\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
@@ -308,7 +312,9 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s
 xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
-xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
+xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\ffmpeg\Release\ffmpeg.exe $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -350,7 +356,7 @@ xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Config
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>libcef.lib;libcef_dll_wrapper.lib;libeay32.lib;ssleay32.lib;version.lib;CrashRpt.lib;runtimeobject.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration);$(SolutionDir)\lib\cpprestsdk\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
@@ -360,7 +366,9 @@ xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$
 xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
 xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s
 xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
-xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
+xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\ffmpeg\Release\ffmpeg.exe $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s
+xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'">
