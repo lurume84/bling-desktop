@@ -54,6 +54,7 @@ namespace desktop { namespace core {
 		bool						m_enabled;
 		unsigned int				m_seconds;
 		bool						m_saveLocalTime;
+		std::string					m_endpoint;
 
 		std::unique_ptr<service::HTTPClientService> m_clientService;
 		std::unique_ptr<model::RTP>			m_RTP;

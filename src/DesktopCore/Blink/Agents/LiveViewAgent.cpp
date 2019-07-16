@@ -6,10 +6,7 @@
 #include "..\..\System\Services\IniFileService.h"
 #include "System\Model\ExecutableFile.h"
 #include "System\Model\ProcessInformation.h"
-#include <cpprest\http_listener.h>
 
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
 #include <boost/filesystem.hpp>
 #include <iostream>
 #include <chrono>
@@ -17,8 +14,12 @@
 #include <codecvt>
 #include <string>
 #include <thread>
-#include "boost/date_time/posix_time/posix_time.hpp"
-#include "boost/date_time/c_local_time_adjustor.hpp"
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/c_local_time_adjustor.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <cpprest\http_listener.h>
+#include <cpprest\filestream.h>
 
 namespace desktop { namespace core { namespace agent {
 
@@ -48,8 +49,10 @@ namespace desktop { namespace core { namespace agent {
 			m_timer = std::make_unique<boost::asio::deadline_timer>(m_ioService, boost::posix_time::seconds(m_seconds));
 		}
 
+		m_endpoint = m_iniFileService->get<std::string>(documents + "Blink.ini", "LiveView", "Endpoint", "http://127.0.0.1:9191/live");
+
 		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		std::wstring endpoint = converter.from_bytes(m_iniFileService->get<std::string>(documents + "Blink.ini", "LiveView", "Endpoint", "http://127.0.0.1:9191/live"));
+		std::wstring endpoint = converter.from_bytes(m_endpoint);
 
 		auto uri = web::uri_builder(endpoint).to_uri();
 
@@ -90,18 +93,57 @@ namespace desktop { namespace core { namespace agent {
 	{
 		using namespace web::http;
 
+		auto bodyws = request.request_uri().path();
+
+		std::string body(bodyws.begin(), bodyws.end());
+
+		body = boost::replace_all_copy(body.substr(6), "/", "\\");
+
+		boost::replace_all(body, "%20", " ");
+
+		boost::filesystem::path path(m_outFolder + body);
 		
+		if(path.extension() == ".m3u8")
+		{
+			while(!boost::filesystem::exists(path))
+			{
+				boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
+			}
+		}
+
+		if (boost::filesystem::exists(path))
+		{
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::wstring pathws = converter.from_bytes(path.string());
+
+			concurrency::streams::fstream::open_istream(pathws, std::ios::in)
+				.then([=](concurrency::streams::istream is)
+			{
+				web::http::http_response response(web::http::status_codes::OK);
+
+				response.headers().add(L"Content-Disposition", U("inline; filename = \"") + pathws + U("\""));
+				response.set_body(std::move(is), U("application/x-mpegURL"));
+
+				request.reply(response).then([](pplx::task<void> t) {});
+			});
+		}
+		else
+		{
+			request.reply(status_codes::NotFound);
+		}
 	}
 
 	void LiveViewAgent::handlePOST(web::http::http_request request)
 	{
 		using namespace web::http;
 
-		auto bodyws = request.extract_string().get();
+		auto payload = request.extract_json().get();
 
-		std::string body(bodyws.begin(), bodyws.end());
+		std::wstring urlws = payload.at(L"url").as_string();
 
-		m_RTP = std::make_unique<model::RTP>(body);
+		std::string url(urlws.begin(), urlws.end());
+
+		m_RTP = std::make_unique<model::RTP>(url);
 
 		auto appFolder = m_applicationService->getApplicationFolder();
 
@@ -120,7 +162,7 @@ namespace desktop { namespace core { namespace agent {
 		currentTime = boost::replace_all_copy(currentTime, ":", "_");
 
 		std::stringstream folderSS; 
-		folderSS << m_timestampFolderService->get(currentTime) << "LiveView ";
+		folderSS << m_timestampFolderService->get(currentTime) << "LiveView_";
 		folderSS << currentTime;
 
 		auto folder = folderSS.str();
@@ -129,18 +171,30 @@ namespace desktop { namespace core { namespace agent {
 
 		boost::filesystem::create_directories(absPath);
 
-		model::system::ExecutableFile ffmpeg(model::system::ExecutableFile::Path(appFolder + "\\ffmpeg.exe"), 
-											model::system::ExecutableFile::Arguments("-i " + m_RTP->m_url + " -f " + 
-												"ssegment -hls_flags delete_segments -segment_list \"" + absPath + "\\out.m3u8\" -segment_list_type hls -segment_list_size 0 \"" + absPath + "\\out_%6d.ts\""));
+		auto arguments = "-i " + m_RTP->m_url + " -f ssegment -hls_flags delete_segments -segment_list \"" + absPath +
+						"\\out.m3u8\" -segment_list_type hls -segment_list_size 0 \"" + absPath + "\\out_%6d.ts\"";
+
+		model::system::ExecutableFile ffmpeg(model::system::ExecutableFile::Path(appFolder + "\\ffmpeg.exe"),
+											model::system::ExecutableFile::Arguments(arguments));
 
 		m_createProcessService->create(ffmpeg);
 
-		std::wstring responsews(folder.begin(), folder.end());
+		{
+			std::wstringstream camera_id;
+			camera_id << payload.at(L"camera_id").as_integer();
 
-		http_response response(status_codes::OK);
-		response.headers().set_content_type(L"text/html");
-		response.set_body(responsews);
+			boost::replace_all(folder, "\\", "/");
 
-		request.reply(response);
+			std::string endpoint = m_endpoint + "/" + boost::replace_all_copy(folder, "\\", "/") + "/out.m3u8";
+
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::wstring endpointws = converter.from_bytes(endpoint);
+
+			http_response response(status_codes::OK);
+			response.headers().set_content_type(L"application/json");
+			response.set_body(L"{\"camera_id\": " + camera_id.str() + L", \"url\": \"" + endpointws + L"\"}");
+
+			request.reply(response);
+		}
 	}
 }}}
