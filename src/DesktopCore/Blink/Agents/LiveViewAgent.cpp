@@ -171,7 +171,7 @@ namespace desktop { namespace core { namespace agent {
 
 		boost::filesystem::create_directories(absPath);
 
-		auto arguments = "-report -i \"" + m_RTP->m_url + "\" -c copy -vcodec copy -g 30 -hls_time 1 \"" + absPath + "\\out.m3u8\"";
+		auto arguments = "-report -i \"" + m_RTP->m_url + "\" -c copy -vcodec copy -g 30 -hls_time 1 \"out.m3u8\"";
 
 		model::system::ExecutableFile ffmpeg(model::system::ExecutableFile::Path(appFolder + "\\ffmpeg.exe"), model::system::ExecutableFile::Arguments(arguments));
 
