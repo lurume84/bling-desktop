@@ -3,15 +3,15 @@ This application is the container of [Bling Viewer](https://github.com/lurume84/
 
 ## What it does
 
-* Disables CORS to allow connection with Blink Servers
-* Upgrades to last official Bling Viewer automatically
+* Live View
 * Synchronize all videos in local storage
 * Periodic snapshots synchronized in local storage
+* Upgrades to last official Bling Viewer automatically
+* Disables CORS to allow connection with Blink Servers
 
 ## What it will do
 
 * Notify user of movement using Windows Toast Notifications (WIP)
-* Live View
 
 ## Installation
 Just go to Releases section and download last BlingSetup.exe installer. It will create a shortcut to the installation folder %localappdata%/Bling Desktop.
@@ -44,6 +44,10 @@ This is the file you need to modify to configure your desktop application.
   * Sleep: By default this is 5 seconds. The time to sleep until checking again if snapshot has been successful.
   * Retries: By default this is 10. Number of times to check if snapshot was successful. Combined with sleep, this means we will wait 50 seconds to consider snapshot was unsuccessful.
   * Output: By default this is %userprofile%/Documents/Download/Thumbnails.
+* LiveView
+  * Output: By default this is %userprofile%/Documents/Download/Videos.
+  * UseLocalTime: By default this is disabled. Saves each video in your computer's timezone instead of UTC.
+  * Endpoint: By default this is http://127.0.0.1:9191/live. Change port in case you have another application using it.
 
 * Example
 
