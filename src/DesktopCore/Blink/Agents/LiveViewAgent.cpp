@@ -20,21 +20,23 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <cpprest\http_listener.h>
 #include <cpprest\filestream.h>
+#include <boost/thread.hpp>
 
 namespace desktop { namespace core { namespace agent {
 
 	LiveViewAgent::LiveViewAgent(std::unique_ptr<service::system::ICreateProcessService> createProcessService, 
+									std::unique_ptr<service::system::TerminateProcessService> terminateProcessService,
 									std::unique_ptr<service::HTTPClientService> clientService,
 									std::unique_ptr<service::ApplicationDataService> applicationService,
 									std::unique_ptr<service::IniFileService> iniFileService,
 									std::unique_ptr<service::TimestampFolderService> timestampFolderService,
 									std::unique_ptr<service::TimeZoneService> timeZoneService)
-	: m_ioService()
-	, m_iniFileService(std::move(iniFileService))
+	: m_iniFileService(std::move(iniFileService))
 	, m_clientService(std::move(clientService))
 	, m_applicationService(std::move(applicationService))
 	, m_timestampFolderService(std::move(timestampFolderService))
 	, m_createProcessService(std::move(createProcessService))
+	, m_terminateProcessService(std::move(terminateProcessService))
 	, m_timeZoneService(std::move(timeZoneService))
 	{
 		auto documents = m_applicationService->getMyDocuments();
@@ -45,8 +47,6 @@ namespace desktop { namespace core { namespace agent {
 			m_outFolder = m_iniFileService->get<std::string>(documents + "Blink.ini", "LiveView", "Output", documents + "Download\\Videos\\");
 
 			m_saveLocalTime = m_iniFileService->get<bool>(documents + "Blink.ini", "LiveView", "UseLocalTime", false);
-
-			m_timer = std::make_unique<boost::asio::deadline_timer>(m_ioService, boost::posix_time::seconds(m_seconds));
 		}
 
 		m_endpoint = m_iniFileService->get<std::string>(documents + "Blink.ini", "LiveView", "Endpoint", "http://127.0.0.1:9191/live");
@@ -60,33 +60,22 @@ namespace desktop { namespace core { namespace agent {
 
 		m_listener->support(web::http::methods::GET, std::bind(&LiveViewAgent::handleGET, this, std::placeholders::_1));
 		m_listener->support(web::http::methods::POST, std::bind(&LiveViewAgent::handlePOST, this, std::placeholders::_1));
+		m_listener->support(web::http::methods::DEL, std::bind(&LiveViewAgent::handleDELETE, this, std::placeholders::_1));
 
 		m_listener->open();
 	}
 
 	LiveViewAgent::~LiveViewAgent()
 	{
-		m_enabled = false;
-		m_timer->cancel();
-		m_backgroundThread.join();
-		m_ioService.reset();
 		m_listener->close();
-	}
 
-	void LiveViewAgent::execute()
-	{
-		
-	}
+		m_enabled = false;
 
-	void LiveViewAgent::armTimer(unsigned int seconds)
-	{
-		m_timer->expires_from_now(boost::posix_time::seconds(seconds));
-
-		m_timer->async_wait([&](const boost::system::error_code& ec)
+		for(auto& liveView : m_liveViews)
 		{
-			execute();
-			armTimer(m_seconds);
-		});
+			m_terminateProcessService->sigint(*liveView.second);
+			m_liveViews.erase(liveView.first);
+		}
 	}
 
 	void LiveViewAgent::handleGET(web::http::http_request request) const
@@ -171,28 +160,58 @@ namespace desktop { namespace core { namespace agent {
 
 		boost::filesystem::create_directories(absPath);
 
-		auto arguments = "-report -i \"" + m_RTP->m_url + "\" -c copy -vcodec copy -g 30 -hls_time 1 \"out.m3u8\"";
+		auto arguments = "-report -i \"" + m_RTP->m_url + "\" -c copy -vcodec copy -g 30 -hls_time 1 out.m3u8 -vcodec copy " + currentTime + ".mp4";
 
 		model::system::ExecutableFile ffmpeg(model::system::ExecutableFile::Path(appFolder + "\\ffmpeg.exe"), model::system::ExecutableFile::Arguments(arguments));
 
-		m_createProcessService->create(ffmpeg, absPath);
+		int camera_id = payload.at(L"camera_id").as_integer();
 
+		std::wstringstream camera_idss;
+		camera_idss << camera_id;
+
+		auto process = m_createProcessService->create(ffmpeg, absPath);
+
+		m_liveViews.insert(std::make_pair(camera_id, std::move(process)));
+
+		boost::replace_all(folder, "\\", "/");
+
+		std::string endpoint = m_endpoint + "/" + boost::replace_all_copy(folder, "\\", "/") + "/out.m3u8";
+
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		std::wstring endpointws = converter.from_bytes(endpoint);
+
+		http_response response(status_codes::OK);
+		response.headers().set_content_type(L"application/json");
+		response.set_body(L"{\"camera_id\": " + camera_idss.str() + L", \"url\": \"" + endpointws + L"\"}");
+
+		request.reply(response);
+	}
+
+	void LiveViewAgent::handleDELETE(web::http::http_request request)
+	{
+		using namespace web::http;
+
+		auto payload = request.extract_json().get();
+
+		int camera_id = payload.at(L"camera_id").as_integer();
+
+		auto liveView = m_liveViews.find(camera_id);
+
+		if (liveView != m_liveViews.end())
 		{
-			std::wstringstream camera_id;
-			camera_id << payload.at(L"camera_id").as_integer();
+			m_terminateProcessService->sigint(*liveView->second);
 
-			boost::replace_all(folder, "\\", "/");
-
-			std::string endpoint = m_endpoint + "/" + boost::replace_all_copy(folder, "\\", "/") + "/out.m3u8";
-
-			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-			std::wstring endpointws = converter.from_bytes(endpoint);
+			m_liveViews.erase(camera_id);
 
 			http_response response(status_codes::OK);
 			response.headers().set_content_type(L"application/json");
-			response.set_body(L"{\"camera_id\": " + camera_id.str() + L", \"url\": \"" + endpointws + L"\"}");
-
+			response.set_body(L"{}");
+			
 			request.reply(response);
+		}
+		else
+		{
+			request.reply(status_codes::NotFound);
 		}
 	}
 }}}

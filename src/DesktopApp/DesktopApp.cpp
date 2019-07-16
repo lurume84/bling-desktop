@@ -105,6 +105,8 @@ BOOL DesktopApp::InitInstance()
 
 int DesktopApp::ExitInstance()
 {
+	m_core.reset();
+
   __super::ExitInstance();
   return m_nExitCode;
 }

@@ -7,6 +7,7 @@
 #include <psapi.h>
 
 #include <boost/filesystem.hpp>
+#include <sstream>
 
 namespace desktop { namespace core { namespace service { namespace system {
 
@@ -18,6 +19,16 @@ namespace desktop { namespace core { namespace service { namespace system {
 		CloseHandle(processInfo.m_hThread);
 
 		return result;
+	}
+
+	bool TerminateProcessService::sigint(const model::system::ProcessInformation& processInfo) const
+	{
+		std::stringstream ss;
+		ss << "taskkill /PID " << processInfo.m_processID;
+
+		int ret = WinExec(ss.str().c_str(), SW_HIDE);
+
+		return true;
 	}
 
 	unsigned long TerminateProcessService::listProcessThreads(unsigned long dwOwnerPID) const

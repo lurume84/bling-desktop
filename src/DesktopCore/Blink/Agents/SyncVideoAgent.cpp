@@ -200,13 +200,16 @@ namespace desktop { namespace core { namespace agent {
 
 	void SyncVideoAgent::armTimer(unsigned int seconds)
 	{
-		m_timer->expires_from_now(boost::posix_time::seconds(seconds));
-
-		m_timer->async_wait([&](const boost::system::error_code& ec)
+		if(m_enabled)
 		{
-			execute();
-			armTimer(m_seconds);
-		});
+			m_timer->expires_from_now(boost::posix_time::seconds(seconds));
+
+			m_timer->async_wait([&](const boost::system::error_code& ec)
+			{
+				execute();
+				armTimer(m_seconds);
+			});
+		}
 	}
 
 	std::string SyncVideoAgent::formatFileName(const std::string& timestamp, const std::string& fileName) const

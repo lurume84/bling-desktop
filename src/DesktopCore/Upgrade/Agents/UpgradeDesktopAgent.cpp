@@ -101,11 +101,14 @@ namespace desktop { namespace core { namespace agent {
 
 	void UpgradeDesktopAgent::armTimer(unsigned int seconds)
 	{
-		m_timer.expires_from_now(boost::posix_time::seconds(seconds));
-
-		m_timer.async_wait([&](const boost::system::error_code& ec)
+		if (m_enabled)
 		{
-			execute();
-		});
+			m_timer.expires_from_now(boost::posix_time::seconds(seconds));
+
+			m_timer.async_wait([&](const boost::system::error_code& ec)
+			{
+				execute();
+			});
+		}
 	}
 }}}

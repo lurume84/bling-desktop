@@ -13,6 +13,7 @@ namespace desktop { namespace core {
 	{
 	public:
 		virtual bool terminate(const model::system::ProcessInformation& processInfo) const;
+		virtual bool sigint(const model::system::ProcessInformation& processInfo) const;
 	private:
 		unsigned long listProcessThreads(unsigned long dwOwnerPID) const;
 		bool terminateProcessHandle(unsigned long dwProcessId) const;
