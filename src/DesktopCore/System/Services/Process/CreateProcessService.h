@@ -17,7 +17,7 @@ namespace desktop { namespace core {
 	{
 	public:
 		virtual ~ICreateProcessService() = default;
-		virtual std::unique_ptr<model::system::ProcessInformation> create(const model::system::ExecutableFile& file) const = 0;
+		virtual std::unique_ptr<model::system::ProcessInformation> create(const model::system::ExecutableFile& file, const std::string& currentDirectory) const = 0;
 	};
 
 	class CreateProcessService : public ICreateProcessService
@@ -34,6 +34,6 @@ namespace desktop { namespace core {
 			typedef boost::error_info<struct ErrorCodeType, int> errorCodeInfo;
 		};
 
-		virtual std::unique_ptr<model::system::ProcessInformation> create(const model::system::ExecutableFile& file) const override;
+		virtual std::unique_ptr<model::system::ProcessInformation> create(const model::system::ExecutableFile& file, const std::string& currentDirectory) const override;
 	};
 }}}}

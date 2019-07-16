@@ -171,13 +171,11 @@ namespace desktop { namespace core { namespace agent {
 
 		boost::filesystem::create_directories(absPath);
 
-		auto arguments = "-i " + m_RTP->m_url + " -f ssegment -hls_flags delete_segments -segment_list \"" + absPath +
-						"\\out.m3u8\" -segment_list_type hls -segment_list_size 0 \"" + absPath + "\\out_%6d.ts\"";
+		auto arguments = "-report -i \"" + m_RTP->m_url + "\" -c copy -vcodec copy -g 30 -hls_time 1 \"" + absPath + "\\out.m3u8\"";
 
-		model::system::ExecutableFile ffmpeg(model::system::ExecutableFile::Path(appFolder + "\\ffmpeg.exe"),
-											model::system::ExecutableFile::Arguments(arguments));
+		model::system::ExecutableFile ffmpeg(model::system::ExecutableFile::Path(appFolder + "\\ffmpeg.exe"), model::system::ExecutableFile::Arguments(arguments));
 
-		m_createProcessService->create(ffmpeg);
+		m_createProcessService->create(ffmpeg, absPath);
 
 		{
 			std::wstringstream camera_id;
