@@ -66,9 +66,7 @@ Section "Desktop" SecDummy
 
   SetOutPath "$INSTDIR"
   File /x "*.pdb" /x "*.ipdb" /x "*.iobj" /x "*.lib" "..\..\bin\Release\DesktopApp\*.*"
-  
-  File /oname=BlingW7.exe "..\..\bin\Release\DesktopAppW7\Bling.exe"
-  
+
   SetOutPath "$INSTDIR\Html"
   File /r "..\..\bin\Release\DesktopApp\Html\loading"
 
@@ -81,11 +79,7 @@ Section "Desktop" SecDummy
   ; Create application shortcut (first in installation dir to have the correct "start in" target)
   SetOutPath "$INSTDIR"
   
-  ${If} ${IsWin7}
-    CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\BlingW7.exe"
-  ${Else} 
-    CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\Bling.exe"
-  ${EndIf} 
+  CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\Bling.exe" 
   
   ; Start menu entries
   SetOutPath "$SMPROGRAMS\${PRODUCT_NAME}\"

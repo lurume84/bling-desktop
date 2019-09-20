@@ -136,6 +136,7 @@
     <ClCompile Include="DesktopContext.cpp" />
     <ClCompile Include="DesktopCore.cpp" />
     <ClCompile Include="Blink\Agents\SyncVideoAgent.cpp" />
+    <ClCompile Include="Network\Agents\FileServerAgent.cpp" />
     <ClCompile Include="Network\Services\DownloadFileService.cpp" />
     <ClCompile Include="Network\Services\HTTPClientService.cpp" />
     <ClCompile Include="Network\Services\ParseURIService.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Model\IAgent.h" />
     <ClInclude Include="Model\NamedType.h" />
     <ClInclude Include="Model\Notification.h" />
+    <ClInclude Include="Network\Agents\FileServerAgent.h" />
     <ClInclude Include="Network\Events.h" />
     <ClInclude Include="Network\Model\Credentials.h" />
     <ClInclude Include="Network\Model\RTP.h" />

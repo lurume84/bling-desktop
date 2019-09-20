@@ -49,6 +49,9 @@
     <Filter Include="System\Model">
       <UniqueIdentifier>{21c17bd1-5482-4899-9ec2-c9e55d92fd8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network\Agents">
+      <UniqueIdentifier>{3a74f94a-a39c-4d82-9a35-bcd6aa59998f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Upgrade\Agents\UpgradeViewerAgent.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="System\Model\ProcessInformation.cpp">
       <Filter>System\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Agents\FileServerAgent.cpp">
+      <Filter>Network\Agents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="System\Model\ProcessInformation.h">
       <Filter>System\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Agents\FileServerAgent.h">
+      <Filter>Network\Agents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

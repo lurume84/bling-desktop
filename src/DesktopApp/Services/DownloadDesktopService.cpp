@@ -1,23 +1,27 @@
-#include "stdafx.h"
-
 #include "DownloadDesktopService.h"
 
-#include "Agents/NotificationAgent.h"
+//#include "Agents/NotificationAgent.h"
 #include "Events.h"
-#include "DesktopApp.h"
+//#include "DesktopApp.h"
 
 #include "DesktopCore\Upgrade\Events.h"
-#include "Toast\ToastEventHandler.h"
-#include "Toast\ToastCommandLineInfo.h"
-#include "Toast\ToastFactory.h"
+//#include "Toast\ToastEventHandler.h"
+//#include "Toast\ToastCommandLineInfo.h"
+//#include "Toast\ToastFactory.h"
 
 #include "DesktopCore\Utils\Patterns\PublisherSubscriber\Broker.h"
+
+#pragma warning(push)
+#pragma warning(disable : 4100)
+#pragma warning(disable : 4481)
+#include <cef/cef_app.h>
+#pragma warning(pop)
 
 #include <boost\filesystem\operations.hpp>
 
 namespace desktop { namespace ui { namespace service {
 
-	DownloadDesktopService::DownloadDesktopService(CefRefPtr<CefBrowser> browser, std::unique_ptr<core::service::EncodeStringService> encodeService, 
+	DownloadDesktopService::DownloadDesktopService(CefBrowser& browser, std::unique_ptr<core::service::EncodeStringService> encodeService,
 											std::unique_ptr<core::service::ApplicationDataService> applicationService)
 	: m_browser(browser)
 	, m_encodeService(std::move(encodeService))
@@ -38,7 +42,7 @@ namespace desktop { namespace ui { namespace service {
 
 		m_subscriber.subscribe([this](const core::utils::patterns::Event& rawEvt)
 		{
-			auto evt = static_cast<const core::events::DownloadUpgradeEvent&>(rawEvt);
+			/*auto evt = static_cast<const core::events::DownloadUpgradeEvent&>(rawEvt);
 
 			auto version = m_encodeService->utf8toUtf16(evt.m_version);
 			
@@ -55,7 +59,7 @@ namespace desktop { namespace ui { namespace service {
 			m_toast = factory.getYesNo(L"Desktop upgrade", L"Version " + version + L" available", L"Download");
 
 			agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
-			core::utils::patterns::Broker::get().publish(notificationEvt);
+			core::utils::patterns::Broker::get().publish(notificationEvt);*/
 
 		}, core::events::DOWNLOAD_UPGRADE_EVENT);
 
@@ -73,7 +77,7 @@ namespace desktop { namespace ui { namespace service {
 
 		std::string script = "window.location = 'https://" + host + url.substr(pos) + "';";
 
-		m_browser->GetMainFrame()->ExecuteJavaScript(script, m_browser->GetMainFrame()->GetURL(), 0);
+		m_browser.GetMainFrame()->ExecuteJavaScript(script, m_browser.GetMainFrame()->GetURL(), 0);
 
 		std::unique_lock<std::mutex> lock(m_mutex);
 		m_cv.wait(lock);

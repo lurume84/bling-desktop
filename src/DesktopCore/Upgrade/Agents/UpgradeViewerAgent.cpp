@@ -88,11 +88,13 @@ namespace desktop { namespace core { namespace agent {
 									{
 										if (boost::filesystem::is_directory(it.path()))
 										{
+											bool fresh = !boost::filesystem::exists(m_outFolder + "/index.html");
+
 											m_replaceFolderService->replace(it.path().string(), m_outFolder);
 
 											boost::filesystem::rename(path, m_inFolder + version + ".zip");
 
-											events::UpgradeViewerCompletedEvent evt(version);
+											events::UpgradeViewerCompletedEvent evt(version, fresh);
 											utils::patterns::Broker::get().publish(evt);
 											break;
 										}

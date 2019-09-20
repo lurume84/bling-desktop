@@ -35,13 +35,15 @@ namespace desktop { namespace core { namespace events {
 	const sup::EventType UPGRADE_VIEWER_COMPLETED_EVENT = "UPGRADE_VIEWER_COMPLETED_EVENT";
 	struct UpgradeViewerCompletedEvent : public sup::Event
 	{
-		UpgradeViewerCompletedEvent(const std::string& version)
+		UpgradeViewerCompletedEvent(const std::string& version, bool fresh)
 			: m_version(version)
+			, m_fresh(fresh)
 		{
 			m_name = UPGRADE_VIEWER_COMPLETED_EVENT;
 		}
 
 		std::string m_version;
+		bool m_fresh;
 	};
 
 	const sup::EventType UPGRADE_DESKTOP_COMPLETED_EVENT = "UPGRADE_DESKTOP_COMPLETED_EVENT";

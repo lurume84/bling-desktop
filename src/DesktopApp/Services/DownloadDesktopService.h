@@ -6,15 +6,11 @@
 #include "DesktopCore\System\Services\ApplicationDataService.h"
 #include "DesktopCore\Network\Services\IDownloadFileService.h"
 
-#pragma warning(push)
-#pragma warning(disable : 4100)
-#pragma warning(disable : 4481)
-#include <cef/cef_app.h>
-#pragma warning(pop)
-
 #include <mutex>
 #include <memory>
 #include <condition_variable>
+
+class CefBrowser;
 
 namespace ToastPP
 {
@@ -41,13 +37,13 @@ namespace desktop {
 	class DownloadDesktopService : public core::service::IDownloadFileService
 	{
 	public:
-		DownloadDesktopService(CefRefPtr<CefBrowser> browser,
+		DownloadDesktopService(CefBrowser& browser,
 							std::unique_ptr<core::service::EncodeStringService> encodeService = std::make_unique<core::service::EncodeStringService>(),
 							std::unique_ptr<core::service::ApplicationDataService> applicationService = std::make_unique<core::service::ApplicationDataService>());
 		~DownloadDesktopService();
 		std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 	private:
-		CefRefPtr<CefBrowser>	m_browser;
+		CefBrowser & m_browser;
 		cup::Subscriber			m_subscriber;
 
 		std::string				m_path;
