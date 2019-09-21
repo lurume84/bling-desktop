@@ -25,6 +25,9 @@
 #include "common/client_switches.h"
 
 #include "Events.h"
+#include "DesktopCore\Network\Model\Credentials.h"
+#include "DesktopCore\Network\Events.h"
+#include "DesktopCore\Network\Services\ParseURIService.h"
 #include "DesktopCore\Utils\Patterns\PublisherSubscriber\Broker.h"
 
 namespace client {
@@ -734,6 +737,31 @@ cef_return_value_t ClientHandler::OnBeforeResourceLoad(
     CefRefPtr<CefRequestCallback> callback) {
   CEF_REQUIRE_IO_THREAD();
   
+  std::string url(request->GetURL());
+
+  CefRequest::HeaderMap headers;
+  request->GetHeaderMap(headers);
+
+  auto account = headers.find("ACCOUNT_ID");
+  
+  if (account != headers.end())
+  {
+	  std::string protocol, domain, port, path, query, fragment;
+
+	  desktop::core::service::ParseURIService service;
+	  if (service.parse(request->GetURL().ToString(), protocol, domain, port, path, query, fragment))
+	  {
+		  auto token = headers.find("TOKEN_AUTH");
+
+		  if (token != headers.end())
+		  {
+			desktop::core::model::Credentials credentials(domain, port, token->second, account->second);
+			desktop::core::events::CredentialsEvent evt(credentials);
+			desktop::core::utils::patterns::Broker::get().publish(evt);
+		  }
+	  }
+  }
+
   request->SetReferrer("NO_REFERRER", REFERRER_POLICY_NO_REFERRER);
 
   return resource_manager_->OnBeforeResourceLoad(browser, frame, request, callback);
@@ -754,7 +782,6 @@ CefRefPtr<CefResponseFilter> ClientHandler::GetResourceResponseFilter(
     CefRefPtr<CefRequest> request,
     CefRefPtr<CefResponse> response) {
   CEF_REQUIRE_IO_THREAD();
-
   return test_runner::GetResourceResponseFilter(browser, frame, request,
                                                 response);
 }

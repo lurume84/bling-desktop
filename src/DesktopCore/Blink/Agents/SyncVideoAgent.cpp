@@ -116,7 +116,10 @@ namespace desktop { namespace core { namespace agent {
 
 			std::string lastUpdate = getLastUpdateTimestamp();
 
-			getVideos(videos, "/api/v1/accounts/a/media/changed?since=" + lastUpdate, 1);
+			std::stringstream ss;
+			ss << "/api/v1/accounts/" << m_credentials->m_account << "/media/changed?since=" << lastUpdate;
+
+			getVideos(videos, ss.str(), 1);
 
 			if (videos.size() > 0)
 			{

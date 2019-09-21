@@ -26,7 +26,6 @@
 #include "DesktopCore\Network\Agents\FileServerAgent.h"
 #include "DesktopCore\Blink\Agents\SyncVideoAgent.h"
 #include "DesktopCore\Blink\Agents\SyncThumbnailAgent.h"
-#include "DesktopCore\Blink\Agents\SaveTokenAgent.h"
 #include "DesktopCore\Blink\Agents\LiveViewAgent.h"
 #include "DesktopCore\Blink\Agents\ActivityAgent.h"
 #include "Services\DownloadViewerService.h"
@@ -156,7 +155,6 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
       core.addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadViewerService>(browser)));
       core.addAgent(std::make_unique<desktop::core::agent::SyncVideoAgent>());
       core.addAgent(std::make_unique<desktop::core::agent::SyncThumbnailAgent>());
-      core.addAgent(std::make_unique<desktop::core::agent::SaveTokenAgent>());
       core.addAgent(std::make_unique<desktop::core::agent::LiveViewAgent>());
       core.addAgent(std::make_unique<desktop::core::agent::FileServerAgent>());
       

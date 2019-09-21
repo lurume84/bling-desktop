@@ -107,9 +107,6 @@
     <ClCompile Include="System\Services\TimestampFolderService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
-    <ClCompile Include="Blink\Agents\SaveTokenAgent.cpp">
-      <Filter>Blink\Agents</Filter>
-    </ClCompile>
     <ClCompile Include="System\Services\CrashReportService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
@@ -218,9 +215,6 @@
     </ClInclude>
     <ClInclude Include="System\Services\TimestampFolderService.h">
       <Filter>System\Services</Filter>
-    </ClInclude>
-    <ClInclude Include="Blink\Agents\SaveTokenAgent.h">
-      <Filter>Blink\Agents</Filter>
     </ClInclude>
     <ClInclude Include="System\Services\CrashReportService.h">
       <Filter>System\Services</Filter>
