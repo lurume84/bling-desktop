@@ -111,7 +111,7 @@ xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configurat
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <LargeAddressAware>true</LargeAddressAware>
-      <ProgramDataBaseFile>$(TargetDir)/Jirafy.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>$(TargetDir)/Bling.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
@@ -175,7 +175,7 @@ xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configurat
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <LargeAddressAware>true</LargeAddressAware>
-      <ProgramDataBaseFile>$(TargetDir)/Jirafy.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>$(TargetDir)/Bling.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
     </Link>
     <ProjectReference>
