@@ -47,7 +47,7 @@ namespace desktop { namespace core {
 		boost::asio::io_service		m_ioService;
 		std::unique_ptr<boost::asio::deadline_timer>	m_timer;
 		boost::thread				m_backgroundThread;
-		bool						m_enabled;
+		bool						m_enabled = false;
 		unsigned int				m_seconds;
 
 		std::unique_ptr<service::IActivityNotificationService> m_activityService;

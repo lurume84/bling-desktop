@@ -44,7 +44,7 @@ namespace desktop { namespace core {
 		void handleDELETE(web::http::http_request);
 	private:
 		std::unique_ptr<service::IniFileService> m_iniFileService;
-		bool						m_enabled;
+		bool						m_enabled = false;
 		unsigned int				m_seconds;
 		bool						m_saveLocalTime;
 		std::string					m_endpoint;

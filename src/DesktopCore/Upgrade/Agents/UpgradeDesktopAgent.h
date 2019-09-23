@@ -36,7 +36,7 @@ namespace desktop { namespace core { namespace agent {
 		std::string					m_repository;
 		std::string					m_inFolder;
 		std::string					m_outFolder;
-		bool						m_enabled;
+		bool						m_enabled = false;
 
 		std::unique_ptr<service::IDownloadFileService> m_downloadService;
 		std::unique_ptr<service::HTTPClientService> m_clientService;

@@ -51,7 +51,7 @@ namespace desktop { namespace core {
 		std::unique_ptr<boost::asio::deadline_timer>	m_timer;
 		boost::thread				m_backgroundThread;
 		std::string					m_outFolder;
-		bool						m_enabled;
+		bool						m_enabled = false;
 		unsigned int				m_seconds;
 		bool						m_saveLocalTime;
 
