@@ -14,20 +14,29 @@ This application is the container of [Bling Viewer](https://github.com/lurume84/
 * Notify user of movement using Windows Toast Notifications (WIP)
 
 ## Installation
-Go to Releases section
+1. Go to Releases section
+
 ![](img/step1.png)
-Click on the first BlingSetup.exe that appears
+
+2. Click on the first BlingSetup.exe that appears
 ![](img/step2.png)
-Click on the downloaded executable
+
+3. Click on the downloaded executable
+
 ![](img/step3.png)
-This warning may appear because of the installer comes from Internet without a trusted source. Click on more information and execute
+
+4. This warning may appear because of the installer comes from Internet without a trusted source. Click on more information and execute
+
 ![](img/step4.png)
 ![](img/step5.png)
-Click next to everything and install
+
+5. Click next to everything and install
+
 ![](img/step6.png)
 ![](img/step7.png)
 ![](img/step8.png)
-Go to your desktop and execute. From this point everything is automated, desktop will download latest viewer and a login form will appear. Put your credentials and application should appear.
+
+6. Go to your desktop and execute. From this point everything is automated, desktop will download latest viewer and a login form will appear. Put your credentials and application should appear.
 
 ## Usage
 This application automatically creates folder %userprofile%/Documents/Bling.exe. This folder contains all user-related information that is described below
