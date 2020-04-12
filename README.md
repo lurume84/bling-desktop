@@ -19,6 +19,7 @@ This application is the container of [Bling Viewer](https://github.com/lurume84/
 ![](img/step1.png)
 
 2. Click on the first BlingSetup.exe that appears
+
 ![](img/step2.png)
 
 3. Click on the downloaded executable
