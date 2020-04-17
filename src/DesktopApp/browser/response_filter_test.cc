@@ -8,8 +8,8 @@
 #include <sstream>
 #include <string>
 
-#include "cef/base/cef_logging.h"
-#include "cef/cef_command_line.h"
+#include "include/base/cef_logging.h"
+#include "include/cef_command_line.h"
 #include "browser/test_runner.h"
 #include "common/client_switches.h"
 

@@ -6,10 +6,10 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_VIEWS_STYLE_H_
 #pragma once
 
-#include "cef/cef_menu_model.h"
-#include "cef/views/cef_label_button.h"
-#include "cef/views/cef_panel.h"
-#include "cef/views/cef_textfield.h"
+#include "include/cef_menu_model.h"
+#include "include/views/cef_label_button.h"
+#include "include/views/cef_panel.h"
+#include "include/views/cef_textfield.h"
 
 namespace client {
 

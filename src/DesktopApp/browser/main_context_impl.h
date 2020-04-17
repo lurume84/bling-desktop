@@ -6,10 +6,10 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_MAIN_CONTEXT_IMPL_H_
 #pragma once
 
-#include "cef/base/cef_scoped_ptr.h"
-#include "cef/base/cef_thread_checker.h"
-#include "cef/cef_app.h"
-#include "cef/cef_command_line.h"
+#include "include/base/cef_scoped_ptr.h"
+#include "include/base/cef_thread_checker.h"
+#include "include/cef_app.h"
+#include "include/cef_command_line.h"
 #include "browser/main_context.h"
 #include "browser/root_window_manager.h"
 

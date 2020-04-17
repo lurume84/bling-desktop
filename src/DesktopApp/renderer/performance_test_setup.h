@@ -6,8 +6,8 @@
 #define CEF_TESTS_CEFCLIENT_RENDERER_PERFORMANCE_TEST_SETUP_H_
 #pragma once
 
-#include "cef/base/cef_logging.h"
-#include "cef/base/cef_macros.h"
+#include "include/base/cef_logging.h"
+#include "include/base/cef_macros.h"
 
 namespace client {
 namespace performance_test {

@@ -10,13 +10,13 @@
 #include <sstream>
 #include <string>
 
-#include "cef/base/cef_bind.h"
-#include "cef/cef_browser.h"
-#include "cef/cef_frame.h"
-#include "cef/cef_parser.h"
-#include "cef/cef_ssl_status.h"
-#include "cef/cef_x509_certificate.h"
-#include "cef/wrapper/cef_closure_task.h"
+#include "include/base/cef_bind.h"
+#include "include/cef_browser.h"
+#include "include/cef_frame.h"
+#include "include/cef_parser.h"
+#include "include/cef_ssl_status.h"
+#include "include/cef_x509_certificate.h"
+#include "include/wrapper/cef_closure_task.h"
 #include "browser/main_context.h"
 #include "browser/root_window_manager.h"
 #include "browser/test_runner.h"

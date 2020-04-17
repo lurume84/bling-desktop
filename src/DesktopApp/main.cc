@@ -4,9 +4,9 @@
 
 #include <windows.h>
 
-#include "cef/base/cef_scoped_ptr.h"
-#include "cef/cef_command_line.h"
-#include "cef/cef_sandbox_win.h"
+#include "include/base/cef_scoped_ptr.h"
+#include "include/cef_command_line.h"
+#include "include/cef_sandbox_win.h"
 #include "browser/main_context_impl.h"
 #include "browser/main_message_loop_multithreaded_win.h"
 #include "browser/root_window_manager.h"

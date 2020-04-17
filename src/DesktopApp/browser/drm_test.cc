@@ -7,8 +7,8 @@
 #include <algorithm>
 #include <string>
 
-#include "cef/cef_parser.h"
-#include "cef/cef_web_plugin.h"
+#include "include/cef_parser.h"
+#include "include/cef_web_plugin.h"
 #include "browser/test_runner.h"
 
 namespace client {

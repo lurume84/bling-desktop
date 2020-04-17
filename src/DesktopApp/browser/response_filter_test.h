@@ -6,10 +6,10 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_RESPONSE_FILTER_TEST_H_
 #pragma once
 
-#include "cef/cef_browser.h"
-#include "cef/cef_request.h"
-#include "cef/cef_response.h"
-#include "cef/cef_response_filter.h"
+#include "include/cef_browser.h"
+#include "include/cef_request.h"
+#include "include/cef_response.h"
+#include "include/cef_response_filter.h"
 
 namespace client {
 namespace response_filter_test {

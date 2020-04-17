@@ -10,11 +10,11 @@
 #include <string>
 #include <vector>
 
-#include "cef/cef_menu_model.h"
-#include "cef/cef_menu_model_delegate.h"
-#include "cef/views/cef_menu_button.h"
-#include "cef/views/cef_menu_button_delegate.h"
-#include "cef/views/cef_panel.h"
+#include "include/cef_menu_model.h"
+#include "include/cef_menu_model_delegate.h"
+#include "include/views/cef_menu_button.h"
+#include "include/views/cef_menu_button_delegate.h"
+#include "include/views/cef_panel.h"
 
 namespace client {
 

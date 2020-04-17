@@ -7,11 +7,11 @@
 #include <algorithm>
 #include <string>
 
-#include "cef/base/cef_bind.h"
-#include "cef/base/cef_weak_ptr.h"
-#include "cef/cef_parser.h"
-#include "cef/cef_server.h"
-#include "cef/wrapper/cef_closure_task.h"
+#include "include/base/cef_bind.h"
+#include "include/base/cef_weak_ptr.h"
+#include "include/cef_parser.h"
+#include "include/cef_server.h"
+#include "include/wrapper/cef_closure_task.h"
 #include "browser/resource_util.h"
 
 namespace client {

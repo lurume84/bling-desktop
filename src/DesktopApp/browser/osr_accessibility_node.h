@@ -8,7 +8,7 @@
 
 #include <vector>
 
-#include "cef/cef_browser.h"
+#include "include/cef_browser.h"
 
 #if defined(OS_MACOSX)
 #ifdef __OBJC__

@@ -4,9 +4,9 @@
 
 #include "browser/file_util.h"
 
-#include "cef/base/cef_build.h"
-#include "cef/base/cef_scoped_ptr.h"
-#include "cef/cef_task.h"
+#include "include/base/cef_build.h"
+#include "include/base/cef_scoped_ptr.h"
+#include "include/cef_task.h"
 
 #include <algorithm>
 #include <cstdio>

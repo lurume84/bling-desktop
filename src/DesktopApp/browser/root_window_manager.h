@@ -8,8 +8,8 @@
 
 #include <set>
 
-#include "cef/base/cef_scoped_ptr.h"
-#include "cef/cef_command_line.h"
+#include "include/base/cef_scoped_ptr.h"
+#include "include/cef_command_line.h"
 #include "browser/image_cache.h"
 #include "browser/root_window.h"
 #include "browser/temp_window.h"

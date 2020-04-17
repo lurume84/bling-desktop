@@ -6,13 +6,13 @@
 
 #include <sstream>
 
-#include "cef/base/cef_bind.h"
-#include "cef/cef_parser.h"
-#include "cef/cef_task.h"
-#include "cef/cef_trace.h"
-#include "cef/cef_web_plugin.h"
-#include "cef/wrapper/cef_closure_task.h"
-#include "cef/wrapper/cef_stream_resource_handler.h"
+#include "include/base/cef_bind.h"
+#include "include/cef_parser.h"
+#include "include/cef_task.h"
+#include "include/cef_trace.h"
+#include "include/cef_web_plugin.h"
+#include "include/wrapper/cef_closure_task.h"
+#include "include/wrapper/cef_stream_resource_handler.h"
 #include "browser/binding_test.h"
 #include "browser/dialog_test.h"
 #include "browser/drm_test.h"

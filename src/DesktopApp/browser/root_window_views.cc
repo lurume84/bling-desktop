@@ -4,10 +4,10 @@
 
 #include "browser/root_window_views.h"
 
-#include "cef/base/cef_bind.h"
-#include "cef/base/cef_build.h"
-#include "cef/cef_app.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/base/cef_bind.h"
+#include "include/base/cef_build.h"
+#include "include/cef_app.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/client_handler_std.h"
 
 namespace client {

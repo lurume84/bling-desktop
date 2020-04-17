@@ -6,11 +6,11 @@
 
 #include <algorithm>
 
-#include "cef/base/cef_bind.h"
-#include "cef/base/cef_build.h"
-#include "cef/cef_app.h"
-#include "cef/views/cef_box_layout.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/base/cef_bind.h"
+#include "include/base/cef_build.h"
+#include "include/cef_app.h"
+#include "include/views/cef_box_layout.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/resource.h"
 #include "browser/views_style.h"
 #include "browser/extension_util.h"

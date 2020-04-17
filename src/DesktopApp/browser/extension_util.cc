@@ -4,10 +4,10 @@
 
 #include "browser/extension_util.h"
 
-#include "cef/base/cef_bind.h"
-#include "cef/cef_parser.h"
-#include "cef/cef_path_util.h"
-#include "cef/wrapper/cef_closure_task.h"
+#include "include/base/cef_bind.h"
+#include "include/cef_parser.h"
+#include "include/cef_path_util.h"
+#include "include/wrapper/cef_closure_task.h"
 #include "browser/file_util.h"
 #include "browser/resource_util.h"
 

@@ -9,8 +9,8 @@
 #include <string>
 #include <vector>
 
-#include "cef/base/cef_bind.h"
-#include "cef/wrapper/cef_stream_resource_handler.h"
+#include "include/base/cef_bind.h"
+#include "include/wrapper/cef_stream_resource_handler.h"
 #include "browser/main_context.h"
 #include "browser/test_runner.h"
 #include "browser/window_test_runner.h"

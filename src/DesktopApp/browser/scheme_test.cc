@@ -7,14 +7,14 @@
 #include <algorithm>
 #include <string>
 
-#include "cef/cef_browser.h"
-#include "cef/cef_callback.h"
-#include "cef/cef_frame.h"
-#include "cef/cef_request.h"
-#include "cef/cef_resource_handler.h"
-#include "cef/cef_response.h"
-#include "cef/cef_scheme.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/cef_browser.h"
+#include "include/cef_callback.h"
+#include "include/cef_frame.h"
+#include "include/cef_request.h"
+#include "include/cef_resource_handler.h"
+#include "include/cef_response.h"
+#include "include/cef_scheme.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/test_runner.h"
 #include "browser/resource_util.h"
 

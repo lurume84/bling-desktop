@@ -6,9 +6,9 @@
 
 #include <sstream>
 
-#include "cef/base/cef_bind.h"
-#include "cef/base/cef_logging.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/base/cef_bind.h"
+#include "include/base/cef_logging.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/main_context.h"
 #include "browser/test_runner.h"
 #include "browser/extension_util.h"

@@ -6,7 +6,7 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_OSR_DRAGDROP_EVENTS_H_
 #pragma once
 
-#include "cef/cef_render_handler.h"
+#include "include/cef_render_handler.h"
 #include "browser/client_handler.h"
 
 namespace client {

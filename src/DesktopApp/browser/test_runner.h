@@ -9,10 +9,10 @@
 #include <set>
 #include <string>
 
-#include "cef/cef_browser.h"
-#include "cef/cef_request.h"
-#include "cef/wrapper/cef_message_router.h"
-#include "cef/wrapper/cef_resource_manager.h"
+#include "include/cef_browser.h"
+#include "include/cef_request.h"
+#include "include/wrapper/cef_message_router.h"
+#include "include/wrapper/cef_resource_manager.h"
 
 namespace client {
 namespace test_runner {

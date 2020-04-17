@@ -6,8 +6,8 @@
 
 #include <string>
 
-#include "cef/cef_browser.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/cef_browser.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/test_runner.h"
 
 namespace client {

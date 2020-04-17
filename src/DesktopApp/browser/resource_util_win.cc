@@ -4,10 +4,10 @@
 
 #include "browser/resource_util.h"
 
-#include "cef/base/cef_logging.h"
-#include "cef/cef_stream.h"
-#include "cef/wrapper/cef_byte_read_handler.h"
-#include "cef/wrapper/cef_stream_resource_handler.h"
+#include "include/base/cef_logging.h"
+#include "include/cef_stream.h"
+#include "include/wrapper/cef_byte_read_handler.h"
+#include "include/wrapper/cef_stream_resource_handler.h"
 
 namespace client {
 

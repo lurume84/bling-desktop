@@ -6,7 +6,7 @@
 #define CEF_TESTS_CEFCLIENT_RENDERER_CLIENT_RENDERER_H_
 #pragma once
 
-#include "cef/cef_base.h"
+#include "include/cef_base.h"
 #include "renderer/client_app_renderer.h"
 
 namespace client {

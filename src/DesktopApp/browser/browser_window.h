@@ -6,8 +6,8 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_BROWSER_WINDOW_H_
 #pragma once
 
-#include "cef/base/cef_scoped_ptr.h"
-#include "cef/cef_browser.h"
+#include "include/base/cef_scoped_ptr.h"
+#include "include/cef_browser.h"
 #include "browser/client_handler.h"
 #include "browser/client_types.h"
 

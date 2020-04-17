@@ -6,10 +6,10 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_OSR_WINDOW_WIN_H_
 #pragma once
 
-#include "cef/base/cef_bind.h"
-#include "cef/base/cef_ref_counted.h"
-#include "cef/wrapper/cef_closure_task.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/base/cef_bind.h"
+#include "include/base/cef_ref_counted.h"
+#include "include/wrapper/cef_closure_task.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/client_handler_osr.h"
 #include "browser/osr_accessibility_node.h"
 #include "browser/osr_dragdrop_win.h"

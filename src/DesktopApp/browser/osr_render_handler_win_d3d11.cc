@@ -4,9 +4,9 @@
 
 #include "browser/osr_render_handler_win_d3d11.h"
 
-#include "cef/base/cef_bind.h"
-#include "cef/wrapper/cef_closure_task.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/base/cef_bind.h"
+#include "include/wrapper/cef_closure_task.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/util_win.h"
 
 namespace client {

@@ -4,7 +4,7 @@
 
 #include "browser/browser_window.h"
 
-#include "cef/base/cef_bind.h"
+#include "include/base/cef_bind.h"
 #include "browser/main_message_loop.h"
 
 namespace client {

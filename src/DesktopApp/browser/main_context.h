@@ -8,8 +8,8 @@
 
 #include <string>
 
-#include "cef/base/cef_ref_counted.h"
-#include "cef/internal/cef_types_wrappers.h"
+#include "include/base/cef_ref_counted.h"
+#include "include/internal/cef_types_wrappers.h"
 #include "browser/osr_renderer_settings.h"
 
 namespace client {

@@ -9,10 +9,10 @@
 #include <set>
 #include <string>
 
-#include "cef/base/cef_callback_forward.h"
-#include "cef/base/cef_ref_counted.h"
-#include "cef/cef_browser.h"
-#include "cef/views/cef_window.h"
+#include "include/base/cef_callback_forward.h"
+#include "include/base/cef_ref_counted.h"
+#include "include/cef_browser.h"
+#include "include/views/cef_window.h"
 #include "browser/client_types.h"
 #include "browser/image_cache.h"
 #include "browser/main_message_loop.h"

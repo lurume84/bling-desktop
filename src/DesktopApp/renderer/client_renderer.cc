@@ -7,10 +7,10 @@
 #include <sstream>
 #include <string>
 
-#include "cef/cef_crash_util.h"
-#include "cef/cef_dom.h"
-#include "cef/wrapper/cef_helpers.h"
-#include "cef/wrapper/cef_message_router.h"
+#include "include/cef_crash_util.h"
+#include "include/cef_dom.h"
+#include "include/wrapper/cef_helpers.h"
+#include "include/wrapper/cef_message_router.h"
 
 namespace client {
 namespace renderer {

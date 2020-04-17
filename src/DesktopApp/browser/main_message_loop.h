@@ -6,9 +6,9 @@
 #define CEF_TESTS_SHARED_BROWSER_MAIN_MESSAGE_LOOP_H_
 #pragma once
 
-#include "cef/base/cef_bind.h"
-#include "cef/base/cef_scoped_ptr.h"
-#include "cef/cef_task.h"
+#include "include/base/cef_bind.h"
+#include "include/base/cef_scoped_ptr.h"
+#include "include/cef_task.h"
 
 #if defined(OS_WIN)
 #include <windows.h>

@@ -9,8 +9,8 @@
 #include <windows.h>
 #include <queue>
 
-#include "cef/base/cef_lock.h"
-#include "cef/base/cef_platform_thread.h"
+#include "include/base/cef_lock.h"
+#include "include/base/cef_platform_thread.h"
 #include "browser/main_message_loop.h"
 
 namespace client {

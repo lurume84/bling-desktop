@@ -8,9 +8,9 @@
 #include <string>
 #include <vector>
 
-#include "cef/base/cef_logging.h"
-#include "cef/cef_command_line.h"
-#include "cef/cef_parser.h"
+#include "include/base/cef_logging.h"
+#include "include/cef_command_line.h"
+#include "include/cef_parser.h"
 #include "browser/test_runner.h"
 
 namespace client {

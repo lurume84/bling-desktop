@@ -4,8 +4,8 @@
 
 #include "browser/main_message_loop.h"
 
-#include "cef/cef_task.h"
-#include "cef/wrapper/cef_closure_task.h"
+#include "include/cef_task.h"
+#include "include/wrapper/cef_closure_task.h"
 
 namespace client {
 

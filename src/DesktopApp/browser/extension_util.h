@@ -8,9 +8,9 @@
 
 #include <string>
 
-#include "cef/cef_extension.h"
-#include "cef/cef_extension_handler.h"
-#include "cef/wrapper/cef_resource_manager.h"
+#include "include/cef_extension.h"
+#include "include/cef_extension_handler.h"
+#include "include/wrapper/cef_resource_manager.h"
 
 namespace client {
 namespace extension_util {

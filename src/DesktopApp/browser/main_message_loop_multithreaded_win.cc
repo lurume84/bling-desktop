@@ -4,9 +4,9 @@
 
 #include "browser/main_message_loop_multithreaded_win.h"
 
-#include "cef/base/cef_bind.h"
-#include "cef/base/cef_logging.h"
-#include "cef/cef_app.h"
+#include "include/base/cef_bind.h"
+#include "include/base/cef_logging.h"
+#include "include/cef_app.h"
 #include "browser/resource.h"
 #include "browser/util_win.h"
 

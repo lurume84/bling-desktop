@@ -6,7 +6,7 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_OSR_RENDERER_SETTINGS_H_
 #pragma once
 
-#include "cef/internal/cef_types.h"
+#include "include/internal/cef_types.h"
 
 namespace client {
 

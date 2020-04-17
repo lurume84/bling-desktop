@@ -21,8 +21,8 @@
 #include <d3dcompiler.h>
 #include <directxmath.h>
 
-#include "cef/base/cef_logging.h"
-#include "cef/internal/cef_string.h"
+#include "include/base/cef_logging.h"
+#include "include/internal/cef_string.h"
 #include "browser/util_win.h"
 
 namespace client {

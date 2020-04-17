@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "cef/base/cef_scoped_ptr.h"
+#include "include/base/cef_scoped_ptr.h"
 #include "browser/client_handler.h"
 #include "browser/root_window.h"
 #include "browser/views_window.h"

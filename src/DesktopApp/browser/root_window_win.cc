@@ -6,9 +6,9 @@
 
 #include <shellscalingapi.h>
 
-#include "cef/base/cef_bind.h"
-#include "cef/base/cef_build.h"
-#include "cef/cef_app.h"
+#include "include/base/cef_bind.h"
+#include "include/base/cef_build.h"
+#include "include/cef_app.h"
 #include "browser/browser_window_osr_win.h"
 #include "browser/browser_window_std_win.h"
 #include "browser/main_context.h"

@@ -6,8 +6,8 @@
 
 #include <climits>
 
-#include "cef/cef_app.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/cef_app.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/main_message_loop.h"
 
 namespace client {

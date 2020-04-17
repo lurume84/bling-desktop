@@ -4,8 +4,8 @@
 
 #include "browser/client_app_browser.h"
 
-#include "cef/base/cef_logging.h"
-#include "cef/cef_cookie.h"
+#include "include/base/cef_logging.h"
+#include "include/cef_cookie.h"
 #include "browser/main_message_loop_external_pump.h"
 #include "common/client_switches.h"
 

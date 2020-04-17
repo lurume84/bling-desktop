@@ -14,8 +14,8 @@
 #error Platform is not supported.
 #endif
 
-#include "cef/base/cef_logging.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/base/cef_logging.h"
+#include "include/wrapper/cef_helpers.h"
 
 #ifndef GL_BGR
 #define GL_BGR 0x80E0

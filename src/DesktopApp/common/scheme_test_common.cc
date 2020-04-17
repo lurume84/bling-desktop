@@ -4,7 +4,7 @@
 
 #include "common/scheme_test_common.h"
 
-#include "cef/cef_scheme.h"
+#include "include/cef_scheme.h"
 
 namespace client {
 namespace scheme_test {

@@ -4,9 +4,9 @@
 
 #include "browser/client_handler_osr.h"
 
-#include "cef/base/cef_bind.h"
-#include "cef/wrapper/cef_closure_task.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/base/cef_bind.h"
+#include "include/wrapper/cef_closure_task.h"
+#include "include/wrapper/cef_helpers.h"
 
 namespace client {
 

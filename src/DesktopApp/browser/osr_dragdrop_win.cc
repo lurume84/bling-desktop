@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <string>
 
-#include "cef/wrapper/cef_helpers.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/bytes_write_handler.h"
 #include "browser/resource.h"
 #include "browser/util_win.h"

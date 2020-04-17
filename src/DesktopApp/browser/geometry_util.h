@@ -6,7 +6,7 @@
 #define CEF_TESTS_SHARED_BROWSER_GEOMETRY_UTIL_H_
 #pragma once
 
-#include "cef/internal/cef_types_wrappers.h"
+#include "include/internal/cef_types_wrappers.h"
 
 namespace client {
 

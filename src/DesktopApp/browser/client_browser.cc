@@ -4,9 +4,9 @@
 
 #include "browser/client_browser.h"
 
-#include "cef/cef_command_line.h"
-#include "cef/cef_crash_util.h"
-#include "cef/cef_file_util.h"
+#include "include/cef_command_line.h"
+#include "include/cef_crash_util.h"
+#include "include/cef_file_util.h"
 #include "common/client_switches.h"
 
 namespace client {

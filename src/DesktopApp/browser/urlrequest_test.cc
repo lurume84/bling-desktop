@@ -6,11 +6,11 @@
 
 #include <string>
 
-#include "cef/base/cef_bind.h"
-#include "cef/base/cef_callback.h"
-#include "cef/base/cef_logging.h"
-#include "cef/cef_urlrequest.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/base/cef_bind.h"
+#include "include/base/cef_callback.h"
+#include "include/base/cef_logging.h"
+#include "include/cef_urlrequest.h"
+#include "include/wrapper/cef_helpers.h"
 #include "browser/test_runner.h"
 
 namespace client {

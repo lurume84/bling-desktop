@@ -7,11 +7,11 @@
 #pragma once
 
 #include <string>
-#include "cef/cef_image.h"
-#include "cef/cef_stream.h"
+#include "include/cef_image.h"
+#include "include/cef_stream.h"
 
 #if defined(OS_WIN)
-#include "cef/wrapper/cef_resource_manager.h"
+#include "include/wrapper/cef_resource_manager.h"
 #endif
 
 namespace client {

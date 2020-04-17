@@ -9,10 +9,10 @@
 #include <set>
 #include <string>
 
-#include "cef/cef_client.h"
-#include "cef/wrapper/cef_helpers.h"
-#include "cef/wrapper/cef_message_router.h"
-#include "cef/wrapper/cef_resource_manager.h"
+#include "include/cef_client.h"
+#include "include/wrapper/cef_helpers.h"
+#include "include/wrapper/cef_message_router.h"
+#include "include/wrapper/cef_resource_manager.h"
 #include "browser/client_types.h"
 
 #if defined(OS_LINUX)

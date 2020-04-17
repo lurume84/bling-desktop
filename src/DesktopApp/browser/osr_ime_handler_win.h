@@ -9,7 +9,7 @@
 #include <windows.h>
 #include <vector>
 
-#include "cef/internal/cef_types_wrappers.h"
+#include "include/internal/cef_types_wrappers.h"
 
 namespace client {
 

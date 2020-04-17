@@ -10,3 +10,4 @@ src/BlingInstaller/Release/
 src/DesktopInstaller/DesktopSetup.msi
 src/DesktopInstaller/setup.exe
 BlingSetup.exe
+build/

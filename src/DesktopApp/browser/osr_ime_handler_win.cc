@@ -7,7 +7,7 @@
 #include <msctf.h>
 #include <windowsx.h>
 
-#include "cef/base/cef_build.h"
+#include "include/base/cef_build.h"
 #include "browser/osr_ime_handler_win.h"
 #include "browser/resource.h"
 #include "browser/geometry_util.h"

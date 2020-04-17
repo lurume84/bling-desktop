@@ -6,7 +6,7 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_CLIENT_TYPES_H_
 #pragma once
 
-#include "cef/cef_base.h"
+#include "include/cef_base.h"
 
 #if defined(OS_LINUX)
 #include <gtk/gtk.h>

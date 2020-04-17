@@ -4,8 +4,8 @@
 
 #include "browser/views_menu_bar.h"
 
-#include "cef/views/cef_box_layout.h"
-#include "cef/views/cef_window.h"
+#include "include/views/cef_box_layout.h"
+#include "include/views/cef_window.h"
 #include "browser/views_style.h"
 
 namespace client {

@@ -4,10 +4,10 @@
 
 #include "browser/window_test_runner_views.h"
 
-#include "cef/views/cef_browser_view.h"
-#include "cef/views/cef_display.h"
-#include "cef/views/cef_window.h"
-#include "cef/wrapper/cef_helpers.h"
+#include "include/views/cef_browser_view.h"
+#include "include/views/cef_display.h"
+#include "include/views/cef_window.h"
+#include "include/wrapper/cef_helpers.h"
 
 namespace client {
 namespace window_test {

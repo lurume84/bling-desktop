@@ -4,7 +4,7 @@
 
 #include "browser/main_context.h"
 
-#include "cef/base/cef_logging.h"
+#include "include/base/cef_logging.h"
 
 namespace client {
 

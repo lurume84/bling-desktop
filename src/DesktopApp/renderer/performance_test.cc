@@ -7,8 +7,8 @@
 #include <algorithm>
 #include <string>
 
-#include "cef/base/cef_logging.h"
-#include "cef/wrapper/cef_stream_resource_handler.h"
+#include "include/base/cef_logging.h"
+#include "include/wrapper/cef_stream_resource_handler.h"
 #include "renderer/performance_test_setup.h"
 
 namespace client {

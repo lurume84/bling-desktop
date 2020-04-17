@@ -4,8 +4,8 @@
 
 #include "browser/main_context_impl.h"
 
-#include "cef/cef_parser.h"
-#include "cef/cef_web_plugin.h"
+#include "include/cef_parser.h"
+#include "include/cef_web_plugin.h"
 #include "common/client_switches.h"
 
 namespace client {

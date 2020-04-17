@@ -6,8 +6,8 @@
 #define CEF_TESTS_CEFCLIENT_BROWSER_BYTES_WRITE_HANDLER_H_
 #pragma once
 
-#include "cef/base/cef_lock.h"
-#include "cef/cef_stream.h"
+#include "include/base/cef_lock.h"
+#include "include/cef_stream.h"
 
 namespace client {
 
