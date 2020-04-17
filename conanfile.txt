@@ -11,5 +11,6 @@ cef/3.3626.1881.g628f810@lurume84/stable
 CrashRpt/1.4.3@lurume84/stable
 7zip-cpp/0.2.0@lurume84/stable
 7zip/15.12.0@lurume84/stable
+OpenSSL/1.1.1@conan/stable
 [generators]
 cmake
