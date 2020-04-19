@@ -12,9 +12,14 @@
 
 #include <string>
 #include <map>
-#include <cpprestsdk/cpprest/http_msg.h>
 
-namespace web { namespace http { namespace experimental { namespace listener { class http_listener; } } } }
+namespace httplib
+{
+	class Server; 
+	struct Request;
+	struct Response;
+	class ContentReader;
+}
 
 namespace desktop { namespace core { 
 	
@@ -39,9 +44,9 @@ namespace desktop { namespace core {
 						std::unique_ptr<service::TimeZoneService> timeZoneService = std::make_unique<service::TimeZoneService>());
 		~LiveViewAgent();
 
-		void handlePOST(web::http::http_request);
-		void handleGET(web::http::http_request) const;
-		void handleDELETE(web::http::http_request);
+		void handlePOST(const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader);
+		void handleGET(const httplib::Request& req, httplib::Response& res) const;
+		void handleDELETE(const httplib::Request& req, httplib::Response& res);
 	private:
 		std::unique_ptr<service::IniFileService> m_iniFileService;
 		bool						m_enabled = false;
@@ -58,9 +63,10 @@ namespace desktop { namespace core {
 		std::unique_ptr<service::system::ICreateProcessService> m_createProcessService;
 		std::unique_ptr<service::system::TerminateProcessService> m_terminateProcessService;
 		std::unique_ptr<service::TimeZoneService>		m_timeZoneService;
-		std::unique_ptr<web::http::experimental::listener::http_listener> m_listener;
 		cup::Subscriber m_subscriber;
 
 		std::string m_outFolder;
+
+		std::unique_ptr<httplib::Server> m_server;
 	};
 }}}

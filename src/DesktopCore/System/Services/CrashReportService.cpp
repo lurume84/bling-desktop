@@ -47,12 +47,7 @@ namespace desktop { namespace core { namespace service {
 			return false;
 		}
 
-		bool result = crAddScreenshot(CR_AS_MAIN_WINDOW);
-
-		if(result == 0)
-		{
-			result = crAddProperty("ReportService", "CrashReportServicev1.0");
-		}
+		bool result = crAddProperty("ReportService", "CrashReportServicev1.0");
 
 		return result;
 	}

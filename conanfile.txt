@@ -12,5 +12,9 @@ CrashRpt/1.4.3@lurume84/stable
 7zip-cpp/0.2.0@lurume84/stable
 7zip/15.12.0@lurume84/stable
 OpenSSL/1.1.1@conan/stable
+cpp-httplib/0.5.8@_/_
+ffmpeg/4.1.4@lurume84/blink
 [generators]
 cmake
+[imports]
+bin, *.exe -> ../bin/Release/DesktopApp

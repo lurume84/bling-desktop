@@ -6,30 +6,30 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <cpprestsdk/cpprest/http_listener.h>
-#include <cpprest\filestream.h>
+
+#include <httplib.h>
 
 namespace desktop { namespace core { namespace agent {
 
-	static const std::map<std::wstring, std::wstring> g_mimeTypes = { 
-																	{L".html", L"text/html" },
-																	{L".htm", L"text/html" },
-																	{L".js", L"application/javascript" },
-																	{L".css", L"text/css" },
-																	{L".gif", L"image/gif" },
-																	{L".jpg", L"image/jpeg" },
-																	{L".png", L"image/png" },
-																	{L".svg", L"image/svg+xml" },
-																	{L".pdf", L"application/pdf" },
-																	{L".eot", L"application/vnd.ms-fontobject" },
-																	{L".ttf", L"application/x-font-ttf" },
-																	{L".woff", L"application/font-woff" },
-																	{L".woff2", L"application/font-woff2" }
+	static const std::map<std::string, std::string> g_mimeTypes = { 
+																	{".html", "text/html" },
+																	{".htm", "text/html" },
+																	{".js", "application/javascript" },
+																	{".css", "text/css" },
+																	{".gif", "image/gif" },
+																	{".jpg", "image/jpeg" },
+																	{".png", "image/png" },
+																	{".svg", "image/svg+xml" },
+																	{".pdf", "application/pdf" },
+																	{".eot", "application/vnd.ms-fontobject" },
+																	{".ttf", "application/x-font-ttf" },
+																	{".woff", "application/font-woff" },
+																	{".woff2", "application/font-woff2" }
 																};
 
 	namespace 
 	{
-		std::wstring getContentType(const std::wstring& extension)
+		std::string getContentType(const std::string& extension)
 		{
 			auto value = g_mimeTypes.find(extension);
 
@@ -39,7 +39,7 @@ namespace desktop { namespace core { namespace agent {
 			}
 			else
 			{
-				return L"text/html";
+				return "text/html";
 			}
 		}
 	}
@@ -48,38 +48,36 @@ namespace desktop { namespace core { namespace agent {
 									std::unique_ptr<service::IniFileService> iniFileService)
 	: m_iniFileService(std::move(iniFileService))
 	, m_applicationService(std::move(applicationService))
+	, m_server(std::make_unique<httplib::Server>())
 	{
 		auto documents = m_applicationService->getMyDocuments();
 		
 		m_folder = m_applicationService->getViewerFolder();
 
-		m_endpoint = m_iniFileService->get<std::string>(documents + "Bling.ini", "FileServer", "Endpoint", "http://127.0.0.1:9191/");
+		auto host = m_iniFileService->get<std::string>(documents + "Blink.ini", "FileServer", "Host", "127.0.0.1");
+		auto port = m_iniFileService->get<int>(documents + "Blink.ini", "FileServer", "Port", 9191);
 
-		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		std::wstring endpoint = converter.from_bytes(m_endpoint);
+		m_endpoint = "http://" + host + ":" + std::to_string(port);
 
-		auto uri = web::uri_builder(endpoint).to_uri();
+		m_server->Get(".*", [this](const httplib::Request& req, httplib::Response& res) {handleGET(req, res); });
+		m_server->Post(".*", [this](const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader) {handlePOST(req, res, content_reader); });
 
-		m_listener = std::make_unique<web::http::experimental::listener::http_listener>(uri);
-
-		m_listener->support(web::http::methods::GET, std::bind(&FileServerAgent::handleGET, this, std::placeholders::_1));
-		m_listener->support(web::http::methods::POST, std::bind(&FileServerAgent::handlePOST, this, std::placeholders::_1));
-
-		m_listener->open();
+		std::thread([=]() 
+		{
+			m_server->listen(host.c_str(), port);
+		}).detach();
 	}
 
 	FileServerAgent::~FileServerAgent()
 	{
-		
+		m_server->stop();
 	}
 
-	void FileServerAgent::handleGET(web::http::http_request request) const
+	void FileServerAgent::handleGET(const httplib::Request& req, httplib::Response& res) const
 	{
 		using namespace web::http;
 
-		auto bodyws = request.request_uri().path();
-
-		std::string body(bodyws.begin(), bodyws.end());
+		auto body = req.path;
 
 		if (body == "" || *body.rbegin() == '/')
 		{
@@ -92,35 +90,22 @@ namespace desktop { namespace core { namespace agent {
 
 		if (boost::filesystem::exists(path))
 		{
-			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-			std::wstring pathws = converter.from_bytes(path.string());
+			std::ifstream ifs(path.string(), std::ifstream::binary);
+			std::string data = std::string(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
 
-			concurrency::streams::fstream::open_istream(pathws, std::ios::in)
-				.then([=](concurrency::streams::istream is)
-			{
-				web::http::http_response response(web::http::status_codes::OK);
-
-				std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-				std::wstring extension = converter.from_bytes(path.extension().string());
-
-				response.set_body(std::move(is), getContentType(extension));
-
-				request.reply(response).then([](pplx::task<void> t) {});
-			});
+			res.set_content(data, getContentType(path.extension().string()).c_str());
 		}
 		else
 		{
-			request.reply(status_codes::NotFound);
+			res.status = 404;
 		}
 	}
 
-	void FileServerAgent::handlePOST(web::http::http_request request)
+	void FileServerAgent::handlePOST(const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader)
 	{
 		using namespace web::http;
 
-		auto bodyws = request.request_uri().path();
-
-		std::string body(bodyws.begin(), bodyws.end());
+		auto body = req.path;
 
 		body = boost::replace_all_copy(body, "/", "\\");
 
@@ -128,24 +113,22 @@ namespace desktop { namespace core { namespace agent {
 
 		if (path.extension() == ".json")
 		{
-			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-			std::wstring pathws = converter.from_bytes(path.string());
-
-			std::wstring payload = request.extract_string().get();
-
 			std::unique_lock<std::mutex> lock(m_mutex);
 
-			std::string out(payload.begin(), payload.end());
-
 			std::ofstream f(path.string());
-			f << out;
+			content_reader([&](const char *data, size_t data_length)
+			{
+				f << std::string(data, data_length);
+				return true;
+			});
+
 			f.close();
 
-			request.reply(status_codes::OK, L"{}");
+			res.set_content("{}", "application/json");
 		}
 		else
 		{
-			request.reply(status_codes::NotFound);
+			res.status = 405;
 		}
 	}
 }}}

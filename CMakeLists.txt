@@ -6,7 +6,6 @@ conan_basic_setup()
 
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/src)
-include_directories(${CMAKE_SOURCE_DIR}/include/cpprestsdk)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 add_subdirectory(src/DesktopCore)

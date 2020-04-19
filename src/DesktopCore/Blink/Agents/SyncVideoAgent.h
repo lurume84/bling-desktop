@@ -6,6 +6,7 @@
 #include "../../System/Services/IniFileService.h"
 #include "../../System/Services/TimestampFolderService.h"
 #include "../../System/Services/TimeZoneService.h"
+#include "../../System/Services/TimerKillerService.h"
 #include "../../Utils\Patterns\PublisherSubscriber\Subscriber.h"
 #include "../../Model/IAgent.h"
 
@@ -33,7 +34,8 @@ namespace desktop { namespace core {
 						std::unique_ptr<service::ApplicationDataService> applicationService = std::make_unique<service::ApplicationDataService>(),
 						std::unique_ptr<service::IniFileService> iniFileService = std::make_unique<service::IniFileService>(),
 						std::unique_ptr<service::TimestampFolderService> timestampFolderService = std::make_unique<service::TimestampFolderService>(),
-						std::unique_ptr<service::TimeZoneService> timeZoneService = std::make_unique<service::TimeZoneService>());
+						std::unique_ptr<service::TimeZoneService> timeZoneService = std::make_unique<service::TimeZoneService>(),
+						std::unique_ptr<service::TimerKillerService> timerKillerService = std::make_unique<service::TimerKillerService>());
 		~SyncVideoAgent();
 
 		void getVideos(std::map<std::string, std::string>& videos, const std::string& timestamp, unsigned int page) const;
@@ -55,12 +57,13 @@ namespace desktop { namespace core {
 		unsigned int				m_seconds;
 		bool						m_saveLocalTime;
 
-		std::unique_ptr<service::IDownloadFileService> m_downloadService;
-		std::unique_ptr<service::HTTPClientService> m_clientService;
-		std::unique_ptr<model::Credentials>			m_credentials;
-		std::unique_ptr<service::ApplicationDataService> m_applicationService;
-		std::unique_ptr<service::TimestampFolderService> m_timestampFolderService;
-		std::unique_ptr<service::TimeZoneService>		m_timeZoneService;
+		std::unique_ptr<service::IDownloadFileService>		m_downloadService;
+		std::unique_ptr<service::HTTPClientService>			m_clientService;
+		std::unique_ptr<model::Credentials>					m_credentials;
+		std::unique_ptr<service::ApplicationDataService>	m_applicationService;
+		std::unique_ptr<service::TimestampFolderService>	m_timestampFolderService;
+		std::unique_ptr<service::TimeZoneService>			m_timeZoneService;
+		std::unique_ptr<service::TimerKillerService>		m_timerKillerService;
 
 		cup::Subscriber m_subscriber;
 	};

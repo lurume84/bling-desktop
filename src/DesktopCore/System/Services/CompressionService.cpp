@@ -2,7 +2,7 @@
 
 #include <boost/filesystem.hpp>
 
-#include "sevenzip/7zpp.h"
+#include "7zip-cpp/7zpp.h"
 
 namespace desktop { namespace core { namespace service {
 

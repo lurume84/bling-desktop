@@ -20,7 +20,8 @@ namespace desktop { namespace core { namespace agent {
 									std::unique_ptr<service::ApplicationDataService> applicationService,
 									std::unique_ptr<service::IniFileService> iniFileService,
 									std::unique_ptr<service::TimestampFolderService> timestampFolderService,
-									std::unique_ptr<service::TimeZoneService> timeZoneService)
+									std::unique_ptr<service::TimeZoneService> timeZoneService,
+									std::unique_ptr<service::TimerKillerService> timerKillerService)
 	: m_ioService()
 	, m_iniFileService(std::move(iniFileService))
 	, m_downloadService(std::move(downloadService))
@@ -28,6 +29,7 @@ namespace desktop { namespace core { namespace agent {
 	, m_applicationService(std::move(applicationService))
 	, m_timestampFolderService(std::move(timestampFolderService))
 	, m_timeZoneService(std::move(timeZoneService))
+	, m_timerKillerService(std::move(timerKillerService))
 	{
 		auto documents = m_applicationService->getMyDocuments();
 
@@ -69,6 +71,7 @@ namespace desktop { namespace core { namespace agent {
 	SyncVideoAgent::~SyncVideoAgent()
 	{
 		m_enabled = false;
+		m_timerKillerService->kill();
 		m_timer->cancel();
 		m_backgroundThread.join();
 		m_ioService.reset();
@@ -131,6 +134,11 @@ namespace desktop { namespace core { namespace agent {
 
 				for (auto &video : videos)
 				{
+					if (!m_enabled)
+					{
+						break;
+					}
+
 					auto folder = m_outFolder + m_timestampFolderService->get(video.first);
 					auto target = folder + formatFileName(video.first, video.second);
 
@@ -143,7 +151,10 @@ namespace desktop { namespace core { namespace agent {
 							m_downloadService->download(m_credentials->m_host, video.second, requestHeaders, target);
 							setLastUpdateTimestamp(video.first);
 
-							std::this_thread::sleep_for(std::chrono::seconds{ sleep });
+							if (!m_timerKillerService->wait_for(std::chrono::seconds{ sleep }))
+							{
+								break;
+							}
 						}
 						catch (...)
 						{

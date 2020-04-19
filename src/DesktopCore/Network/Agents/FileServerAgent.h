@@ -6,7 +6,15 @@
 
 #include <string>
 #include <map>
-#include <cpprestsdk/cpprest/http_msg.h>
+#include <mutex>
+
+namespace httplib
+{
+	class Server;
+	struct Request;
+	struct Response;
+	class ContentReader;
+}
 
 namespace web { namespace http { namespace experimental { namespace listener { class http_listener; } } } }
 
@@ -21,16 +29,16 @@ namespace desktop { namespace core {
 						std::unique_ptr<service::IniFileService> iniFileService = std::make_unique<service::IniFileService>());
 		~FileServerAgent();
 
-		void handlePOST(web::http::http_request);
-		void handleGET(web::http::http_request) const;
+		void handlePOST(const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader);
+		void handleGET(const httplib::Request& req, httplib::Response& res) const;
 
 	private:
 		std::unique_ptr<service::ApplicationDataService>					m_applicationService;
 		std::unique_ptr<service::IniFileService>							m_iniFileService;
 		std::string															m_endpoint;
-		std::unique_ptr<web::http::experimental::listener::http_listener>	m_listener;
 		std::string															m_folder;
 
 		std::mutex															m_mutex;
+		std::unique_ptr<httplib::Server>									m_server;
 	};
 }}}
