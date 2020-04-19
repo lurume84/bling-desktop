@@ -1,3 +1,5 @@
+[![Build Status AppVeyor](https://ci.appveyor.com/api/projects/status/github/lurume84/bling-desktop?svg=true)](https://ci.appveyor.com/project/lurume84/bling-desktop)
+
 # Bling desktop
 This application is the container of [Bling Viewer](https://github.com/lurume84/bling-viewer) project. It is a chrome-based application (CEF) that loads viewer seamlessly and provides local storage capabilities.
 
