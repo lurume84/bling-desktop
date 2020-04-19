@@ -1,0 +1,35 @@
+platform:
+  - x86
+
+environment:
+    PYTHON_HOME: "C:\\Python37"
+
+    matrix:
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+          CONAN_VISUAL_VERSIONS: 15
+          CONAN_BUILD_TYPES: Release
+
+install:
+  - cmd: echo "Downloading conan..."
+  - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
+  - cmd: pip.exe install conan --upgrade
+  - cmd: pip.exe install conan_package_tools bincrafters_package_tools
+  - cmd: conan user # Create the conan data directory
+  - cmd: conan --version
+  - cmd: conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+  - cmd: conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
+  - cmd: conan remote add conan-lurume84 https://api.bintray.com/conan/lurume84/public-conan
+
+build_script:
+  - ps: ./version.ps1 $Env:APPVEYOR_BUILD_VERSION
+  - cmd: mkdir build
+  - cmd: ./build.bat
+  - cmd: cd ..
+  - cmd: makensis.exe src\DesktopInstaller\Installer.nsi
+  - cmd: 7z a bin\Release\DesktopApp\PDBs.7z bin\Release\DesktopApp\*.pdb
+  
+artifacts:
+  - path: bin\Release\DesktopInstaller\BlingSetup.exe
+    name: Bling
+  - path: bin\Release\DesktopApp\PDBs.7z
+    name: PDBs
