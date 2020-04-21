@@ -53,7 +53,7 @@ namespace desktop { namespace core { namespace service {
 
 						bool downloaded = m_clientService->get(domain, "443", path + "?" + query, requestHeaders, responseHeaders, file, status);
 
-						if (downloaded && status == 200)
+						if (downloaded && (status == 200 || status == 204))
 						{
 							if (m_fileIOService->save(folder, file))
 							{

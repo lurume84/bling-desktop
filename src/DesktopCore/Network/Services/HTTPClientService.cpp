@@ -1,5 +1,7 @@
 #include "HTTPClientService.h"
 
+#include "System/Services/LogService.h"
+
 #include <iostream>
 #include <istream>
 #include <ostream>
@@ -83,10 +85,14 @@ namespace desktop { namespace core { namespace service {
 			m_socket->lowest_layer().close(error);
 			m_io_service.stop();
 
+			service::LogService::info("HTTP {} {} {}:{}{}", action, status_code, server, port, path);
+
 			return result;
 		}
 		catch (...)
 		{
+			service::LogService::error("HTTP {} {} {}:{}{}", action, status_code, server, port, path);
+
 			return false;
 		}	
 	}

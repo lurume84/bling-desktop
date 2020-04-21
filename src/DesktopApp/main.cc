@@ -30,6 +30,7 @@
 #include "DesktopCore\Blink\Agents\SyncThumbnailAgent.h"
 #include "DesktopCore\Blink\Agents\LiveViewAgent.h"
 #include "DesktopCore\Blink\Agents\ActivityAgent.h"
+#include "DesktopCore\System\Agents\LogAgent.h"
 #include "Services\DownloadViewerService.h"
 
 #include <locale>
@@ -162,6 +163,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
 
 	  core.initialize();
 
+	  core.addAgent(std::make_unique<desktop::core::agent::LogAgent>());
       core.addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadViewerService>(browser)));
       core.addAgent(std::make_unique<desktop::core::agent::SyncVideoAgent>());
       core.addAgent(std::make_unique<desktop::core::agent::SyncThumbnailAgent>());
