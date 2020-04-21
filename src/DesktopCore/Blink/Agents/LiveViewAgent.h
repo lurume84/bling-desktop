@@ -49,24 +49,24 @@ namespace desktop { namespace core {
 		void handleDELETE(const httplib::Request& req, httplib::Response& res);
 	private:
 		std::unique_ptr<service::IniFileService> m_iniFileService;
-		bool						m_enabled = false;
+		bool						m_enabled = true;
 		unsigned int				m_seconds;
 		bool						m_saveLocalTime;
 		std::string					m_endpoint;
 
 		std::map<int, std::unique_ptr<model::system::ProcessInformation>> m_liveViews;
 
-		std::unique_ptr<service::HTTPClientService> m_clientService;
-		std::unique_ptr<model::RTP>			m_RTP;
-		std::unique_ptr<service::ApplicationDataService> m_applicationService;
-		std::unique_ptr<service::TimestampFolderService> m_timestampFolderService;
-		std::unique_ptr<service::system::ICreateProcessService> m_createProcessService;
-		std::unique_ptr<service::system::TerminateProcessService> m_terminateProcessService;
-		std::unique_ptr<service::TimeZoneService>		m_timeZoneService;
-		cup::Subscriber m_subscriber;
+		std::unique_ptr<service::HTTPClientService>					m_clientService;
+		std::unique_ptr<model::RTP>									m_RTP;
+		std::unique_ptr<service::ApplicationDataService>			m_applicationService;
+		std::unique_ptr<service::TimestampFolderService>			m_timestampFolderService;
+		std::unique_ptr<service::system::ICreateProcessService>		m_createProcessService;
+		std::unique_ptr<service::system::TerminateProcessService>	m_terminateProcessService;
+		std::unique_ptr<service::TimeZoneService>					m_timeZoneService;
+		cup::Subscriber												m_subscriber;
 
-		std::string m_outFolder;
+		std::string													m_outFolder;
 
-		std::unique_ptr<httplib::Server> m_server;
+		std::unique_ptr<httplib::Server>							m_server;
 	};
 }}}

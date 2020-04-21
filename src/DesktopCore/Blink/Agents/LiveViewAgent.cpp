@@ -53,14 +53,11 @@ namespace desktop { namespace core { namespace agent {
 		auto host = m_iniFileService->get<std::string>(documents + "Blink.ini", "LiveView", "Host", "127.0.0.1");
 		auto port = m_iniFileService->get<int>(documents + "Blink.ini", "LiveView", "Port", 9292);
 
-		m_endpoint = "http://" + host + ":" + std::to_string(port) + "/live";
+		m_endpoint = "http://" + host + ":" + std::to_string(port);
 
-		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-		std::wstring endpoint = converter.from_bytes(m_endpoint);
-
-		m_server->Get("/live.*", [this](const httplib::Request& req, httplib::Response& res) {handleGET(req, res); });
-		m_server->Post("/live.*", [this](const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader) {handlePOST(req, res, content_reader); });
-		m_server->Delete("/live.*", [this](const httplib::Request& req, httplib::Response& res) {handleDELETE(req, res); });
+		m_server->Get(".*", [this](const httplib::Request& req, httplib::Response& res) {handleGET(req, res); });
+		m_server->Post(".*", [this](const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader) {handlePOST(req, res, content_reader); });
+		m_server->Delete(".*", [this](const httplib::Request& req, httplib::Response& res) {handleDELETE(req, res); });
 
 		std::thread([=]() 
 		{
@@ -85,12 +82,14 @@ namespace desktop { namespace core { namespace agent {
 	{
 		auto body = req.path;
 
-		body = boost::replace_all_copy(body.substr(6), "/", "\\");
+		body = boost::replace_all_copy(body, "/", "\\");
 
 		boost::replace_all(body, "%20", " ");
 
 		boost::filesystem::path path(m_outFolder + body);
 		
+		std::string pepe = path.extension().string();
+
 		if(path.extension() == ".m3u8")
 		{
 			while(!boost::filesystem::exists(path) && m_enabled)
@@ -101,7 +100,7 @@ namespace desktop { namespace core { namespace agent {
 
 		if (boost::filesystem::exists(path))
 		{
-			std::ifstream ifs(path.string());
+			std::ifstream ifs(path.string(), std::ifstream::binary);
 			std::string data = std::string(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
 
 			res.set_content(data, "application/x-mpegURL");
@@ -176,13 +175,10 @@ namespace desktop { namespace core { namespace agent {
 
 	void LiveViewAgent::handleDELETE(const httplib::Request& req, httplib::Response& res)
 	{
-		std::stringstream ss;
-		ss << req.body;
+		int camera_id;
 
-		boost::property_tree::ptree payload;
-		boost::property_tree::read_json(ss, payload);
-
-		int camera_id = payload.get<int>("camera_id");
+		std::istringstream is(req.get_param_value("camera_id"));
+		is >> camera_id;
 
 		auto liveView = m_liveViews.find(camera_id);
 

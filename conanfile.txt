@@ -7,7 +7,7 @@ boost_thread/1.69.0@bincrafters/stable
 boost_asio/1.69.0@bincrafters/stable
 boost_property_tree/1.69.0@bincrafters/stable
 boost_signals2/1.69.0@bincrafters/stable
-cef/3.3626.1881.g628f810@lurume84/stable
+cef/3.3626.1872.g4b5c38e@lurume84/blink
 CrashRpt/1.4.3@lurume84/stable
 7zip-cpp/0.2.0@lurume84/stable
 7zip/15.12.0@lurume84/stable
