@@ -67,9 +67,9 @@ namespace desktop { namespace core { namespace agent {
 
 	LiveViewAgent::~LiveViewAgent()
 	{
-		m_server->stop();
-
 		m_enabled = false;
+
+		m_server->stop();
 
 		for(auto& liveView : m_liveViews)
 		{
