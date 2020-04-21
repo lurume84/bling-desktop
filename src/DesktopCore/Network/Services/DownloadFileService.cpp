@@ -14,6 +14,18 @@ namespace desktop { namespace core { namespace service {
 
 	DownloadFileService::~DownloadFileService() = default;
 
+	std::string DownloadFileService::download(const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const
+	{
+		std::string protocol, domain, port, path, query, fragment;
+
+		if (m_uriService->parse(url, protocol, domain, port, path, query, fragment))
+		{
+			return download(domain, path, requestHeaders, folder);
+		}
+
+		return "";
+	}
+
 	std::string DownloadFileService::download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const
 	{
 		std::map<std::string, std::string> responseHeaders;
@@ -26,6 +38,11 @@ namespace desktop { namespace core { namespace service {
 			if (status == 302)
 			{
 				auto location = responseHeaders.find("Location");
+				if (location == responseHeaders.end())
+				{
+					location = responseHeaders.find("location");
+				}
+
 				if (location != responseHeaders.end())
 				{
 					std::string protocol, domain, port, path, query, fragment;
@@ -34,7 +51,9 @@ namespace desktop { namespace core { namespace service {
 					{
 						std::map<std::string, std::string> requestHeaders, responseHeaders;
 
-						if (m_clientService->get(domain, "443", path, requestHeaders, responseHeaders, file, status) && status == 200)
+						bool downloaded = m_clientService->get(domain, "443", path + "?" + query, requestHeaders, responseHeaders, file, status);
+
+						if (downloaded && status == 200)
 						{
 							if (m_fileIOService->save(folder, file))
 							{

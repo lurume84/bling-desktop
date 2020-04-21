@@ -49,12 +49,14 @@ namespace desktop { namespace core { namespace events {
 	const sup::EventType UPGRADE_DESKTOP_COMPLETED_EVENT = "UPGRADE_DESKTOP_COMPLETED_EVENT";
 	struct UpgradeDesktopCompletedEvent : public sup::Event
 	{
-		UpgradeDesktopCompletedEvent(const std::string& version)
+		UpgradeDesktopCompletedEvent(const std::string& version, const std::string& path)
 			: m_version(version)
+			, m_path(path)
 		{
 			m_name = UPGRADE_DESKTOP_COMPLETED_EVENT;
 		}
 
 		std::string m_version;
+		std::string m_path;
 	};
 }}}

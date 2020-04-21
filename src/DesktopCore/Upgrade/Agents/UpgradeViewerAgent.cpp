@@ -10,28 +10,28 @@
 namespace desktop { namespace core { namespace agent {
 
 	UpgradeViewerAgent::UpgradeViewerAgent(std::unique_ptr<service::IDownloadFileService> downloadService,
-											std::unique_ptr<service::IniFileService> iniFileService,
-											std::unique_ptr<service::ApplicationDataService> applicationService,
-											std::unique_ptr<service::HTTPClientService> clientService,
-											std::unique_ptr<service::CompressionService> compressionService,
-											std::unique_ptr<service::ReplaceFolderService> replaceFolderService)
-	: m_ioService()
-	, m_timer(m_ioService, boost::posix_time::seconds(60 * 10))
-	, m_downloadService(std::move(downloadService))
-	, m_clientService(std::move(clientService))
-	, m_compressionService(std::move(compressionService))
-	, m_replaceFolderService(std::move(replaceFolderService))
-	, m_applicationService(std::move(applicationService))
-	, m_iniFileService(std::move(iniFileService))
-	, m_enabled(true)
+		std::unique_ptr<service::IniFileService> iniFileService,
+		std::unique_ptr<service::ApplicationDataService> applicationService,
+		std::unique_ptr<service::HTTPClientService> clientService,
+		std::unique_ptr<service::CompressionService> compressionService,
+		std::unique_ptr<service::FolderOperationService> folderOperationService)
+		: m_ioService()
+		, m_timer(m_ioService, boost::posix_time::seconds(60 * 10))
+		, m_downloadService(std::move(downloadService))
+		, m_clientService(std::move(clientService))
+		, m_compressionService(std::move(compressionService))
+		, m_folderOperationService(std::move(folderOperationService))
+		, m_applicationService(std::move(applicationService))
+		, m_iniFileService(std::move(iniFileService))
+		, m_enabled(true)
 	{
-		armTimer(1);
+		armTimer(5);
 
 		boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
 		m_backgroundThread.swap(t);
 
 		auto documents = m_applicationService->getMyDocuments();
-		
+
 		m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Host", "api.github.com");
 		m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Repository", "/repos/lurume84/bling-viewer/releases/latest");
 		m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Input", documents + "Download\\Versions\\Viewer\\");
@@ -88,7 +88,23 @@ namespace desktop { namespace core { namespace agent {
 									{
 										bool fresh = !boost::filesystem::exists(m_outFolder + "/index.html");
 
-										m_replaceFolderService->replace(it.path().string(), m_outFolder);
+										auto inFolder = it.path().string();
+
+										auto dataInFolder = boost::filesystem::path(m_outFolder) / "data";
+										auto dataOutFolder = boost::filesystem::path(m_outFolder).parent_path() / "/data";
+
+										if (boost::filesystem::exists(dataInFolder))
+										{
+											m_folderOperationService->copy(dataInFolder.string(), dataOutFolder.string());
+										}
+
+										m_folderOperationService->replace(inFolder, m_outFolder);
+
+										if (boost::filesystem::exists(dataOutFolder))
+										{
+											boost::filesystem::remove_all(m_outFolder + "/data");
+											boost::filesystem::rename(dataOutFolder, m_outFolder + "/data");
+										}
 
 										boost::filesystem::rename(path, m_inFolder + version + ".zip");
 

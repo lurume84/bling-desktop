@@ -71,6 +71,18 @@ namespace desktop { namespace ui { namespace service {
 
 	DownloadDesktopService::~DownloadDesktopService() = default;
 
+	std::string DownloadDesktopService::download(const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &/*folder*/) const
+	{
+		std::string script = "window.location = '" + url + "';";
+
+		m_browser.GetMainFrame()->ExecuteJavaScript(script, m_browser.GetMainFrame()->GetURL(), 0);
+
+		std::unique_lock<std::mutex> lock(m_mutex);
+		m_cv.wait(lock);
+
+		return m_path;
+	}
+
 	std::string DownloadDesktopService::download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &/*folder*/) const
 	{
 		auto pos = url.find(host) + host.size();

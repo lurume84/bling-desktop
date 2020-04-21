@@ -51,7 +51,7 @@ namespace desktop { namespace core { namespace agent {
 		}
 
 		auto host = m_iniFileService->get<std::string>(documents + "Blink.ini", "LiveView", "Host", "127.0.0.1");
-		auto port = m_iniFileService->get<int>(documents + "Blink.ini", "LiveView", "Port", 9292);
+		auto port = m_iniFileService->get<int>(documents + "Blink.ini", "LiveView", "Port", 9192);
 
 		m_endpoint = "http://" + host + ":" + std::to_string(port);
 

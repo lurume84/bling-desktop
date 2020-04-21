@@ -10,20 +10,20 @@
 namespace desktop { namespace core { namespace agent {
 
 	UpgradeDesktopAgent::UpgradeDesktopAgent(std::unique_ptr<service::IDownloadFileService> downloadService,
-											std::unique_ptr<service::IniFileService> iniFileService,
-											std::unique_ptr<service::ApplicationDataService> applicationService,
-											std::unique_ptr<service::HTTPClientService> clientService,
-											std::unique_ptr<service::CompressionService> compressionService,
-											std::unique_ptr<service::ReplaceFolderService> replaceFolderService)
-	: m_ioService()
-	, m_timer(m_ioService, boost::posix_time::seconds(60 * 10))
-	, m_downloadService(std::move(downloadService))
-	, m_clientService(std::move(clientService))
-	, m_compressionService(std::move(compressionService))
-	, m_replaceFolderService(std::move(replaceFolderService))
-	, m_applicationService(std::move(applicationService))
-	, m_iniFileService(std::move(iniFileService))
-	, m_enabled(true)
+		std::unique_ptr<service::IniFileService> iniFileService,
+		std::unique_ptr<service::ApplicationDataService> applicationService,
+		std::unique_ptr<service::HTTPClientService> clientService,
+		std::unique_ptr<service::CompressionService> compressionService,
+		std::unique_ptr<service::FolderOperationService> folderOperationService)
+		: m_ioService()
+		, m_timer(m_ioService, boost::posix_time::seconds(60 * 10))
+		, m_downloadService(std::move(downloadService))
+		, m_clientService(std::move(clientService))
+		, m_compressionService(std::move(compressionService))
+		, m_folderOperationService(std::move(folderOperationService))
+		, m_applicationService(std::move(applicationService))
+		, m_iniFileService(std::move(iniFileService))
+		, m_enabled(true)
 	{
 		armTimer(1);
 
@@ -31,7 +31,7 @@ namespace desktop { namespace core { namespace agent {
 		m_backgroundThread.swap(t);
 
 		auto documents = m_applicationService->getMyDocuments();
-		
+
 		m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Host", "api.github.com");
 		m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Repository", "/repos/lurume84/bling-desktop/releases/latest");
 		m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Input", documents + "Download\\Versions\\Desktop\\");
@@ -68,25 +68,26 @@ namespace desktop { namespace core { namespace agent {
 
 					if (!boost::filesystem::exists(m_inFolder + version + ".exe"))
 					{
-						auto url = tree.get_child("browser_download_url").get_value<std::string>();
+						auto assets = tree.get_child("assets");
 
-						events::DownloadUpgradeEvent evt(version, [this, url, version]()
+						for (auto asset : assets)
 						{
-							std::map<std::string, std::string> requestHeaders;
-							auto path = m_downloadService->download(m_host, url, requestHeaders, m_inFolder + version + ".exe");
+							std::string url = asset.second.get_child("browser_download_url").get_value<std::string>();
 
-							if (path != "")
+							size_t pos = url.find("Setup.exe");
+
+							if (pos != std::string::npos)
 							{
-								events::UpgradeDesktopCompletedEvent evt(version);
-								utils::patterns::Broker::get().publish(evt);
+								std::map<std::string, std::string> requestHeaders;
+								auto path = m_downloadService->download(url, requestHeaders, m_inFolder + version + ".exe");
+
+								if (path != "")
+								{
+									events::UpgradeDesktopCompletedEvent evt(version, path);
+									utils::patterns::Broker::get().publish(evt);
+								}
 							}
-
-							armTimer();
-
-							return true;
-						});
-
-						utils::patterns::Broker::get().publish(evt);
+						}
 					}
 				}
 				catch (std::exception& /*e*/)

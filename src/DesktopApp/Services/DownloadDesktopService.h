@@ -41,6 +41,7 @@ namespace desktop {
 							std::unique_ptr<core::service::EncodeStringService> encodeService = std::make_unique<core::service::EncodeStringService>(),
 							std::unique_ptr<core::service::ApplicationDataService> applicationService = std::make_unique<core::service::ApplicationDataService>());
 		~DownloadDesktopService();
+		std::string download(const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 		std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 	private:
 		CefBrowser & m_browser;
