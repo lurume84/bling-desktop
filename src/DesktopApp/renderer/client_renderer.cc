@@ -19,6 +19,37 @@ namespace {
 
 // Must match the value in client_handler.cc.
 const char kFocusedNodeChangedMessage[] = "ClientRenderer.FocusedNodeChanged";
+const char kMinimizeMessage[] = "ClientRenderer.Minimize";
+const char kMaximizeMessage[] = "ClientRenderer.Maximize";
+const char kMinimizeWindow[] = "minimize";
+const char kMaximizeWindow[] = "maximize";
+
+class V8Handler : public CefV8Handler {
+public:
+	V8Handler() {}
+
+	virtual bool Execute(const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments,
+		CefRefPtr<CefV8Value>& retval, CefString& exception) OVERRIDE
+	{
+		if (name == kMinimizeWindow)
+		{
+			CefRefPtr<CefBrowser> browser = CefV8Context::GetCurrentContext()->GetBrowser();
+			CefRefPtr<CefProcessMessage> message = CefProcessMessage::Create(kMinimizeMessage);
+			browser->SendProcessMessage(PID_BROWSER, message);
+		}
+		else if (name == kMaximizeWindow)
+		{
+			CefRefPtr<CefBrowser> browser = CefV8Context::GetCurrentContext()->GetBrowser();
+			CefRefPtr<CefProcessMessage> message = CefProcessMessage::Create(kMaximizeMessage);
+			browser->SendProcessMessage(PID_BROWSER, message);
+		}
+
+		return true;
+	}
+
+private:
+	IMPLEMENT_REFCOUNTING(V8Handler);
+};
 
 class ClientRenderDelegate : public ClientAppRenderer::Delegate {
  public:
@@ -49,6 +80,19 @@ class ClientRenderDelegate : public ClientAppRenderer::Delegate {
                         CefRefPtr<CefFrame> frame,
                         CefRefPtr<CefV8Context> context) OVERRIDE {
     message_router_->OnContextCreated(browser, frame, context);
+
+	CefRefPtr<CefV8Value> object = context->GetGlobal();
+
+	CefRefPtr<CefV8Handler> handler = new V8Handler();
+
+	// Bind test functions.
+	object->SetValue(kMinimizeWindow,
+		CefV8Value::CreateFunction(kMinimizeWindow, handler),
+		V8_PROPERTY_ATTRIBUTE_READONLY);
+
+	object->SetValue(kMaximizeWindow,
+		CefV8Value::CreateFunction(kMaximizeWindow, handler),
+		V8_PROPERTY_ATTRIBUTE_READONLY);
   }
 
   void OnContextReleased(CefRefPtr<ClientAppRenderer> app,

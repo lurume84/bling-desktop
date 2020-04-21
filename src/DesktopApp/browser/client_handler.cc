@@ -22,6 +22,7 @@
 #include "browser/test_runner.h"
 #include "browser/extension_util.h"
 #include "browser/resource_util.h"
+#include "browser/window_test_runner_win.h"
 #include "common/client_switches.h"
 
 #include "Events.h"
@@ -55,6 +56,8 @@ enum client_menu_ids {
 
 // Musr match the value in client_renderer.cc.
 const char kFocusedNodeChangedMessage[] = "ClientRenderer.FocusedNodeChanged";
+const char kMinimizeMessage[] = "ClientRenderer.Minimize";
+const char kMaximizeMessage[] = "ClientRenderer.Maximize";
 
 std::string GetTimeString(const CefTime& value) {
   if (value.GetTimeT() == 0)
@@ -305,6 +308,16 @@ bool ClientHandler::OnProcessMessageReceived(
     // but is useful for demonstration purposes.
     focus_on_editable_field_ = message->GetArgumentList()->GetBool(0);
     return true;
+  }
+  else if (message_name == kMinimizeMessage)
+  {
+	  scoped_ptr<window_test::WindowTestRunnerWin> test_runner(new window_test::WindowTestRunnerWin());
+	  test_runner->Minimize(browser);
+  }
+  else if (message_name == kMaximizeMessage)
+  {
+	  scoped_ptr<window_test::WindowTestRunnerWin> test_runner(new window_test::WindowTestRunnerWin());
+	  test_runner->Maximize(browser);
   }
 
   return false;
