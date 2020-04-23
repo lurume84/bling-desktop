@@ -48,7 +48,7 @@ namespace desktop { namespace ui { namespace service {
 
 		}, events::DOWNLOAD_STATUS_EVENT);
 
-		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
+		m_subscriber.subscribe([this, &browser](const desktop::core::utils::patterns::Event& rawEvt)
 		{
 			auto evt = static_cast<const desktop::core::events::UpgradeDesktopCompletedEvent&>(rawEvt);
 
@@ -58,18 +58,19 @@ namespace desktop { namespace ui { namespace service {
 			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 			std::wstring message = converter.from_bytes(ss.str());
 
-			const int result = MessageBox(NULL, message.c_str(), L"Bling upgrade", MB_YESNO);
+			std::thread([&]() {
 
-			switch (result)
-			{
-			case IDYES:
-				ShellExecuteA(nullptr, "open", evt.m_path.c_str(), nullptr, nullptr, SW_SHOW);
-				break;
-			case IDNO:
-				break;
-			}
+				const int result = MessageBox(browser.GetHost()->GetWindowHandle(), message.c_str(), L"Bling upgrade", MB_YESNO);
 
-			//m_browser->GetMainFrame()->LoadURL(boost::filesystem::canonical(m_applicationService->getViewerFolder() + "/index.html").string());
+				switch (result)
+				{
+				case IDYES:
+					ShellExecuteA(nullptr, "open", evt.m_path.c_str(), nullptr, nullptr, SW_SHOW);
+					break;
+				case IDNO:
+					break;
+				}
+			}).detach();
 		}, desktop::core::events::UPGRADE_DESKTOP_COMPLETED_EVENT);
 	}
 

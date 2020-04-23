@@ -19,19 +19,19 @@ namespace desktop { namespace core { namespace service {
 		template<typename... Args>
 		static inline void error(const std::string& fmt, const Args &... args)
 		{
-			spdlog::error(fmt, args...);
+			spdlog::get("loggername")->error(fmt, args...);
 		}
 
 		template<typename... Args>
 		static inline void warn(const std::string& fmt, const Args &... args)
 		{
-			spdlog::warn(fmt, args...);
+			spdlog::get("loggername")->warn(fmt, args...);
 		}
 
 		template<typename... Args>
 		static inline void critical(const std::string& fmt, const Args &... args)
 		{
-			spdlog::critical(fmt, args...);
+			spdlog::get("loggername")->critical(fmt, args...);
 		}
 	};
 }}}
