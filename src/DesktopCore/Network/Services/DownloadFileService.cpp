@@ -74,4 +74,9 @@ namespace desktop { namespace core { namespace service {
 
 		return "";
 	}
+
+	void DownloadFileService::cancel()
+	{
+		
+	}
 }}}

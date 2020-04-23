@@ -6,6 +6,7 @@
 #include "..\..\System\Services\IniFileService.h"
 #include "System\Model\ExecutableFile.h"
 #include "System\Model\ProcessInformation.h"
+#include "System/Services/LogService.h"
 
 #include <boost/filesystem.hpp>
 #include <iostream>
@@ -62,6 +63,7 @@ namespace desktop { namespace core { namespace agent {
 		std::thread([=]() 
 		{
 			m_server->listen(host.c_str(), port);
+			service::LogService::info("Listening LiveViewServer at {}:{}", host, port);
 		}).detach();
 	}
 
@@ -109,6 +111,8 @@ namespace desktop { namespace core { namespace agent {
 		{
 			res.status = 404;
 		}
+
+		service::LogService::info("HTTP GET {} LiveViewServer {}", res.status, body);
 	}
 
 	void LiveViewAgent::handlePOST(const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader)
@@ -171,6 +175,10 @@ namespace desktop { namespace core { namespace agent {
 		std::string endpoint = m_endpoint + "/" + boost::replace_all_copy(folder, "\\", "/") + "/out.m3u8";
 
 		res.set_content("{\"camera_id\": " + camera_idss.str() + ", \"url\": \"" + endpoint + "\"}", "application/json");
+
+		service::LogService::info("HTTP POST {} LiveViewServer {}", res.status, url);
+
+		service::LogService::info("Execute FFMPEG {}", arguments);
 	}
 
 	void LiveViewAgent::handleDELETE(const httplib::Request& req, httplib::Response& res)
@@ -194,5 +202,7 @@ namespace desktop { namespace core { namespace agent {
 		{
 			res.status = 404;
 		}
+
+		service::LogService::info("HTTP DELETE {} LiveViewServer Camera {}", res.status, camera_id);
 	}
 }}}

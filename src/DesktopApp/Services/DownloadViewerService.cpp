@@ -80,4 +80,9 @@ namespace desktop { namespace ui { namespace service {
 
 		return m_path;
 	}
+
+	void DownloadViewerService::cancel()
+	{
+		m_cv.notify_all();
+	}
 }}}

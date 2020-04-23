@@ -21,7 +21,7 @@ namespace desktop { namespace core { namespace agent {
 		auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(documents + "Logs\\Bling.log", 1024 * 1024 * 10, 1, true);
 		std::vector<spdlog::sink_ptr> sinks{ stdout_sink, rotating_sink };
 
-		m_logger = std::make_shared<spdlog::async_logger>("loggername", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
+		m_logger = std::make_shared<spdlog::async_logger>("BlingLog", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
 
 		spdlog::register_logger(m_logger);
 	}

@@ -74,7 +74,10 @@ namespace desktop { namespace ui { namespace service {
 		}, desktop::core::events::UPGRADE_DESKTOP_COMPLETED_EVENT);
 	}
 
-	DownloadDesktopService::~DownloadDesktopService() = default;
+	DownloadDesktopService::~DownloadDesktopService()
+	{
+		m_cv.notify_all();
+	};
 
 	std::string DownloadDesktopService::download(const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &/*folder*/) const
 	{
@@ -100,5 +103,10 @@ namespace desktop { namespace ui { namespace service {
 		m_cv.wait(lock);
 
 		return m_path;
+	}
+
+	void DownloadDesktopService::cancel()
+	{
+		m_cv.notify_all();
 	}
 }}}

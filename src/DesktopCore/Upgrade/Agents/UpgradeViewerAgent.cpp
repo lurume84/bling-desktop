@@ -2,6 +2,7 @@
 
 #include "Utils\Patterns\PublisherSubscriber\Broker.h"
 #include "../Events.h"
+#include "System/Services/LogService.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -38,6 +39,8 @@ namespace desktop { namespace core { namespace agent {
 		m_outFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Output", m_applicationService->getViewerFolder());
 
 		boost::filesystem::create_directories(m_inFolder);
+
+		service::LogService::info("Viewer Upgrades from {}{} to {}", m_host, m_repository, m_inFolder);
 	}
 
 	UpgradeViewerAgent::~UpgradeViewerAgent()
@@ -75,11 +78,15 @@ namespace desktop { namespace core { namespace agent {
 
 						if (path != "")
 						{
+							service::LogService::info("Viewer Upgrade downloaded at {}", path);
+
 							events::ExtractUpgradeEvent evt(path);
 							utils::patterns::Broker::get().publish(evt);
 
 							if (m_compressionService->extract("zip", path, m_inFolder))
 							{
+								service::LogService::info("Viewer Upgrade {} extracted at {}", path, m_inFolder);
+
 								auto target = boost::filesystem::path(m_inFolder);
 
 								for (auto &it : boost::filesystem::directory_iterator(target))
@@ -114,12 +121,20 @@ namespace desktop { namespace core { namespace agent {
 									}
 								}
 							}
+							else
+							{
+								service::LogService::error("Viewer Upgrade {} could not be extracted", path);
+							}
+						}
+						else
+						{
+							service::LogService::error("Viewer Upgrade {} could not be downloaded", path);
 						}
 					}
 				}
 				catch (std::exception& /*e*/)
 				{
-
+					service::LogService::error("Viewer Upgrade: An error occured while checking for updates");
 				}
 			}
 

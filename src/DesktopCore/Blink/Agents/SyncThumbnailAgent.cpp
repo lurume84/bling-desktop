@@ -4,6 +4,7 @@
 #include "../../Network/Events.h"
 #include "..\..\Network\Model\Credentials.h"
 #include "..\..\System\Services\IniFileService.h"
+#include "System/Services/LogService.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -59,6 +60,8 @@ namespace desktop { namespace core { namespace agent {
 					m_backgroundThread.swap(t);
 				}
 			}, events::CREDENTIALS_EVENT);
+
+			service::LogService::info("Thumbnail synchronization every {} seconds in {}", m_seconds, m_outFolder);
 		}
 	}
 
@@ -195,7 +198,7 @@ namespace desktop { namespace core { namespace agent {
 		}
 		catch (...)
 		{
-		
+			service::LogService::error("Thumbnail: An error occured while waiting for {}", path.str());
 		}
 
 		return false;
@@ -233,11 +236,20 @@ namespace desktop { namespace core { namespace agent {
 					boost::filesystem::create_directories(folder);
 				}
 
-				m_downloadService->download(m_credentials->m_host, thumbnail + ".jpg", requestHeaders, target);
+				auto folderThumbnail = m_downloadService->download(m_credentials->m_host, thumbnail + ".jpg", requestHeaders, target);
+
+				if (folderThumbnail != "")
+				{
+					service::LogService::info("Thumbnail {} downloaded at {}", thumbnail + ".jpg", folderThumbnail);
+				}
+				else
+				{
+					service::LogService::error("Thumbnail {} could not be downloaded at {}", thumbnail + ".jpg", folder);
+				}
 			}
 			catch (...)
 			{
-				
+				service::LogService::error("Thumbnail: An error occured while saving thumbnail for {}", path.str());
 			}
 		}
 	}
@@ -281,7 +293,7 @@ namespace desktop { namespace core { namespace agent {
 			}
 			catch (...)
 			{
-			
+				service::LogService::error("Thumbnail: Error retrieving network info {}", path);
 			}
 		}
 	}

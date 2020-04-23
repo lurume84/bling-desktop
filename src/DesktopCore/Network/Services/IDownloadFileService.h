@@ -12,5 +12,6 @@ namespace desktop { namespace core { namespace service {
 		virtual ~IDownloadFileService() = default;
 		virtual std::string download(const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const = 0;
 		virtual std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const = 0;
+		virtual void cancel() = 0;
 	};
 }}}

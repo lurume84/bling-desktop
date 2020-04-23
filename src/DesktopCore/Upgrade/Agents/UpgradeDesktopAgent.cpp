@@ -2,6 +2,7 @@
 
 #include "Utils\Patterns\PublisherSubscriber\Broker.h"
 #include "../Events.h"
+#include "System/Services/LogService.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -35,15 +36,19 @@ namespace desktop { namespace core { namespace agent {
 		m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Host", "api.github.com");
 		m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Repository", "/repos/lurume84/bling-desktop/releases/latest");
 		m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Input", documents + "Download\\Versions\\Desktop\\");
-		m_outFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Output", m_applicationService->getViewerFolder());
 
 		boost::filesystem::create_directories(m_inFolder);
+
+		service::LogService::info("Desktop Upgrades from {}{} to {}", m_host, m_repository, m_inFolder);
 	}
 
 	UpgradeDesktopAgent::~UpgradeDesktopAgent()
 	{
 		m_enabled = false;
 		m_timer.cancel();
+
+		m_downloadService->cancel();
+
 		m_backgroundThread.join();
 		m_ioService.reset();
 	}
@@ -83,16 +88,26 @@ namespace desktop { namespace core { namespace agent {
 
 								if (path != "")
 								{
+									service::LogService::info("Desktop Upgrade {} downloaded at {}", url, path);
+
 									events::UpgradeDesktopCompletedEvent evt(version, path);
 									utils::patterns::Broker::get().publish(evt);
 								}
+								else
+								{
+									service::LogService::error("Desktop Upgrade {} could not be downloaded at {}", url, m_inFolder + version + ".exe");
+								}
+							}
+							else
+							{
+								service::LogService::error("Desktop Upgrade {} could not be downloaded, does not contain 'Setup.exe'", url);
 							}
 						}
 					}
 				}
 				catch (std::exception& /*e*/)
 				{
-
+					service::LogService::error("Desktop Upgrade: An error occured while checking for updates");
 				}
 			}
 

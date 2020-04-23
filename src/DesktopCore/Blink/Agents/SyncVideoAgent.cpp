@@ -4,6 +4,7 @@
 #include "../../Network/Events.h"
 #include "..\..\Network\Model\Credentials.h"
 #include "..\..\System\Services\IniFileService.h"
+#include "System/Services/LogService.h"
 
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
@@ -65,6 +66,8 @@ namespace desktop { namespace core { namespace agent {
 					m_backgroundThread.swap(t);
 				}
 			}, events::CREDENTIALS_EVENT);
+
+			service::LogService::info("Video synchronization every {} seconds in {}", m_seconds, m_outFolder);
 		}
 	}
 
@@ -148,7 +151,17 @@ namespace desktop { namespace core { namespace agent {
 
 						try
 						{
-							m_downloadService->download(m_credentials->m_host, video.second, requestHeaders, target);
+							auto downloadFolder = m_downloadService->download(m_credentials->m_host, video.second, requestHeaders, target);
+
+							if (downloadFolder != "")
+							{
+								service::LogService::info("Video {} downloaded at {}", video.second, downloadFolder);
+							}
+							else
+							{
+								service::LogService::error("Video {} could not be downloaded at {}", video.second, downloadFolder);
+							}
+
 							setLastUpdateTimestamp(video.first);
 
 							if (!m_timerKillerService->wait_for(std::chrono::seconds{ sleep }))
@@ -158,6 +171,7 @@ namespace desktop { namespace core { namespace agent {
 						}
 						catch (...)
 						{
+							service::LogService::error("Video: An error occured while downloading video {} to {}", video.second, target);
 							break;
 						}
 					}

@@ -1,5 +1,7 @@
 #include "FileServerAgent.h"
 
+#include "System/Services/LogService.h"
+
 #include <locale>
 #include <codecvt>
 #include <string>
@@ -66,6 +68,7 @@ namespace desktop { namespace core { namespace agent {
 		std::thread([=]() 
 		{
 			m_server->listen(host.c_str(), port);
+			service::LogService::info("Listening FileServer at {}:{}", host, port);
 		}).detach();
 	}
 
@@ -94,17 +97,23 @@ namespace desktop { namespace core { namespace agent {
 			std::ifstream ifs(path.string(), std::ifstream::binary);
 			std::string data = std::string(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
 
+			res.status = 200;
 			res.set_content(data, getContentType(path.extension().string()).c_str());
 		}
 		else
 		{
 			res.status = 404;
 		}
+
+		service::LogService::info("HTTP GET {} FileServer {}", res.status, body);
 	}
 
 	void FileServerAgent::handleGETVersion(const httplib::Request& req, httplib::Response& res) const
 	{
+		res.status = 200;
 		res.set_content(m_applicationService->getApplicationVersion(), "text/html");
+
+		service::LogService::info("HTTP GET {} FileServer {}", res.status, "version");
 	}
 
 	void FileServerAgent::handlePOST(const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader)
@@ -130,11 +139,14 @@ namespace desktop { namespace core { namespace agent {
 
 			f.close();
 
+			res.status = 200;
 			res.set_content("{}", "application/json");
 		}
 		else
 		{
 			res.status = 405;
 		}
+
+		service::LogService::info("HTTP POST {} FileServer {}", res.status, body);
 	}
 }}}

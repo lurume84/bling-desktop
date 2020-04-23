@@ -39,6 +39,7 @@ namespace desktop {
 		~DownloadDesktopService();
 		std::string download(const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 		std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
+		void cancel() override;
 	private:
 		CefBrowser & m_browser;
 		cup::Subscriber			m_subscriber;
