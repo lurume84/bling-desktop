@@ -17,10 +17,6 @@ class CefBrowser;
 
 namespace desktop { 
 	
-	namespace core { namespace service {
-		class HTTPClientService;
-	}}
-	
 	namespace ui { 
 
 	namespace service {

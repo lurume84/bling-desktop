@@ -59,6 +59,7 @@ namespace desktop { namespace core { namespace agent {
 
 		m_endpoint = "http://" + host + ":" + std::to_string(port);
 
+		m_server->Get("/version", [this](const httplib::Request& req, httplib::Response& res) {handleGETVersion(req, res); });
 		m_server->Get(".*", [this](const httplib::Request& req, httplib::Response& res) {handleGET(req, res); });
 		m_server->Post(".*", [this](const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader) {handlePOST(req, res, content_reader); });
 
@@ -99,6 +100,11 @@ namespace desktop { namespace core { namespace agent {
 		{
 			res.status = 404;
 		}
+	}
+
+	void FileServerAgent::handleGETVersion(const httplib::Request& req, httplib::Response& res) const
+	{
+		res.set_content(m_applicationService->getApplicationVersion(), "text/html");
 	}
 
 	void FileServerAgent::handlePOST(const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader)

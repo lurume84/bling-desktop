@@ -19,6 +19,14 @@
 
 #include <boost\filesystem\operations.hpp>
 
+#include <locale>
+#include <codecvt>
+#include <string>
+#include <shlobj.h>
+#include <shlwapi.h>
+#include <objbase.h>
+#include <shellapi.h>
+
 namespace desktop { namespace ui { namespace service {
 
 	DownloadDesktopService::DownloadDesktopService(CefBrowser& browser, std::unique_ptr<core::service::EncodeStringService> encodeService,
@@ -40,31 +48,27 @@ namespace desktop { namespace ui { namespace service {
 
 		}, events::DOWNLOAD_STATUS_EVENT);
 
-		m_subscriber.subscribe([this](const core::utils::patterns::Event& rawEvt)
-		{
-			/*auto evt = static_cast<const core::events::DownloadUpgradeEvent&>(rawEvt);
-
-			auto version = m_encodeService->utf8toUtf16(evt.m_version);
-			
-			toast::ToastFactory factory;
-			
-			auto callback = evt.m_callback;
-
-			auto notification = std::make_unique<core::model::Notification>([callback]()
-			{
-				return (theApp.m_toastAction == L"accept") ? callback() : true;
-			}, []() {return true; }, []() {return true; });
-
-			m_handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
-			m_toast = factory.getYesNo(L"Desktop upgrade", L"Version " + version + L" available", L"Download");
-
-			agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
-			core::utils::patterns::Broker::get().publish(notificationEvt);*/
-
-		}, core::events::DOWNLOAD_UPGRADE_EVENT);
-
 		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 		{
+			auto evt = static_cast<const desktop::core::events::UpgradeDesktopCompletedEvent&>(rawEvt);
+
+			std::stringstream ss;
+			ss << "Bling Desktop " << evt.m_version << " is available, do you want to install it?";
+
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::wstring message = converter.from_bytes(ss.str());
+
+			const int result = MessageBox(NULL, message.c_str(), L"Bling upgrade", MB_YESNO);
+
+			switch (result)
+			{
+			case IDYES:
+				ShellExecuteA(nullptr, "open", evt.m_path.c_str(), nullptr, nullptr, SW_SHOW);
+				break;
+			case IDNO:
+				break;
+			}
+
 			//m_browser->GetMainFrame()->LoadURL(boost::filesystem::canonical(m_applicationService->getViewerFolder() + "/index.html").string());
 		}, desktop::core::events::UPGRADE_DESKTOP_COMPLETED_EVENT);
 	}

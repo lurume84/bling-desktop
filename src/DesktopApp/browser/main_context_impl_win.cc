@@ -19,7 +19,7 @@ std::string MainContextImpl::GetDownloadPath(const std::string& file_name, bool&
 
   boost::filesystem::path p(file_name);
 
-  if (p.extension() == ".zip")
+  if (p.extension() == ".zip" || p.extension() == ".exe")
   {
 	  desktop::core::service::ApplicationDataService service;
 	  auto documents = service.getMyDocuments();

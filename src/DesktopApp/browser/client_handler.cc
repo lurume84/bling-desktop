@@ -513,7 +513,6 @@ bool ClientHandler::OnDragEnter(CefRefPtr<CefBrowser> browser,
 
   // Forbid dragging of URLs and files.
   if ((mask & DRAG_OPERATION_LINK) && !dragData->IsFragment()) {
-    test_runner::Alert(browser, "cefclient blocks dragging of URLs and files");
     return true;
   }
 

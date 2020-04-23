@@ -19,10 +19,6 @@ namespace ToastPP
 
 namespace desktop { 
 	
-	namespace core { namespace service {
-		class HTTPClientService;
-	}}
-	
 	namespace ui { 
 		
 		namespace toast

@@ -31,7 +31,7 @@ namespace desktop { namespace core {
 
 		void handlePOST(const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader);
 		void handleGET(const httplib::Request& req, httplib::Response& res) const;
-
+		void handleGETVersion(const httplib::Request& req, httplib::Response& res) const;
 	private:
 		std::unique_ptr<service::ApplicationDataService>					m_applicationService;
 		std::unique_ptr<service::IniFileService>							m_iniFileService;
