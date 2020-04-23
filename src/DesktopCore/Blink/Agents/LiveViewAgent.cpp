@@ -60,10 +60,11 @@ namespace desktop { namespace core { namespace agent {
 		m_server->Post(".*", [this](const httplib::Request& req, httplib::Response& res, const httplib::ContentReader &content_reader) {handlePOST(req, res, content_reader); });
 		m_server->Delete(".*", [this](const httplib::Request& req, httplib::Response& res) {handleDELETE(req, res); });
 
+		service::LogService::info("Listening LiveViewServer at {}:{}", host, port);
+
 		std::thread([=]() 
 		{
 			m_server->listen(host.c_str(), port);
-			service::LogService::info("Listening LiveViewServer at {}:{}", host, port);
 		}).detach();
 	}
 
