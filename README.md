@@ -72,7 +72,7 @@ This is the file you need to modify to configure your desktop application.
 * LiveView
   * Output: By default this is %userprofile%/Documents/Download/Videos.
   * UseLocalTime: By default this is disabled. Saves each video in your computer's timezone instead of UTC.
-  * Endpoint: By default this is http://127.0.0.1:9191/live. Change port in case you have another application using it.
+  * Endpoint: By default this is http://127.0.0.1:9192. Change port in case you have another application using it.
 
 * Example
 
