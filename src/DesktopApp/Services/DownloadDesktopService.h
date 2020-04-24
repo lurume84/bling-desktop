@@ -44,7 +44,7 @@ namespace desktop {
 		CefBrowser & m_browser;
 		cup::Subscriber			m_subscriber;
 
-		std::string				m_path;
+		mutable std::string				m_path;
 
 		std::unique_ptr<core::service::EncodeStringService> m_encodeService;
 		std::unique_ptr<core::service::ApplicationDataService> m_applicationService;

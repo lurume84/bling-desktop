@@ -5,9 +5,7 @@
 //#include "DesktopApp.h"
 
 #include "DesktopCore\Upgrade\Events.h"
-//#include "Toast\ToastEventHandler.h"
-//#include "Toast\ToastCommandLineInfo.h"
-//#include "Toast\ToastFactory.h"
+#include "DesktopCore\System\Services\LogService.h"
 
 #include "DesktopCore\Utils\Patterns\PublisherSubscriber\Broker.h"
 
@@ -58,19 +56,16 @@ namespace desktop { namespace ui { namespace service {
 			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 			std::wstring message = converter.from_bytes(ss.str());
 
-			std::thread([&]() {
+			const int result = MessageBox(NULL, message.c_str(), L"Bling upgrade", MB_YESNO);
 
-				const int result = MessageBox(browser.GetHost()->GetWindowHandle(), message.c_str(), L"Bling upgrade", MB_YESNO);
-
-				switch (result)
-				{
-				case IDYES:
-					ShellExecuteA(nullptr, "open", evt.m_path.c_str(), nullptr, nullptr, SW_SHOW);
-					break;
-				case IDNO:
-					break;
-				}
-			}).detach();
+			switch (result)
+			{
+			case IDYES:
+				ShellExecuteA(nullptr, "open", evt.m_path.c_str(), nullptr, nullptr, SW_SHOW);
+				break;
+			case IDNO:
+				break;
+			}
 		}, desktop::core::events::UPGRADE_DESKTOP_COMPLETED_EVENT);
 	}
 
@@ -79,7 +74,7 @@ namespace desktop { namespace ui { namespace service {
 		m_cv.notify_all();
 	};
 
-	std::string DownloadDesktopService::download(const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &/*folder*/) const
+	std::string DownloadDesktopService::download(const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const
 	{
 		std::string script = "window.location = '" + url + "';";
 
@@ -87,6 +82,18 @@ namespace desktop { namespace ui { namespace service {
 
 		std::unique_lock<std::mutex> lock(m_mutex);
 		m_cv.wait(lock);
+
+		boost::system::error_code ec;
+		boost::filesystem::rename(m_path, folder, ec);
+
+		if (ec != boost::system::errc::success)
+		{
+			core::service::LogService::error("Could not rename Desktop installer from {} to {}", m_path, folder);
+		}
+		else
+		{
+			m_path = folder;
+		}
 
 		return m_path;
 	}
