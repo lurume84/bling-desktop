@@ -26,7 +26,7 @@ build_script:
   - cmd: ./build.bat
   - cmd: cd ..
   - cmd: makensis.exe src\DesktopInstaller\Installer.nsi
-  - cmd: 7z a bin\Release\DesktopApp\PDBs.7z bin\Release\DesktopApp\*.pdb
+  - cmd: 7z a bin\Release\DesktopApp\PDBs.7z -r bin\Release\DesktopApp\*.pdb
   
 artifacts:
   - path: bin\Release\DesktopInstaller\BlingSetup.exe
