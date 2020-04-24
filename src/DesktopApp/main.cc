@@ -31,6 +31,7 @@
 #include "DesktopCore\Blink\Agents\LiveViewAgent.h"
 #include "DesktopCore\Blink\Agents\ActivityAgent.h"
 #include "DesktopCore\System\Agents\LogAgent.h"
+#include "DesktopCore\System\Services\LogService.h"
 #include "Services\DownloadViewerService.h"
 #include "Services\DownloadDesktopService.h"
 
@@ -147,21 +148,24 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
 
   desktop::core::DesktopCore core;
 
+  core.initialize();
+
+  core.addAgent(std::make_unique<desktop::core::agent::LogAgent>());
+  core.addAgent(std::make_unique<desktop::core::agent::SyncVideoAgent>());
+  core.addAgent(std::make_unique<desktop::core::agent::SyncThumbnailAgent>());
+  core.addAgent(std::make_unique<desktop::core::agent::LiveViewAgent>());
+  core.addAgent(std::make_unique<desktop::core::agent::FileServerAgent>());
+
   desktop::core::utils::patterns::Subscriber subscriber;
   subscriber.subscribe([&core, &subscriber](const desktop::core::utils::patterns::Event& rawEvt)
   {
 	  const auto& evt = static_cast<const desktop::ui::events::BrowserCreatedEvent&>(rawEvt);
 
 	  auto &browser = evt.m_browser;
+	  
+	  desktop::core::service::LogService::info("Browser instance created");
 
-	  core.initialize();
-
-	  core.addAgent(std::make_unique<desktop::core::agent::LogAgent>());
       core.addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadViewerService>(browser)));
-      core.addAgent(std::make_unique<desktop::core::agent::SyncVideoAgent>());
-      core.addAgent(std::make_unique<desktop::core::agent::SyncThumbnailAgent>());
-      core.addAgent(std::make_unique<desktop::core::agent::LiveViewAgent>());
-      core.addAgent(std::make_unique<desktop::core::agent::FileServerAgent>());
 	  core.addAgent(std::make_unique<desktop::core::agent::UpgradeDesktopAgent>(std::make_unique<desktop::ui::service::DownloadDesktopService>(browser)));
       
 	  subscriber.unsubscribe(desktop::ui::events::BROWSER_CREATED_EVENT);

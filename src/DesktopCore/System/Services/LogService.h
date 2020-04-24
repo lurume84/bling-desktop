@@ -13,25 +13,37 @@ namespace desktop { namespace core { namespace service {
 		template<typename... Args>
 		static inline void info(const std::string& fmt, const Args &... args)
 		{
-			spdlog::get("BlingLog")->info(fmt, args...);
+			if(spdlog::get("BlingLog") != nullptr)
+			{
+				spdlog::get("BlingLog")->info(fmt, args...);
+			}
 		}
 
 		template<typename... Args>
 		static inline void error(const std::string& fmt, const Args &... args)
 		{
-			spdlog::get("BlingLog")->error(fmt, args...);
+			if (spdlog::get("BlingLog") != nullptr)
+			{
+				spdlog::get("BlingLog")->error(fmt, args...);
+			}
 		}
 
 		template<typename... Args>
 		static inline void warn(const std::string& fmt, const Args &... args)
 		{
-			spdlog::get("BlingLog")->warn(fmt, args...);
+			if (spdlog::get("BlingLog") != nullptr)
+			{
+				spdlog::get("BlingLog")->warn(fmt, args...);
+			}
 		}
 
 		template<typename... Args>
 		static inline void critical(const std::string& fmt, const Args &... args)
 		{
-			spdlog::get("BlingLog")->critical(fmt, args...);
+			if (spdlog::get("BlingLog") != nullptr)
+			{
+				spdlog::get("BlingLog")->critical(fmt, args...);
+			}
 		}
 	};
 }}}
