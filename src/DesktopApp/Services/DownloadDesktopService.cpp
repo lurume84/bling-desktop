@@ -88,7 +88,7 @@ namespace desktop { namespace ui { namespace service {
 
 		if (ec != boost::system::errc::success)
 		{
-			core::service::LogService::error("Could not rename Desktop installer from {} to {}", m_path, folder);
+			core::service::LogService::error("Desktop Upgrade: Could not rename Desktop installer from {} to {}", m_path, folder);
 		}
 		else
 		{
