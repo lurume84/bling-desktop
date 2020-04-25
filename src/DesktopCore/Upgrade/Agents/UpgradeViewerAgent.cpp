@@ -24,23 +24,28 @@ namespace desktop { namespace core { namespace agent {
 		, m_folderOperationService(std::move(folderOperationService))
 		, m_applicationService(std::move(applicationService))
 		, m_iniFileService(std::move(iniFileService))
-		, m_enabled(true)
+		, m_enabled(false)
 	{
-		armTimer(5);
-
-		boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
-		m_backgroundThread.swap(t);
-
 		auto documents = m_applicationService->getMyDocuments();
 
-		m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Host", "api.github.com");
-		m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Repository", "/repos/lurume84/bling-viewer/releases/latest");
-		m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Input", documents + "Download\\Versions\\Viewer\\");
-		m_outFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Output", m_applicationService->getViewerFolder());
+		if (m_iniFileService->get<bool>(documents + "Bling.ini", "UpgradeViewer", "Enabled", true))
+		{
+			m_enabled = true;
 
-		boost::filesystem::create_directories(m_inFolder);
+			armTimer(5);
 
-		service::LogService::info("Viewer Upgrades from {}{} to {}", m_host, m_repository, m_inFolder);
+			boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
+			m_backgroundThread.swap(t);
+
+			m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Host", "api.github.com");
+			m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Repository", "/repos/lurume84/bling-viewer/releases/latest");
+			m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Input", documents + "Download\\Versions\\Viewer\\");
+			m_outFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeViewer", "Output", m_applicationService->getViewerFolder());
+
+			boost::filesystem::create_directories(m_inFolder);
+
+			service::LogService::info("Viewer Upgrades from {}{} to {}", m_host, m_repository, m_inFolder);
+		}
 	}
 
 	UpgradeViewerAgent::~UpgradeViewerAgent()

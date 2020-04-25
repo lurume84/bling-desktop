@@ -24,22 +24,27 @@ namespace desktop { namespace core { namespace agent {
 		, m_folderOperationService(std::move(folderOperationService))
 		, m_applicationService(std::move(applicationService))
 		, m_iniFileService(std::move(iniFileService))
-		, m_enabled(true)
+		, m_enabled(false)
 	{
-		armTimer(1);
-
-		boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
-		m_backgroundThread.swap(t);
-
 		auto documents = m_applicationService->getMyDocuments();
 
-		m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Host", "api.github.com");
-		m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Repository", "/repos/lurume84/bling-desktop/releases/latest");
-		m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Input", documents + "Download\\Versions\\Desktop\\");
+		if (m_iniFileService->get<bool>(documents + "Bling.ini", "UpgradeDesktop", "Enabled", true))
+		{
+			m_enabled = true;
 
-		boost::filesystem::create_directories(m_inFolder);
+			armTimer(1);
 
-		service::LogService::info("Desktop Upgrades from {}{} to {}", m_host, m_repository, m_inFolder);
+			boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
+			m_backgroundThread.swap(t);
+
+			m_host = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Host", "api.github.com");
+			m_repository = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Repository", "/repos/lurume84/bling-desktop/releases/latest");
+			m_inFolder = m_iniFileService->get<std::string>(documents + "Bling.ini", "UpgradeDesktop", "Input", documents + "Download\\Versions\\Desktop\\");
+
+			boost::filesystem::create_directories(m_inFolder);
+
+			service::LogService::info("Desktop Upgrades from {}{} to {}", m_host, m_repository, m_inFolder);
+		}
 	}
 
 	UpgradeDesktopAgent::~UpgradeDesktopAgent()
