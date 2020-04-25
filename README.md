@@ -14,19 +14,7 @@ This application is the container of [Bling Viewer](https://github.com/lurume84/
 ## Installation instructions
 Follow [this guide](INSTALLATION.md)
 
-## Folder structure
-This application automatically creates folder %userprofile%/Documents/Bling.exe. This folder contains all user-related information that is described below
-
-### CrashReports
-In case application crashes, a dump will be generated inside this folder. If you want to contribute to its resolution send it to me.
-
-### Download
-Videos, Thumbnails and github releases will be downloaded here. To force a redownload of viewer just delete versions folder and open application again.
-
-### Html
-Contains the downloaded viewer. This is automatically stepped over by viewer updates, also contains your connection token. In case you want to remove credentials remove token.json file.
-
-## Configuration
+## Configuration instructions
 Follow [this guide](CONFIGURATION.md)
 
 ## Development Guide
