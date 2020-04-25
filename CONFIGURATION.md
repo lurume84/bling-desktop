@@ -1,3 +1,15 @@
+## Folder structure
+This application automatically creates folder %userprofile%/Documents/Bling.exe. This folder contains all user-related information that is described below
+
+### CrashReports
+In case application crashes, a dump will be generated inside this folder. If you want to contribute to its resolution send it to me.
+
+### Download
+Videos, Thumbnails and github releases will be downloaded here. To force a redownload of viewer just delete versions folder and open application again.
+
+### Html
+Contains the downloaded viewer. This is automatically stepped over by viewer updates, also contains your connection token. In case you want to remove credentials remove token.json file.
+
 ### Blink.ini
 This is the file you need to modify to configure everything related with Blink Servers. It is located in %userprofile%/Documents/Bling.exe/ but does not exist by default, you have to manually create it.
 
