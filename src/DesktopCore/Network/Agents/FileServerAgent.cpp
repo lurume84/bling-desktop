@@ -56,8 +56,8 @@ namespace desktop { namespace core { namespace agent {
 		
 		m_folder = m_applicationService->getViewerFolder();
 
-		auto host = m_iniFileService->get<std::string>(documents + "Blink.ini", "FileServer", "Host", "127.0.0.1");
-		auto port = m_iniFileService->get<int>(documents + "Blink.ini", "FileServer", "Port", 9191);
+		auto host = m_iniFileService->get<std::string>(documents + "Bling.ini", "FileServer", "Host", "127.0.0.1");
+		auto port = m_iniFileService->get<int>(documents + "Bling.ini", "FileServer", "Port", 9191);
 
 		m_endpoint = "http://" + host + ":" + std::to_string(port);
 
