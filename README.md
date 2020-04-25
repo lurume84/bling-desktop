@@ -114,4 +114,4 @@ Enabled=false
 You need vs2017. Checkout and uncompress third_party.7z in the same folder.
 
 ## Compatibility
-Only Windows 10 is fully supported at this time due to Toast Notifications. Windows 7 also works but without notifications system. In practice, this only means you need to manually update viewer by deleting %userprofile%/Documents/Html/viewer folder and starting application again.
+Windows 10 and 7 is fully supported at this time.
