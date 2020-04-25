@@ -159,7 +159,7 @@ namespace desktop { namespace core { namespace agent {
 							}
 							else
 							{
-								service::LogService::error("Video {} could not be downloaded at {}", video.second, downloadFolder);
+								service::LogService::error("Video {} could not be downloaded at {}", video.second, target);
 							}
 
 							setLastUpdateTimestamp(video.first);

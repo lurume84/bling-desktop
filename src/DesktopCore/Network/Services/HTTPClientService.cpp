@@ -24,8 +24,6 @@ namespace desktop { namespace core { namespace service {
 			| boost::asio::ssl::context::no_sslv2
 			| boost::asio::ssl::context::no_sslv3
 			| boost::asio::ssl::context::no_tlsv1);
-
-		m_socket.reset(new boost::asio::ssl::stream<boost::asio::ip::tcp::socket>(m_io_service, context_));
 	}
 
 	HTTPClientService::~HTTPClientService() = default;
@@ -53,6 +51,8 @@ namespace desktop { namespace core { namespace service {
 	{
 		try
 		{
+			m_socket.reset(new boost::asio::ssl::stream<boost::asio::ip::tcp::socket>(m_io_service, context_));
+
 			tcp::resolver resolver(m_io_service);
 			tcp::resolver::query query(server, port);
 			tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
@@ -83,7 +83,6 @@ namespace desktop { namespace core { namespace service {
 
 			m_socket->shutdown(error);
 			m_socket->lowest_layer().close(error);
-			m_io_service.stop();
 
 			service::LogService::info("HTTP {} {} {}:{}{}", action, status_code, server, port, path);
 
