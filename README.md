@@ -8,12 +8,8 @@ This application is the container of [Bling Viewer](https://github.com/lurume84/
 * Live View
 * Synchronize all videos in local storage
 * Periodic snapshots synchronized in local storage
-* Upgrades to last official Bling Viewer automatically
+* Upgrades to last official Bling Viewer and Desktop automatically
 * Disables CORS to allow connection with Blink Servers
-
-## What it will do
-
-* Notify user of movement using Windows Toast Notifications (WIP)
 
 ## Installation
 Follow [this guide](INSTALLATION.md)
