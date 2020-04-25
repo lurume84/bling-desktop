@@ -11,7 +11,7 @@ This application is the container of [Bling Viewer](https://github.com/lurume84/
 * Upgrades to last official Bling Viewer and Desktop automatically
 * Disables CORS to allow connection with Blink Servers
 
-## Installation
+## Installation instructions
 Follow [this guide](INSTALLATION.md)
 
 ## Folder structure
