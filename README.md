@@ -18,7 +18,7 @@ This application is the container of [Bling Viewer](https://github.com/lurume84/
 ## Installation
 Follow [this guide](INSTALLATION.md)
 
-## Usage
+## Folder structure
 This application automatically creates folder %userprofile%/Documents/Bling.exe. This folder contains all user-related information that is described below
 
 ### CrashReports
@@ -30,8 +30,10 @@ Videos, Thumbnails and github releases will be downloaded here. To force a redow
 ### Html
 Contains the downloaded viewer. This is automatically stepped over by viewer updates, also contains your connection token. In case you want to remove credentials remove token.json file.
 
+## Configuration
+
 ### Blink.ini
-This is the file you need to modify to configure everything related with Blink Servers.
+This is the file you need to modify to configure everything related with Blink Servers. It is located in %userprofile%/Documents/Bling.exe/ but does not exist by default, you have to manually create it.
 
 * SyncVideo
   * Enabled: By default this is enabled. It tells the application to poll Blink servers for new videos
@@ -79,7 +81,7 @@ Retries=10
 Output=D:\Thumbnails
 
 ### Bling.ini
-This is the file you need to modify to configure Bling application.
+This is the file you need to modify to configure Bling application. It is located in %userprofile%/Documents/Bling.exe/ but does not exist by default, you have to manually create it.
 
 * FileServer
   * Endpoint: By default this is http://127.0.0.1:9191/. Used for serving viewer files
@@ -100,6 +102,13 @@ This is the file you need to modify to configure Bling application.
   * Host: By default this is api.github.com.
   * Repository: By default this is /repos/lurume84/bling-viewer/releases/latest
   * Input: By default this is Download\\Versions\\Viewer\\  
+
+* Example
+
+[UpgradeDesktop]
+Enabled=false
+[UpgradeViewer]
+Enabled=false
 
 ## Development Guide
 You need vs2017. Checkout and uncompress third_party.7z in the same folder.
