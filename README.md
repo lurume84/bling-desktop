@@ -54,7 +54,7 @@ Videos, Thumbnails and github releases will be downloaded here. To force a redow
 Contains the downloaded viewer. This is automatically stepped over by viewer updates, also contains your connection token. In case you want to remove credentials remove token.json file.
 
 ### Blink.ini
-This is the file you need to modify to configure your desktop application.
+This is the file you need to modify to configure everything related with Blink Servers.
 
 * SyncVideo
   * Enabled: By default this is enabled. It tells the application to poll Blink servers for new videos
@@ -100,6 +100,29 @@ Sleep=5
 Retries=10
 
 Output=D:\Thumbnails
+
+### Bling.ini
+This is the file you need to modify to configure Bling application.
+
+* FileServer
+  * Endpoint: By default this is http://127.0.0.1:9191/. Used for serving viewer files
+  * Host: By default this is 127.0.0.1. Same as above but splitted.
+  * Port: By default this is 9191. Same as above but splitted.
+
+* Log
+  * Enabled: By default this is true. Created a Bling.log file inside Logs folder and logs application activity
+  
+* UpgradeDesktop
+  * Enabled: By default this is true. Application polls this github to download latest release
+  * Host: By default this is api.github.com.
+  * Repository: By default this is /repos/lurume84/bling-desktop/releases/latest
+  * Input: By default this is Download\\Versions\\Desktop\\
+  
+* UpgradeViewer
+  * Enabled: By default this is true. Application polls viewer's github to download latest release
+  * Host: By default this is api.github.com.
+  * Repository: By default this is /repos/lurume84/bling-viewer/releases/latest
+  * Input: By default this is Download\\Versions\\Viewer\\  
 
 ## Development Guide
 You need vs2017. Checkout and uncompress third_party.7z in the same folder.
