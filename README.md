@@ -5,7 +5,7 @@ This application is the container of [Bling Viewer](https://github.com/lurume84/
 
 ## What it does
 
-* Live View
+* Live View (except XT2 cameras)
 * Synchronize all videos in local storage
 * Periodic snapshots synchronized in local storage
 * Upgrades to last official Bling Viewer and Desktop automatically
