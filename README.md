@@ -17,7 +17,7 @@ Follow [this guide](INSTALLATION.md)
 ## Configuration instructions
 Follow [this guide](CONFIGURATION.md)
 
-## Development Guide
+## Development
 You need vs2017 and Conan. Checkout and execute build.bat in the same folder.
 
 ## Compatibility
