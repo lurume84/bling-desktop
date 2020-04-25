@@ -18,7 +18,7 @@ Follow [this guide](INSTALLATION.md)
 Follow [this guide](CONFIGURATION.md)
 
 ## Development Guide
-You need vs2017. Checkout and uncompress third_party.7z in the same folder.
+You need vs2017 and Conan. Checkout and execute build.bat in the same folder.
 
 ## Compatibility
 Windows 10 and 7 is fully supported at this time.
