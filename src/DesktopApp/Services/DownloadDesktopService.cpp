@@ -83,16 +83,19 @@ namespace desktop { namespace ui { namespace service {
 		std::unique_lock<std::mutex> lock(m_mutex);
 		m_cv.wait(lock);
 
-		boost::system::error_code ec;
-		boost::filesystem::rename(m_path, folder, ec);
+		if(m_path != "")
+		{
+			boost::system::error_code ec;
+			boost::filesystem::rename(m_path, folder, ec);
 
-		if (ec != boost::system::errc::success)
-		{
-			core::service::LogService::error("Desktop Upgrade: Could not rename Desktop installer from {} to {}", m_path, folder);
-		}
-		else
-		{
-			m_path = folder;
+			if (ec != boost::system::errc::success)
+			{
+				core::service::LogService::error("Desktop Upgrade: Could not rename Desktop installer from {} to {}", m_path, folder);
+			}
+			else
+			{
+				m_path = folder;
+			}
 		}
 
 		return m_path;

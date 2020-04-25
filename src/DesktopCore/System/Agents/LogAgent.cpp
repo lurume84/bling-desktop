@@ -29,6 +29,7 @@ namespace desktop { namespace core { namespace agent {
 			m_logger = std::make_shared<spdlog::async_logger>("BlingLog", sinks.begin(), sinks.end(), spdlog::thread_pool(), spdlog::async_overflow_policy::block);
 
 			spdlog::register_logger(m_logger);
+			spdlog::flush_every(std::chrono::seconds(5));
 		}
 	}
 }}}
