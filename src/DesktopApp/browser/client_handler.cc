@@ -30,6 +30,12 @@
 #include "DesktopCore\Network\Events.h"
 #include "DesktopCore\Network\Services\ParseURIService.h"
 #include "DesktopCore\Utils\Patterns\PublisherSubscriber\Broker.h"
+#include "DesktopCore\System\Services\ApplicationDataService.h"
+#include "DesktopCore\System/Services/LogService.h"
+
+#include <boost/filesystem.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 namespace client {
 
@@ -742,6 +748,33 @@ bool ClientHandler::OnOpenURLFromTab(
   return false;
 }
 
+namespace
+{
+	void checkToken(const std::string& token)
+	{
+		try
+		{
+			std::stringstream ss(token);
+
+			boost::property_tree::ptree tree;
+			boost::property_tree::json_parser::read_json(ss, tree);
+
+			auto server = tree.get_child("server").get_value<std::string>();
+			auto port = tree.get_child("port").get_value<std::string>();
+			auto account = tree.get_child("account").get_child("id").get_value<std::string>();
+			auto authtoken = tree.get_child("authtoken").get_child("authtoken").get_value<std::string>();
+			
+			desktop::core::model::Credentials credentials(server, port, authtoken, account);
+			desktop::core::events::CredentialsEvent evt(credentials);
+			desktop::core::utils::patterns::Broker::get().publish(evt);
+		}
+		catch (...)
+		{
+			desktop::core::service::LogService::error("Error parsing credentials");
+		}
+	}
+}
+
 cef_return_value_t ClientHandler::OnBeforeResourceLoad(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefFrame> frame,
@@ -754,22 +787,59 @@ cef_return_value_t ClientHandler::OnBeforeResourceLoad(
   CefRequest::HeaderMap headers;
   request->GetHeaderMap(headers);
 
-  auto account = headers.find("ACCOUNT_ID");
-  
-  if (account != headers.end())
-  {
-	  std::string protocol, domain, port, path, query, fragment;
-
-	  desktop::core::service::ParseURIService service;
-	  if (service.parse(request->GetURL().ToString(), protocol, domain, port, path, query, fragment))
+  if(url.find("/data/token.json") != std::string::npos)
+  { 
+	  if (request->GetMethod() == "POST")
 	  {
-		  auto token = headers.find("TOKEN_AUTH");
+		  CefRefPtr<CefPostData> postData = request->GetPostData();
 
-		  if (token != headers.end())
+		  if (postData.get())
 		  {
-			desktop::core::model::Credentials credentials(domain, port, token->second, account->second);
-			desktop::core::events::CredentialsEvent evt(credentials);
-			desktop::core::utils::patterns::Broker::get().publish(evt);
+			  std::stringstream ss;
+
+			  CefPostData::ElementVector elements;
+			  postData->GetElements(elements);
+
+			  if (elements.size() > 0)
+			  {
+				  CefRefPtr<CefPostDataElement> element;
+				  CefPostData::ElementVector::const_iterator it = elements.begin();
+
+				  for (; it != elements.end(); ++it)
+				  {
+					  element = (*it);
+
+					  if (element->GetType() == PDE_TYPE_BYTES)
+					  {
+						  if (element->GetBytesCount() > 0)
+						  {
+							  size_t size = element->GetBytesCount();
+							  char* bytes = new char[size];
+							  element->GetBytes(size, bytes);
+							  ss << std::string(bytes, size);
+							  delete[] bytes;
+						  }
+					  }
+				  }
+			  }
+
+			  checkToken(ss.str());
+		  }
+	  }
+	  else if (request->GetMethod() == "GET")
+	  {
+		  desktop::core::service::ApplicationDataService service;
+		  auto viewer = service.getViewerFolder();
+
+		  if (boost::filesystem::exists(viewer + "/data/token.json"))
+		  {
+			  std::string token;
+
+			  std::ifstream ifs(viewer + "/data/token.json");
+			  std::string data = std::string(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
+			  ifs.close();
+
+			  checkToken(data);
 		  }
 	  }
   }
