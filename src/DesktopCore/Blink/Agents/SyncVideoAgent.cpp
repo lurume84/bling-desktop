@@ -50,6 +50,8 @@ namespace desktop { namespace core { namespace agent {
 		{
 			m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 			{
+				service::LogService::info("Video synchronization: User is logged on");
+
 				const auto& evt = static_cast<const core::events::CredentialsEvent&>(rawEvt);
 
 				m_credentials = std::make_unique<model::Credentials>(evt.m_credentials);
@@ -58,6 +60,8 @@ namespace desktop { namespace core { namespace agent {
 			
 				if (!m_enabled)
 				{
+					service::LogService::info("Video synchronization is enabled");
+
 					m_enabled = true;
 
 					armTimer(1);
@@ -142,8 +146,8 @@ namespace desktop { namespace core { namespace agent {
 						break;
 					}
 
-					auto folder = m_outFolder + m_timestampFolderService->get(video.first);
-					auto target = folder + formatFileName(video.first, video.second);
+					auto folder = boost::filesystem::path(m_outFolder) / m_timestampFolderService->get(video.first);
+					auto target = folder / formatFileName(video.first, video.second);
 
 					if (!boost::filesystem::exists(target))
 					{
@@ -151,7 +155,7 @@ namespace desktop { namespace core { namespace agent {
 
 						try
 						{
-							auto downloadFolder = m_downloadService->download(m_credentials->m_host, video.second, requestHeaders, target);
+							auto downloadFolder = m_downloadService->download(m_credentials->m_host, video.second, requestHeaders, target.string());
 
 							if (downloadFolder != "")
 							{
@@ -159,7 +163,7 @@ namespace desktop { namespace core { namespace agent {
 							}
 							else
 							{
-								service::LogService::error("Video {} could not be downloaded at {}", video.second, target);
+								service::LogService::error("Video {} could not be downloaded at {}", video.second, target.string());
 							}
 
 							setLastUpdateTimestamp(video.first);
@@ -171,7 +175,7 @@ namespace desktop { namespace core { namespace agent {
 						}
 						catch (...)
 						{
-							service::LogService::error("Video: An error occured while downloading video {} to {}", video.second, target);
+							service::LogService::error("Video: An error occured while downloading video {} to {}", video.second, target.string());
 							break;
 						}
 					}
@@ -221,7 +225,7 @@ namespace desktop { namespace core { namespace agent {
 			}
 			catch (...)
 			{
-			
+				service::LogService::error("Video synchronization: An error occurred while getting videos");
 			}
 		}
 	}
@@ -236,6 +240,8 @@ namespace desktop { namespace core { namespace agent {
 			{
 				execute();
 				armTimer(m_seconds);
+
+				service::LogService::error("Video synchronization: Waiting another {} seconds", m_seconds);
 			});
 		}
 	}
