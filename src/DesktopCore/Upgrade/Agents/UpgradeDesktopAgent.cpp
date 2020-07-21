@@ -28,7 +28,7 @@ namespace desktop { namespace core { namespace agent {
 	{
 		auto documents = m_applicationService->getMyDocuments();
 
-		if (m_iniFileService->get<bool>(documents + "Bling.ini", "UpgradeDesktop", "Enabled", true))
+		if (m_iniFileService->get<bool>(documents + "Bling.ini", "UpgradeDesktop", "Enabled", false))
 		{
 			m_enabled = true;
 
