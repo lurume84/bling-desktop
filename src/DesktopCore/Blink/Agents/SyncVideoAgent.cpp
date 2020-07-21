@@ -137,7 +137,7 @@ namespace desktop { namespace core { namespace agent {
 				unsigned int sleep = m_iniFileService->get<unsigned int>(documents + "Blink.ini", "SyncVideo", "Sleep", 20);
 
 				std::map<std::string, std::string> requestHeaders;
-				requestHeaders["token_auth"] = m_credentials->m_token;
+				requestHeaders["TOKEN_AUTH"] = m_credentials->m_token;
 
 				for (auto &video : videos)
 				{
@@ -194,7 +194,7 @@ namespace desktop { namespace core { namespace agent {
 		std::string content;
 		unsigned int status;
 
-		requestHeaders["token_auth"] = m_credentials->m_token;
+		requestHeaders["TOKEN_AUTH"] = m_credentials->m_token;
 
 		std::stringstream ss;
 		ss << path << "&page=" << page;

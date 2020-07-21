@@ -131,7 +131,7 @@ namespace desktop { namespace core { namespace agent {
 		std::string content;
 		unsigned int status;
 
-		requestHeaders["token_auth"] = m_credentials->m_token;
+		requestHeaders["TOKEN_AUTH"] = m_credentials->m_token;
 
 		std::stringstream path;
 		path << "/network/" << network << "/camera/" << camera << "/thumbnail";
@@ -165,7 +165,7 @@ namespace desktop { namespace core { namespace agent {
 		std::string content;
 		unsigned int status;
 
-		requestHeaders["token_auth"] = m_credentials->m_token;
+		requestHeaders["TOKEN_AUTH"] = m_credentials->m_token;
 
 		auto documents = m_applicationService->getMyDocuments();
 		unsigned int sleep = m_iniFileService->get<unsigned int>(documents + "Blink.ini", "SyncThumbnail", "Sleep", 5);
@@ -210,7 +210,7 @@ namespace desktop { namespace core { namespace agent {
 		std::string content;
 		unsigned int status;
 
-		requestHeaders["token_auth"] = m_credentials->m_token;
+		requestHeaders["TOKEN_AUTH"] = m_credentials->m_token;
 
 		std::stringstream path;
 		path << "/network/" << network << "/camera/" << camera;
@@ -260,7 +260,7 @@ namespace desktop { namespace core { namespace agent {
 		std::string content;
 		unsigned int status;
 
-		requestHeaders["token_auth"] = m_credentials->m_token;
+		requestHeaders["TOKEN_AUTH"] = m_credentials->m_token;
 
 		std::string path = "/api/v1/camera/usage";
 

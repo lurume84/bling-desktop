@@ -129,7 +129,7 @@ namespace desktop { namespace core { namespace agent {
 		std::string content;
 		unsigned int status;
 
-		requestHeaders["token_auth"] = m_credentials->m_token;
+		requestHeaders["TOKEN_AUTH"] = m_credentials->m_token;
 
 		std::stringstream ss;
 		ss << "/api/v2/notification";// << "&page=" << page;
